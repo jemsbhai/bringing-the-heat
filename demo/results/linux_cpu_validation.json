@@ -1,0 +1,1110 @@
+{
+  "validation_scope": "Supplementary Linux/WSL CPU fallback; not a hosted Google Colab run",
+  "completed": {
+    "status": "ALL_PIPELINE_STAGES_COMPLETED",
+    "run_label": "20260917-155422-574190",
+    "completed_utc": "2026-09-17T16:07:53.698038+00:00",
+    "source_sha256": {
+      "demo.py": "fcb33be9f65bbb6ae7c66bc2276f4e867e43e39ff02553fbfced605e4e16f967",
+      "hub_revisions.json": "12c749a913590c8548fe58d1993d70e19d504ab2dbdecb34fda0f2c7df9ca808",
+      "requirements-colab.txt": "9c5f8b6c774c454887372b6b6c879c4cf58d050f71d3fddd21a056ccb21a1bda",
+      "colab_policy.json": "619185f5a200de8c8268f8b3720fd6859685bcc9bb573532cec3a8e0c501fef5"
+    },
+    "training_epochs": 3,
+    "smoke_only": false,
+    "environment": {
+      "python": "3.12.3",
+      "platform": "Linux-5.15.146.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+      "processor": "x86_64",
+      "cpu_logical_count": 32,
+      "cuda_available": false,
+      "gpu": null,
+      "packages": {
+        "torch": "2.11.0+cpu",
+        "transformers": "4.55.4",
+        "peft": "0.17.1",
+        "accelerate": "1.10.1",
+        "datasets": "4.0.0",
+        "optimum-onnx": "0.0.3",
+        "onnxruntime": "1.30.0",
+        "scikit-learn": "1.7.2",
+        "gradio": null
+      }
+    },
+    "gate_passed": true,
+    "deliberate_failure_blocked": true,
+    "inference_examples": 4
+  },
+  "dependency_note": "This supplemental run began before the final Diffusers pin. diffusers==0.35.1 was installed and its Optimum imports checked before export. The hosted Colab run verifies the final fresh-runtime notebook including that pin.",
+  "training_seconds_excluding_imports": 648.669138519,
+  "training_history": [
+    {
+      "epoch": 1,
+      "mean_loss": 0.4947866975516081,
+      "validation": {
+        "n": 400,
+        "accuracy": 0.9075,
+        "macro_f1": 0.9066634267386986,
+        "accuracy_95pct_wilson": [
+          0.8751007447962681,
+          0.9321464531149922
+        ],
+        "per_class": {
+          "World": {
+            "precision": 0.9134615384615384,
+            "recall": 0.95,
+            "f1": 0.9313725490196079,
+            "support": 100
+          },
+          "Sports": {
+            "precision": 0.98,
+            "recall": 0.98,
+            "f1": 0.98,
+            "support": 100
+          },
+          "Business": {
+            "precision": 0.8288288288288288,
+            "recall": 0.92,
+            "f1": 0.8720379146919431,
+            "support": 100
+          },
+          "Sci/Tech": {
+            "precision": 0.9176470588235294,
+            "recall": 0.78,
+            "f1": 0.8432432432432433,
+            "support": 100
+          }
+        },
+        "confusion_matrix": [
+          [
+            95,
+            1,
+            4,
+            0
+          ],
+          [
+            0,
+            98,
+            0,
+            2
+          ],
+          [
+            3,
+            0,
+            92,
+            5
+          ],
+          [
+            6,
+            1,
+            15,
+            78
+          ]
+        ]
+      }
+    },
+    {
+      "epoch": 2,
+      "mean_loss": 0.2897329629957676,
+      "validation": {
+        "n": 400,
+        "accuracy": 0.8875,
+        "macro_f1": 0.8867540221336156,
+        "accuracy_95pct_wilson": [
+          0.8527757236239129,
+          0.9148519799113346
+        ],
+        "per_class": {
+          "World": {
+            "precision": 0.9292929292929293,
+            "recall": 0.92,
+            "f1": 0.9246231155778895,
+            "support": 100
+          },
+          "Sports": {
+            "precision": 0.9797979797979798,
+            "recall": 0.97,
+            "f1": 0.9748743718592965,
+            "support": 100
+          },
+          "Business": {
+            "precision": 0.7642276422764228,
+            "recall": 0.94,
+            "f1": 0.8430493273542601,
+            "support": 100
+          },
+          "Sci/Tech": {
+            "precision": 0.9113924050632911,
+            "recall": 0.72,
+            "f1": 0.8044692737430168,
+            "support": 100
+          }
+        },
+        "confusion_matrix": [
+          [
+            92,
+            1,
+            5,
+            2
+          ],
+          [
+            0,
+            97,
+            1,
+            2
+          ],
+          [
+            3,
+            0,
+            94,
+            3
+          ],
+          [
+            4,
+            1,
+            23,
+            72
+          ]
+        ]
+      }
+    },
+    {
+      "epoch": 3,
+      "mean_loss": 0.25111598171293736,
+      "validation": {
+        "n": 400,
+        "accuracy": 0.8925,
+        "macro_f1": 0.8929797342169536,
+        "accuracy_95pct_wilson": [
+          0.8583258711460311,
+          0.9192067059832196
+        ],
+        "per_class": {
+          "World": {
+            "precision": 0.9270833333333334,
+            "recall": 0.89,
+            "f1": 0.9081632653061225,
+            "support": 100
+          },
+          "Sports": {
+            "precision": 0.9797979797979798,
+            "recall": 0.97,
+            "f1": 0.9748743718592965,
+            "support": 100
+          },
+          "Business": {
+            "precision": 0.8484848484848485,
+            "recall": 0.84,
+            "f1": 0.8442211055276382,
+            "support": 100
+          },
+          "Sci/Tech": {
+            "precision": 0.8207547169811321,
+            "recall": 0.87,
+            "f1": 0.8446601941747572,
+            "support": 100
+          }
+        },
+        "confusion_matrix": [
+          [
+            89,
+            1,
+            6,
+            4
+          ],
+          [
+            0,
+            97,
+            1,
+            2
+          ],
+          [
+            3,
+            0,
+            84,
+            13
+          ],
+          [
+            4,
+            1,
+            8,
+            87
+          ]
+        ]
+      }
+    }
+  ],
+  "evaluation": {
+    "split": "locked test",
+    "split_sha256": "1700db6e66621dcb489759df8c6cce4004334c9815054b9dc6bbfbb293a26721",
+    "models": {
+      "pytorch": {
+        "n": 800,
+        "accuracy": 0.88125,
+        "macro_f1": 0.8806626555264908,
+        "accuracy_95pct_wilson": [
+          0.8569905192217532,
+          0.9018654543929491
+        ],
+        "per_class": {
+          "World": {
+            "precision": 0.883248730964467,
+            "recall": 0.87,
+            "f1": 0.8765743073047859,
+            "support": 200
+          },
+          "Sports": {
+            "precision": 0.9512195121951219,
+            "recall": 0.975,
+            "f1": 0.9629629629629629,
+            "support": 200
+          },
+          "Business": {
+            "precision": 0.8202764976958525,
+            "recall": 0.89,
+            "f1": 0.8537170263788969,
+            "support": 200
+          },
+          "Sci/Tech": {
+            "precision": 0.8729281767955801,
+            "recall": 0.79,
+            "f1": 0.8293963254593176,
+            "support": 200
+          }
+        },
+        "confusion_matrix": [
+          [
+            174,
+            10,
+            12,
+            4
+          ],
+          [
+            4,
+            195,
+            1,
+            0
+          ],
+          [
+            3,
+            0,
+            178,
+            19
+          ],
+          [
+            16,
+            0,
+            26,
+            158
+          ]
+        ]
+      },
+      "onnx": {
+        "n": 800,
+        "accuracy": 0.88125,
+        "macro_f1": 0.8806626555264908,
+        "accuracy_95pct_wilson": [
+          0.8569905192217532,
+          0.9018654543929491
+        ],
+        "per_class": {
+          "World": {
+            "precision": 0.883248730964467,
+            "recall": 0.87,
+            "f1": 0.8765743073047859,
+            "support": 200
+          },
+          "Sports": {
+            "precision": 0.9512195121951219,
+            "recall": 0.975,
+            "f1": 0.9629629629629629,
+            "support": 200
+          },
+          "Business": {
+            "precision": 0.8202764976958525,
+            "recall": 0.89,
+            "f1": 0.8537170263788969,
+            "support": 200
+          },
+          "Sci/Tech": {
+            "precision": 0.8729281767955801,
+            "recall": 0.79,
+            "f1": 0.8293963254593176,
+            "support": 200
+          }
+        },
+        "confusion_matrix": [
+          [
+            174,
+            10,
+            12,
+            4
+          ],
+          [
+            4,
+            195,
+            1,
+            0
+          ],
+          [
+            3,
+            0,
+            178,
+            19
+          ],
+          [
+            16,
+            0,
+            26,
+            158
+          ]
+        ]
+      },
+      "int8": {
+        "n": 800,
+        "accuracy": 0.88625,
+        "macro_f1": 0.8858673388466565,
+        "accuracy_95pct_wilson": [
+          0.8623771083413989,
+          0.9064310747633322
+        ],
+        "per_class": {
+          "World": {
+            "precision": 0.8911917098445595,
+            "recall": 0.86,
+            "f1": 0.8753180661577609,
+            "support": 200
+          },
+          "Sports": {
+            "precision": 0.9512195121951219,
+            "recall": 0.975,
+            "f1": 0.9629629629629629,
+            "support": 200
+          },
+          "Business": {
+            "precision": 0.8153153153153153,
+            "recall": 0.905,
+            "f1": 0.8578199052132701,
+            "support": 200
+          },
+          "Sci/Tech": {
+            "precision": 0.8944444444444445,
+            "recall": 0.805,
+            "f1": 0.8473684210526315,
+            "support": 200
+          }
+        },
+        "confusion_matrix": [
+          [
+            172,
+            10,
+            14,
+            4
+          ],
+          [
+            3,
+            195,
+            1,
+            1
+          ],
+          [
+            5,
+            0,
+            181,
+            14
+          ],
+          [
+            13,
+            0,
+            26,
+            161
+          ]
+        ]
+      }
+    },
+    "environment": {
+      "python": "3.12.3",
+      "platform": "Linux-5.15.146.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+      "processor": "x86_64",
+      "cpu_logical_count": 32,
+      "cuda_available": false,
+      "gpu": null,
+      "packages": {
+        "torch": "2.11.0+cpu",
+        "transformers": "4.55.4",
+        "peft": "0.17.1",
+        "accelerate": "1.10.1",
+        "datasets": "4.0.0",
+        "optimum-onnx": "0.0.3",
+        "onnxruntime": "1.30.0",
+        "scikit-learn": "1.7.2",
+        "gradio": null
+      }
+    },
+    "artifacts": {
+      "pytorch": {
+        "sha256": "821cde793e33e5a6a9e7f9614b996c75f38fb13bef34c29c4f979aa2fdbcb24e",
+        "files": {
+          "config.json": "2621fc586373cf114f6592e6a49429bb14349a9d26ec0072c99fc4d086a8b4bc",
+          "model.safetensors": "9356a8f1a849ac937887e19ce179c3a889e50ff83ade0d6228acb0cc4c0081a7",
+          "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+          "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+          "tokenizer_config.json": "a3c9410f27554c6e26af779fd147e536c6c5f9e5cb0e6b8f38ddaa25e1b0f6af",
+          "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+        },
+        "max_length": 128,
+        "truncation": true,
+        "label_order": [
+          "World",
+          "Sports",
+          "Business",
+          "Sci/Tech"
+        ]
+      },
+      "onnx": {
+        "sha256": "760cba4fe498e5ee13eaade28f17c0febe8e763d3fb23b20afa825efc6606690",
+        "files": {
+          "config.json": "2621fc586373cf114f6592e6a49429bb14349a9d26ec0072c99fc4d086a8b4bc",
+          "model.onnx": "630f721f1d5917011ceed2f315f9c4659eff9763d00505725ccec38e588bdd69",
+          "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+          "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+          "tokenizer_config.json": "a3c9410f27554c6e26af779fd147e536c6c5f9e5cb0e6b8f38ddaa25e1b0f6af",
+          "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+        },
+        "max_length": 128,
+        "truncation": true,
+        "label_order": [
+          "World",
+          "Sports",
+          "Business",
+          "Sci/Tech"
+        ]
+      },
+      "int8": {
+        "sha256": "6913eb46e7b142061e6e2b6df81ee48762514d0f845a820f89c5a91ce3aeadbc",
+        "files": {
+          "config.json": "2621fc586373cf114f6592e6a49429bb14349a9d26ec0072c99fc4d086a8b4bc",
+          "model_quantized.onnx": "f7574052ed97df647b4b8356cc2b3f678e750107d17e2fdd6d6aaea51e6545be",
+          "ort_config.json": "62a98e992faf1b0af04e290a749ee1ea087cef9cd758615fc7b3cebf2446da1d",
+          "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+          "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+          "tokenizer_config.json": "a3c9410f27554c6e26af779fd147e536c6c5f9e5cb0e6b8f38ddaa25e1b0f6af",
+          "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+        },
+        "max_length": 128,
+        "truncation": true,
+        "label_order": [
+          "World",
+          "Sports",
+          "Business",
+          "Sci/Tech"
+        ]
+      }
+    },
+    "majority_class_baseline": {
+      "chosen_label": "World",
+      "rule": "Most frequent training label; ties choose lowest label index",
+      "n": 800,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "accuracy_95pct_wilson": [
+        0.2212364664027642,
+        0.28115305909579164
+      ],
+      "per_class": {
+        "World": {
+          "precision": 0.25,
+          "recall": 1.0,
+          "f1": 0.4,
+          "support": 200
+        },
+        "Sports": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 200
+        },
+        "Business": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 200
+        },
+        "Sci/Tech": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 200
+        }
+      },
+      "confusion_matrix": [
+        [
+          200,
+          0,
+          0,
+          0
+        ],
+        [
+          200,
+          0,
+          0,
+          0
+        ],
+        [
+          200,
+          0,
+          0,
+          0
+        ],
+        [
+          200,
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "benchmark": {
+    "environment": {
+      "python": "3.12.3",
+      "platform": "Linux-5.15.146.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+      "processor": "x86_64",
+      "cpu_logical_count": 32,
+      "cuda_available": false,
+      "gpu": null,
+      "packages": {
+        "torch": "2.11.0+cpu",
+        "transformers": "4.55.4",
+        "peft": "0.17.1",
+        "accelerate": "1.10.1",
+        "datasets": "4.0.0",
+        "optimum-onnx": "0.0.3",
+        "onnxruntime": "1.30.0",
+        "scikit-learn": "1.7.2",
+        "gradio": null
+      }
+    },
+    "threads": 2,
+    "batch_size": 1,
+    "sequence_length": 128,
+    "samples": 100,
+    "warmup": 10,
+    "device": "CPU",
+    "timing_scope": "Tokenization + model forward, sequential batch=1 requests; excludes load, networking and queueing",
+    "split_sha256": "1700db6e66621dcb489759df8c6cce4004334c9815054b9dc6bbfbb293a26721",
+    "models": {
+      "pytorch": {
+        "latencies_ms": [
+          66.376948,
+          67.108444,
+          65.449643,
+          73.509528,
+          66.192256,
+          70.681794,
+          68.660869,
+          67.039246,
+          62.548457,
+          66.350823,
+          65.764754,
+          66.136894,
+          75.341902,
+          66.250092,
+          64.109825,
+          66.941056,
+          70.376892,
+          64.839118,
+          82.630688,
+          66.430582,
+          62.985078,
+          64.238317,
+          66.516725,
+          61.930326,
+          68.581524,
+          61.399245,
+          64.668859,
+          63.524617,
+          66.439162,
+          64.58083,
+          64.656094,
+          67.706215,
+          68.783673,
+          64.178034,
+          65.131794,
+          67.420903,
+          68.150013,
+          66.919243,
+          63.40075,
+          73.100198,
+          77.914226,
+          72.31831,
+          85.01961,
+          72.917621,
+          75.948509,
+          76.351088,
+          71.717385,
+          70.042003,
+          69.868399,
+          70.746984,
+          75.463345,
+          78.058293,
+          71.719028,
+          75.151663,
+          76.445982,
+          98.938858,
+          69.54908,
+          71.245781,
+          78.583669,
+          70.712918,
+          76.961637,
+          78.977807,
+          84.514745,
+          82.32981,
+          69.346482,
+          68.306307,
+          66.941345,
+          68.495234,
+          69.72749,
+          66.816974,
+          64.214027,
+          74.280426,
+          75.806459,
+          65.895013,
+          68.30558,
+          63.554572,
+          67.520214,
+          72.606348,
+          66.003794,
+          65.918681,
+          67.438938,
+          74.740196,
+          85.021459,
+          70.447664,
+          66.207872,
+          70.252601,
+          65.519359,
+          69.824766,
+          71.311801,
+          68.100974,
+          72.127805,
+          70.945599,
+          73.637967,
+          63.603828,
+          63.578873,
+          63.377982,
+          67.19197,
+          65.665309,
+          63.871069,
+          64.610128
+        ],
+        "p50_ms": 68.22779650000001,
+        "p95_ms": 82.34485389999999,
+        "mean_ms": 69.79763267999999,
+        "sequential_requests_per_second": 14.327133480080661,
+        "weights_bytes": 267838720
+      },
+      "onnx": {
+        "latencies_ms": [
+          56.670039,
+          58.888555,
+          58.081509,
+          59.955241,
+          62.88289,
+          58.86101,
+          63.875954,
+          67.023879,
+          66.085886,
+          65.263678,
+          64.180151,
+          70.371179,
+          65.665963,
+          64.233043,
+          59.936471,
+          63.406967,
+          59.410102,
+          59.608062,
+          62.071314,
+          67.345055,
+          62.722105,
+          65.304945,
+          64.069492,
+          66.452677,
+          60.336974,
+          62.911325,
+          67.165947,
+          66.804809,
+          58.79034,
+          70.920758,
+          57.848785,
+          58.793215,
+          61.444072,
+          56.542833,
+          58.031574,
+          62.903062,
+          59.855608,
+          57.9048,
+          58.730643,
+          57.735652,
+          62.705445,
+          58.817066,
+          57.14422,
+          57.588218,
+          56.196947,
+          59.395425,
+          63.139417,
+          65.477174,
+          58.311063,
+          55.569366,
+          57.496038,
+          55.360553,
+          60.111687,
+          57.46508,
+          57.05495,
+          56.054937,
+          56.128066,
+          58.796234,
+          63.024252,
+          55.6594,
+          57.073976,
+          56.629875,
+          59.217994,
+          56.93666,
+          56.179199,
+          60.200127,
+          57.145019,
+          58.864576,
+          57.812579,
+          57.895114,
+          60.413566,
+          57.184049,
+          56.114384,
+          56.470346,
+          60.900646,
+          62.690264,
+          58.301192,
+          56.789794,
+          55.061918,
+          64.107697,
+          54.939351,
+          57.693361,
+          55.925961,
+          57.657218,
+          54.072044,
+          58.480045,
+          56.17029,
+          59.782564,
+          56.239584,
+          59.763573,
+          54.552342,
+          56.069717,
+          65.121794,
+          56.321061,
+          56.855476,
+          56.532078,
+          63.903122,
+          55.78982,
+          58.220418,
+          69.215549
+        ],
+        "p50_ms": 58.7947245,
+        "p95_ms": 67.0309824,
+        "mean_ms": 59.89876445,
+        "sequential_requests_per_second": 16.69483518036072,
+        "weights_bytes": 267938324
+      },
+      "int8": {
+        "latencies_ms": [
+          43.963344,
+          40.649798,
+          40.898153,
+          40.141285,
+          42.381817,
+          40.470002,
+          40.4908,
+          42.943161,
+          38.888977,
+          41.410815,
+          41.512322,
+          39.917059,
+          41.649534,
+          41.312732,
+          39.836448,
+          46.402246,
+          43.371725,
+          42.29408,
+          41.471111,
+          42.528383,
+          40.087371,
+          40.994836,
+          41.383648,
+          41.467225,
+          43.454138,
+          43.587085,
+          40.261977,
+          41.959274,
+          44.026645,
+          41.637709,
+          40.562976,
+          41.013921,
+          41.568807,
+          41.089271,
+          54.602838,
+          41.840906,
+          40.59392,
+          39.784789,
+          40.963326,
+          39.572669,
+          41.058707,
+          40.576088,
+          39.850336,
+          47.003194,
+          50.525404,
+          39.439838,
+          39.259197,
+          40.228181,
+          43.221601,
+          40.558088,
+          39.337265,
+          39.293833,
+          41.126407,
+          43.220025,
+          39.178416,
+          40.517676,
+          41.794465,
+          42.923153,
+          39.470801,
+          40.617094,
+          39.636796,
+          39.819651,
+          39.58325,
+          39.479522,
+          40.552418,
+          41.338748,
+          40.099364,
+          38.88362,
+          41.606131,
+          39.675353,
+          40.637639,
+          40.095988,
+          41.032964,
+          39.584455,
+          39.589255,
+          39.96697,
+          39.320524,
+          40.647178,
+          49.119447,
+          44.23831,
+          39.606072,
+          39.296788,
+          39.242618,
+          39.306282,
+          39.260929,
+          40.417631,
+          40.66839,
+          39.629237,
+          41.589894,
+          42.907784,
+          41.035145,
+          40.988726,
+          40.081579,
+          40.913441,
+          40.788345,
+          38.956333,
+          40.593869,
+          39.995405,
+          40.439919,
+          39.476586
+        ],
+        "p50_ms": 40.6273665,
+        "p95_ms": 44.34650679999999,
+        "mean_ms": 41.22289448,
+        "sequential_requests_per_second": 24.258364499008366,
+        "weights_bytes": 67370935
+      }
+    },
+    "artifacts": {
+      "pytorch": {
+        "sha256": "821cde793e33e5a6a9e7f9614b996c75f38fb13bef34c29c4f979aa2fdbcb24e",
+        "files": {
+          "config.json": "2621fc586373cf114f6592e6a49429bb14349a9d26ec0072c99fc4d086a8b4bc",
+          "model.safetensors": "9356a8f1a849ac937887e19ce179c3a889e50ff83ade0d6228acb0cc4c0081a7",
+          "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+          "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+          "tokenizer_config.json": "a3c9410f27554c6e26af779fd147e536c6c5f9e5cb0e6b8f38ddaa25e1b0f6af",
+          "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+        },
+        "max_length": 128,
+        "truncation": true,
+        "label_order": [
+          "World",
+          "Sports",
+          "Business",
+          "Sci/Tech"
+        ]
+      },
+      "onnx": {
+        "sha256": "760cba4fe498e5ee13eaade28f17c0febe8e763d3fb23b20afa825efc6606690",
+        "files": {
+          "config.json": "2621fc586373cf114f6592e6a49429bb14349a9d26ec0072c99fc4d086a8b4bc",
+          "model.onnx": "630f721f1d5917011ceed2f315f9c4659eff9763d00505725ccec38e588bdd69",
+          "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+          "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+          "tokenizer_config.json": "a3c9410f27554c6e26af779fd147e536c6c5f9e5cb0e6b8f38ddaa25e1b0f6af",
+          "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+        },
+        "max_length": 128,
+        "truncation": true,
+        "label_order": [
+          "World",
+          "Sports",
+          "Business",
+          "Sci/Tech"
+        ]
+      },
+      "int8": {
+        "sha256": "6913eb46e7b142061e6e2b6df81ee48762514d0f845a820f89c5a91ce3aeadbc",
+        "files": {
+          "config.json": "2621fc586373cf114f6592e6a49429bb14349a9d26ec0072c99fc4d086a8b4bc",
+          "model_quantized.onnx": "f7574052ed97df647b4b8356cc2b3f678e750107d17e2fdd6d6aaea51e6545be",
+          "ort_config.json": "62a98e992faf1b0af04e290a749ee1ea087cef9cd758615fc7b3cebf2446da1d",
+          "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+          "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+          "tokenizer_config.json": "a3c9410f27554c6e26af779fd147e536c6c5f9e5cb0e6b8f38ddaa25e1b0f6af",
+          "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+        },
+        "max_length": 128,
+        "truncation": true,
+        "label_order": [
+          "World",
+          "Sports",
+          "Business",
+          "Sci/Tech"
+        ]
+      }
+    }
+  },
+  "gate": {
+    "passed": true,
+    "checks": {
+      "same_heldout_split": true,
+      "exact_runtime_artifacts": true,
+      "complete_class_report": true,
+      "benchmark_protocol": true,
+      "minimum_test_size": true,
+      "accuracy": true,
+      "macro_f1": true,
+      "every_class_recall": true,
+      "quantization_f1_regression": true,
+      "cpu_p95_latency": true,
+      "weight_size": true
+    },
+    "policy": {
+      "policy_scope": "Colab teaching policy; measurements belong to this VM, not a production or edge SLA",
+      "min_test_examples": 800,
+      "min_accuracy": 0.8,
+      "min_macro_f1": 0.8,
+      "min_class_recall": 0.65,
+      "max_macro_f1_drop": 0.02,
+      "benchmark_threads": 2,
+      "max_cpu_p95_ms": 250.0,
+      "max_weights_bytes": 104857600
+    },
+    "injected_failure": false,
+    "scope": "Teaching gate on this locked sample and CPU; not a production certification"
+  },
+  "deliberate_failure": {
+    "passed": false,
+    "checks": {
+      "same_heldout_split": true,
+      "exact_runtime_artifacts": true,
+      "complete_class_report": true,
+      "benchmark_protocol": true,
+      "minimum_test_size": true,
+      "accuracy": true,
+      "macro_f1": true,
+      "every_class_recall": false,
+      "quantization_f1_regression": true,
+      "cpu_p95_latency": true,
+      "weight_size": true
+    },
+    "policy": {
+      "policy_scope": "Colab teaching policy; measurements belong to this VM, not a production or edge SLA",
+      "min_test_examples": 800,
+      "min_accuracy": 0.8,
+      "min_macro_f1": 0.8,
+      "min_class_recall": 0.65,
+      "max_macro_f1_drop": 0.02,
+      "benchmark_threads": 2,
+      "max_cpu_p95_ms": 250.0,
+      "max_weights_bytes": 104857600
+    },
+    "injected_failure": true,
+    "scope": "Teaching gate on this locked sample and CPU; not a production certification"
+  },
+  "inference": {
+    "backend": "onnx_int8",
+    "artifact": {
+      "sha256": "6913eb46e7b142061e6e2b6df81ee48762514d0f845a820f89c5a91ce3aeadbc",
+      "files": {
+        "config.json": "2621fc586373cf114f6592e6a49429bb14349a9d26ec0072c99fc4d086a8b4bc",
+        "model_quantized.onnx": "f7574052ed97df647b4b8356cc2b3f678e750107d17e2fdd6d6aaea51e6545be",
+        "ort_config.json": "62a98e992faf1b0af04e290a749ee1ea087cef9cd758615fc7b3cebf2446da1d",
+        "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+        "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+        "tokenizer_config.json": "a3c9410f27554c6e26af779fd147e536c6c5f9e5cb0e6b8f38ddaa25e1b0f6af",
+        "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+      },
+      "max_length": 128,
+      "truncation": true,
+      "label_order": [
+        "World",
+        "Sports",
+        "Business",
+        "Sci/Tech"
+      ]
+    },
+    "scores_are_calibrated": false,
+    "predictions": [
+      {
+        "text": "The Miami team won the championship after a dramatic final quarter.",
+        "label": "Sports",
+        "scores": {
+          "World": 0.005417462904006243,
+          "Sports": 0.9924749732017517,
+          "Business": 0.0016191983595490456,
+          "Sci/Tech": 0.0004882570938207209
+        }
+      },
+      {
+        "text": "Shares climbed after the company reported higher quarterly earnings.",
+        "label": "Business",
+        "scores": {
+          "World": 0.00807900819927454,
+          "Sports": 0.0010701640276238322,
+          "Business": 0.9801754355430603,
+          "Sci/Tech": 0.010675454512238503
+        }
+      },
+      {
+        "text": "Scientists unveiled a new processor for energy-efficient computing.",
+        "label": "Sci/Tech",
+        "scores": {
+          "World": 0.01658136211335659,
+          "Sports": 0.0018870725762099028,
+          "Business": 0.042272213846445084,
+          "Sci/Tech": 0.9392593502998352
+        }
+      },
+      {
+        "text": "Leaders met for talks on a new international peace agreement.",
+        "label": "World",
+        "scores": {
+          "World": 0.9888771176338196,
+          "Sports": 0.0027508523780852556,
+          "Business": 0.006145150400698185,
+          "Sci/Tech": 0.0022269380278885365
+        }
+      }
+    ]
+  }
+}

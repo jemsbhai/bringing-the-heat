@@ -1,0 +1,27 @@
+{
+  "http_status": 200,
+  "prediction": {
+    "label": "Sports",
+    "confidences": [
+      {
+        "label": "Sports",
+        "confidence": 0.9956372380256653
+      },
+      {
+        "label": "World",
+        "confidence": 0.0021931189112365246
+      },
+      {
+        "label": "Business",
+        "confidence": 0.0018130040261894464
+      },
+      {
+        "label": "Sci/Tech",
+        "confidence": 0.00035665236646309495
+      }
+    ]
+  },
+  "server": "127.0.0.1:7861",
+  "public_share": false,
+  "closed_after_test": true
+}

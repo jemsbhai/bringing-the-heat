@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "environment": {
+    "python": "3.12.12",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "cpu_logical_count": 32,
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU",
+    "packages": {
+      "torch": "2.8.0+cu128",
+      "transformers": "4.55.4",
+      "peft": "0.17.1",
+      "accelerate": "1.10.1",
+      "datasets": "4.0.0",
+      "optimum-onnx": "0.0.3",
+      "onnxruntime": "1.30.0",
+      "scikit-learn": "1.7.2",
+      "gradio": "5.50.0"
+    }
+  },
+  "split_integrity": "PASS",
+  "cpu_threads_for_benchmark": 4,
+  "cuda_smoke": 32.0
+}

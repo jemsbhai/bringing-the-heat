@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "checks": {
+    "same_heldout_split": true,
+    "exact_runtime_artifacts": true,
+    "complete_class_report": true,
+    "benchmark_protocol": true,
+    "minimum_test_size": true,
+    "accuracy": true,
+    "macro_f1": true,
+    "every_class_recall": true,
+    "quantization_f1_regression": true,
+    "cpu_p95_latency": true,
+    "weight_size": true
+  },
+  "policy": {
+    "min_test_examples": 800,
+    "min_accuracy": 0.8,
+    "min_macro_f1": 0.8,
+    "min_class_recall": 0.65,
+    "max_macro_f1_drop": 0.02,
+    "max_cpu_p95_ms": 75.0,
+    "max_weights_bytes": 104857600
+  },
+  "injected_failure": false,
+  "scope": "Teaching gate on this locked sample and CPU; not a production certification"
+}

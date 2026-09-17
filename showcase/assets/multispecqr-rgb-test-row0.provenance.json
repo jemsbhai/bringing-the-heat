@@ -1,0 +1,40 @@
+{
+  "captured_at_utc": "2026-09-17T11:52:21.784929+00:00",
+  "dataset": "Jemsbhai/multispecqr-rgb-dataset",
+  "observed_repo_sha_before_and_after": "eab591308d667fdb08432c63141435b7da334910",
+  "pinned_repository_url": "https://huggingface.co/datasets/Jemsbhai/multispecqr-rgb-dataset/tree/eab591308d667fdb08432c63141435b7da334910",
+  "viewer_url": "https://huggingface.co/datasets/Jemsbhai/multispecqr-rgb-dataset/viewer/default/test?row=0",
+  "viewer_api_url": "https://datasets-server.huggingface.co/rows?dataset=Jemsbhai%2Fmultispecqr-rgb-dataset&config=default&split=test&offset=0&length=1",
+  "viewer_request": {
+    "dataset": "Jemsbhai/multispecqr-rgb-dataset",
+    "config": "default",
+    "split": "test",
+    "offset": 0,
+    "length": 1
+  },
+  "viewer_http_revision_headers": {
+    "x-revision": "eab591308d667fdb08432c63141435b7da334910"
+  },
+  "viewer_caveat": "Viewer is a cached current-branch service; observed repo SHA is not proof of a pinned-row response.",
+  "row_index": 0,
+  "sample_metadata": {
+    "sample_id": "44d1224185a2e8ba",
+    "mode": "rgb",
+    "num_layers": 3,
+    "qr_version": 1,
+    "error_correction": "H",
+    "augmentation": "clean",
+    "augmentation_params": "{}"
+  },
+  "source_dimensions": [
+    512,
+    512
+  ],
+  "channels": "RGB",
+  "dtype": "uint8",
+  "pixel_transformation": "None. PNG encodes the exact image column values with no resizing or editing.",
+  "pixel_sha256": "56388593a37583605fe36699e212a19c6c75daa98965abfec982cefea8a92742",
+  "png_sha256": "716dbd8f56a93bdb072be4c61eba49ab8cb1af1c5938d20f5aefa2b0d488cf19",
+  "viewer_response_sha256": "87c40f6fdb814f1d93f52215c4d9d27f40107db4e6ebdc3b62c3fb72458ab2ad",
+  "license_note": "No dataset license metadata was present at capture; included for the owner's talk preparation."
+}

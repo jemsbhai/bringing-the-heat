@@ -1,0 +1,118 @@
+{
+  "target": "avx2",
+  "quantization": "dynamic INT8 weights / runtime activations; embeddings may remain FP32",
+  "artifacts": {
+    "adapter": {
+      "adapter_config.json": {
+        "bytes": 1000,
+        "sha256": "89ed96790b398f536057aec312b78c3f96a424c25731d545c494aa142f229db4"
+      },
+      "adapter_model.safetensors": {
+        "bytes": 2968352,
+        "sha256": "44f64c767d5c0b18f2f9f94cf8b96c2f33103951a651f3ef5e143523fc088ce5"
+      },
+      "README.md": {
+        "bytes": 5230,
+        "sha256": "0293bbc830ed68e4e2594070b265cb2bdbb32e798fe289db6c2cd3c6ae1151e0"
+      },
+      "special_tokens_map.json": {
+        "bytes": 132,
+        "sha256": "3c3507f36dff57bce437223db3b3081d1e2b52ec3e56ee55438193ecb2c94dd6"
+      },
+      "tokenizer.json": {
+        "bytes": 711494,
+        "sha256": "79ea220416a57ca8acdf069d71875d5d2ddadef66021aeb6c120a7c546c04344"
+      },
+      "tokenizer_config.json": {
+        "bytes": 1283,
+        "sha256": "21c3bea73b6711617c657664adcd4d0b02ce20d2db4b2ebdd722a6da8da28bcd"
+      },
+      "vocab.txt": {
+        "bytes": 231508,
+        "sha256": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+      }
+    },
+    "merged": {
+      "config.json": {
+        "bytes": 745,
+        "sha256": "64749cb982f2a2ea23cd35dd34a148d10bc2e5374a7895a1570c0be4038a1680"
+      },
+      "model.safetensors": {
+        "bytes": 267838720,
+        "sha256": "be9f77e342a3368c4ce3c700fb60437f490f2d5a54e865ce908a4ebc39a8b671"
+      },
+      "special_tokens_map.json": {
+        "bytes": 132,
+        "sha256": "3c3507f36dff57bce437223db3b3081d1e2b52ec3e56ee55438193ecb2c94dd6"
+      },
+      "tokenizer.json": {
+        "bytes": 711396,
+        "sha256": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66"
+      },
+      "tokenizer_config.json": {
+        "bytes": 1283,
+        "sha256": "21c3bea73b6711617c657664adcd4d0b02ce20d2db4b2ebdd722a6da8da28bcd"
+      },
+      "vocab.txt": {
+        "bytes": 231508,
+        "sha256": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+      }
+    },
+    "onnx_fp32": {
+      "config.json": {
+        "bytes": 745,
+        "sha256": "64749cb982f2a2ea23cd35dd34a148d10bc2e5374a7895a1570c0be4038a1680"
+      },
+      "model.onnx": {
+        "bytes": 267938323,
+        "sha256": "50610584df44b50ecf4521eee4e5c34a780aa2ca5ae22214bf5b4012a3b893b3"
+      },
+      "special_tokens_map.json": {
+        "bytes": 132,
+        "sha256": "3c3507f36dff57bce437223db3b3081d1e2b52ec3e56ee55438193ecb2c94dd6"
+      },
+      "tokenizer.json": {
+        "bytes": 711396,
+        "sha256": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66"
+      },
+      "tokenizer_config.json": {
+        "bytes": 1283,
+        "sha256": "21c3bea73b6711617c657664adcd4d0b02ce20d2db4b2ebdd722a6da8da28bcd"
+      },
+      "vocab.txt": {
+        "bytes": 231508,
+        "sha256": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+      }
+    },
+    "onnx_int8": {
+      "config.json": {
+        "bytes": 745,
+        "sha256": "64749cb982f2a2ea23cd35dd34a148d10bc2e5374a7895a1570c0be4038a1680"
+      },
+      "model_quantized.onnx": {
+        "bytes": 67370935,
+        "sha256": "5a23f50720463984955734ffe85660190d9957f315af5a4139c71f9cf13633b9"
+      },
+      "ort_config.json": {
+        "bytes": 797,
+        "sha256": "91d9fd2018747816bb5a0b67c8d15c5c419c204b691976e742ed4f67027bbd2b"
+      },
+      "special_tokens_map.json": {
+        "bytes": 132,
+        "sha256": "3c3507f36dff57bce437223db3b3081d1e2b52ec3e56ee55438193ecb2c94dd6"
+      },
+      "tokenizer.json": {
+        "bytes": 711396,
+        "sha256": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66"
+      },
+      "tokenizer_config.json": {
+        "bytes": 1283,
+        "sha256": "21c3bea73b6711617c657664adcd4d0b02ce20d2db4b2ebdd722a6da8da28bcd"
+      },
+      "vocab.txt": {
+        "bytes": 231508,
+        "sha256": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+      }
+    }
+  }
+}

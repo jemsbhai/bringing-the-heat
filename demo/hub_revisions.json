@@ -1,0 +1,6 @@
+{
+  "model_id": "distilbert/distilbert-base-uncased",
+  "dataset_id": "fancyzhx/ag_news",
+  "model_revision": "12040accade4e8a0f71eabdb258fecc2e7e948be",
+  "dataset_revision": "eb185aade064a813bc0b7f42de02595523103ca4"
+}

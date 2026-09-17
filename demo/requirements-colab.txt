@@ -1,0 +1,16 @@
+# Pinned teaching stack. Reuse the runtime's installed PyTorch/CUDA build.
+# Install into a notebook-owned venv; do not apply the Windows lock to Colab.
+transformers==4.55.4
+tokenizers==0.21.4
+huggingface-hub==0.36.2
+peft==0.17.1
+accelerate==1.10.1
+datasets==4.0.0
+optimum==2.0.0
+optimum-onnx==0.0.3
+# Optimum discovers Colab's preinstalled Diffusers even for text models.
+# Keep that optional import compatible with this Transformers/Hub generation.
+diffusers==0.35.1
+onnx==1.22.0
+onnxruntime==1.30.0
+scikit-learn==1.7.2

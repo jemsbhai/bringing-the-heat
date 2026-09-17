@@ -1,0 +1,538 @@
+[
+  {
+    "title": "Muntaser Syed",
+    "kind": "cover",
+    "time": "0:00–0:45",
+    "notes": "OPEN (45 seconds). Ask for a quick show of hands: who has downloaded a model from the Hub, and who has had to support one after deployment? Pause briefly. Say: Today we will follow one model through a repeatable workflow. You will see the code, the evidence that could block a release, and the choices that change when the target hardware changes. Introduce yourself with the supplied bio: Muntaser Syed, Lead GenAI Engineer at Insight Global, formerly NVIDIA. Venue: Miami Dade College. Do not add employer performance claims.\nTransition: A notebook prediction is the beginning of the story.",
+    "sources": [
+      "https://muntasersyed.com",
+      "https://drive.google.com/file/d/1cWJ_CbI899vkuPVZTnfYJgcGdz8jv3t7/view"
+    ],
+    "name": "Muntaser Syed",
+    "websiteLabel": "muntasersyed.com",
+    "websiteUrl": "https://muntasersyed.com",
+    "deckUrl": "https://drive.google.com/file/d/1cWJ_CbI899vkuPVZTnfYJgcGdz8jv3t7/view"
+  },
+  {
+    "title": "The production contract",
+    "kind": "columns",
+    "leftTitle": "A useful prediction",
+    "left": "The model gets this example right.\n\nWe can explain the output.",
+    "rightTitle": "A release we can defend",
+    "right": "We can reproduce its inputs.\n\nWe know where it fails.\n\nWe can meet a latency budget\nand roll back the artifact.",
+    "bottom": "Today’s unit of progress: an artifact plus evidence",
+    "time": "0:45–2:00",
+    "notes": "75 seconds. Give a concrete failure: the notebook looks good, but a new package version changes preprocessing, or one minority class collapses behind a high average accuracy. The engineering question is what evidence travels with the weights. Introduce the contract: source revisions, preprocessing, test results, runtime configuration, and rollback. This is our proposed engineering framework, not a promise provided by a library. Students should listen for the role of each tool. Engineers should listen for the boundary between training code and an operational service.\nTransition: First, a real artifact you can inspect.",
+    "sources": [
+      "https://huggingface.co/docs/hub/model-cards",
+      "https://huggingface.co/docs/huggingface_hub/guides/download"
+    ]
+  },
+  {
+    "title": "My Hub: MultiSpecQR",
+    "kind": "personal",
+    "leftTitle": "One public project, reusable pieces",
+    "left": "4 decoder models\nRGB and 6 / 8 / 9 layer palettes\n\n2 public datasets\nSynthetic examples and split metadata\n\nCustom CNNs and a Python library",
+    "bottom": "huggingface.co/Jemsbhai",
+    "time": "2:00–4:00",
+    "notes": "2 minutes including browser switch. Open https://huggingface.co/Jemsbhai, then the RGB model card, Files, and commit history. Explain that color channels can carry different payloads and the custom CNN helps unmix the layers. Show one real dataset sample. Open the RGB dataset viewer and point to train/validation/test splits. The palette6 dataset currently exposes a train split only, a useful reminder that evaluation splits need deliberate design. The model cards describe the custom multispecqr library, not a Transformers architecture. The library’s from_pretrained helper is a familiar interface but does not imply automatic PEFT or Optimum support. Do not promise hosted inference from an arbitrary uploaded checkpoint.\nIf the venue network stalls, use showcase/README.md, hub_manifest.json, and the embedded dataset sample.\nTransition: The same Hub conventions support a small classifier, a vision model, or a large language model.",
+    "sources": [
+      "https://huggingface.co/Jemsbhai",
+      "https://huggingface.co/Jemsbhai/multispecqr-rgb",
+      "https://huggingface.co/datasets/Jemsbhai/multispecqr-rgb-dataset",
+      "https://github.com/jemsbhai/multispecqr"
+    ]
+  },
+  {
+    "title": "A workflow through the ecosystem",
+    "kind": "table",
+    "headers": [
+      "Engineering job",
+      "Hugging Face tools",
+      "Artifact to keep"
+    ],
+    "rows": [
+      [
+        "Discover and version",
+        "Hub, Datasets",
+        "Revisions and split manifest"
+      ],
+      [
+        "Adapt the model",
+        "Transformers, PEFT, Accelerate",
+        "Adapter and training config"
+      ],
+      [
+        "Check the candidate",
+        "Metrics, Evaluate / LightEval",
+        "Scores, slices, failures"
+      ],
+      [
+        "Optimize and deliver",
+        "Optimum ONNX, Spaces, Endpoints",
+        "Runtime package and release record"
+      ]
+    ],
+    "bottom": "PEFT adapts. Accelerate runs training. Optimum targets inference hardware.",
+    "time": "4:00–5:30",
+    "notes": "90 seconds. This is the only broad ecosystem map before the demo. Distinguish the three named libraries precisely: PEFT changes how many parameters we train; Accelerate handles training execution and distributed concerns; Optimum provides hardware-oriented integrations, with ONNX in a dedicated package. None independently supplies all of production. Evaluate supplies reusable ML metrics; LightEval is a current option for LLM evaluation. Our classifier uses scikit-learn for transparent metric calculations rather than pretending one metric package is mandatory.\nTransition: Keep the problem small enough to inspect the whole path.",
+    "sources": [
+      "https://huggingface.co/docs/peft/quicktour",
+      "https://huggingface.co/docs/accelerate/quicktour",
+      "https://huggingface.co/docs/optimum-onnx/index",
+      "https://huggingface.co/docs/evaluate/index"
+    ]
+  },
+  {
+    "title": "The live build: a news classifier",
+    "kind": "columns",
+    "leftTitle": "Input",
+    "left": "A news headline and description\n\n“The team won the final\nafter extra time.”",
+    "rightTitle": "Output",
+    "right": "World\nSports\nBusiness\nSci/Tech",
+    "bottom": "DistilBERT + AG News. One trained artifact through export and serving.",
+    "time": "5:30–6:30",
+    "notes": "1 minute. Explain why the main demo uses a compact classifier: students can inspect the errors and the same trained weights can pass through every advertised library. This task is separate from MultiSpecQR. Open the notebook or prepared terminal. All commands live in demo/README.md. Show the prepared data/model revisions and preflight output. Run preparation and the full training before the event; during the talk show a short training invocation only if rehearsal fits the allotted time, otherwise use recorded training results clearly labeled as a prior local run. Do not leave the audience waiting for downloads.\nTransition: A reproducible run starts before the optimizer.",
+    "sources": [
+      "https://huggingface.co/distilbert/distilbert-base-uncased",
+      "https://huggingface.co/datasets/fancyzhx/ag_news"
+    ]
+  },
+  {
+    "title": "Data and model provenance",
+    "kind": "code",
+    "code": "snapshot_download(\n    repo_id=MODEL_ID,\n    revision=MODEL_COMMIT,\n)\n\nload_dataset(\n    DATASET_ID,\n    revision=DATASET_COMMIT,\n)",
+    "rightTitle": "The run manifest records",
+    "right": "Full commit SHAs\nSplit membership and seed\nTokenizer and label mapping\nPackage versions\nEvaluation configuration",
+    "bottom": "Training, validation, and test examples serve different decisions.",
+    "time": "6:30–8:00",
+    "notes": "90 seconds. These are schematic excerpts with configuration variables; the executable script resolves and records the full revisions. A repository name is an address, while a full commit SHA identifies a version. Show the actual manifest. Training fits parameters. Validation selects settings. The held-out test estimates performance after choices are locked. Normalize and check duplicate text across splits; real projects also split by user, source, or time when leakage follows those relationships. This classroom slice is not proof for a future news distribution. Streaming is useful for large sources, but requires explicit sampling and shuffling decisions.\nTransition: Before adapting anything, we need an honest baseline.",
+    "sources": [
+      "https://huggingface.co/docs/huggingface_hub/guides/download",
+      "https://huggingface.co/docs/datasets/stream"
+    ]
+  },
+  {
+    "title": "LoRA changes the training budget",
+    "kind": "lora",
+    "formula": "W′ = W + BA",
+    "leftTitle": "Frozen base",
+    "left": "The pretrained weight matrix W\nkeeps its learned values.",
+    "rightTitle": "Trainable update",
+    "right": "Small matrices A and B\nlearn the task adjustment.",
+    "bottom": "Fewer trainable parameters. The base model still occupies memory.",
+    "time": "8:00–10:00",
+    "notes": "2 minutes. Explain the matrix idea without requiring linear algebra: keep the main model, learn a compact adjustment. For a d_out by d_in matrix, full tuning updates d_out*d_in entries; rank-r LoRA adds r*(d_in+d_out), where r is usually much smaller than either dimension. This is parameter arithmetic, not a claim about equal quality or speed. The task classifier head still trains and must be saved. For this demo the starting classification head is newly initialized, so an untrained base would be a sanity check, not a strong pretrained news baseline. The evaluation report includes a majority-class baseline. A serious study would also compare full fine-tuning and simpler task-specific alternatives.\nTransition: Here is the part that attaches the adapter.",
+    "sources": [
+      "https://huggingface.co/docs/peft/main/conceptual_guides/lora",
+      "https://huggingface.co/docs/peft/quicktour"
+    ]
+  },
+  {
+    "title": "PEFT in the training script",
+    "kind": "code",
+    "code": "config = LoraConfig(\n    task_type=TaskType.SEQ_CLS,\n    r=8, lora_alpha=16,\n    target_modules=[\n        \"q_lin\", \"v_lin\"\n    ],\n    lora_dropout=0.1,\n)\nmodel = get_peft_model(model, config)\nmodel.print_trainable_parameters()",
+    "rightTitle": "What to inspect",
+    "right": "Targets depend on architecture.\n\nThe task head must train\nand travel with the adapter.\n\nThe adapter needs its\nmatching base revision.",
+    "bottom": "LoRA is adaptation. QLoRA adds low-bit base loading for training.",
+    "time": "10:00–12:00",
+    "notes": "2 minutes. Show the actual LoraConfig in demo.py and printed trainable count. q_lin and v_lin are DistilBERT-specific module names, not universal choices. Explain rank as a tunable capacity parameter, chosen with validation rather than the test set. PEFT SEQ_CLS handles standard classifier head saving; the executable code explicitly keeps the needed modules. The saved adapter is not a standalone full model. The lecture uses ordinary LoRA. The appendix explains QLoRA for a causal LLM without claiming our classifier run demonstrates it. Avoid promising inference gains from LoRA by itself.\nTransition: The learning code also needs to run on the hardware we have.",
+    "sources": [
+      "https://huggingface.co/docs/peft/quicktour",
+      "https://huggingface.co/docs/peft/developer_guides/quantization"
+    ]
+  },
+  {
+    "title": "Accelerate carries the training loop",
+    "kind": "code",
+    "code": "accelerator = Accelerator()\nmodel, optimizer, train_loader = (\n    accelerator.prepare(\n        model, optimizer, train_loader\n    )\n)\n\nloss = model(**batch).loss\naccelerator.backward(loss)\noptimizer.step()",
+    "rightTitle": "Same task, different launch",
+    "right": "One CPU or GPU\n\nDistributed data parallel\nwhen the model fits per GPU\n\nFSDP / DeepSpeed\nwhen state must be sharded",
+    "bottom": "Distributed metrics need all workers’ predictions: gather_for_metrics.",
+    "time": "12:00–14:00",
+    "notes": "2 minutes. The slide is a shortened training excerpt, not a complete loop: the executable also clears gradients, moves data through prepared loaders, controls seeds, and saves on the main process. Explain that DDP replicates a model per process; more GPUs do not automatically make a too-large model fit. FSDP/DeepSpeed shard state but add configuration and communication costs. Show accelerate launch in the runbook. Our local rehearsal validates one process; multi-GPU is an explicit extension that needs a cluster test. Inference device_map='auto' is a different path and should not be taught as distributed training.\nTransition: The trained adapter now becomes a candidate artifact.",
+    "sources": [
+      "https://huggingface.co/docs/accelerate/quicktour",
+      "https://huggingface.co/docs/accelerate/concept_guides/big_model_inference"
+    ]
+  },
+  {
+    "title": "Live checkpoint: the candidate artifact",
+    "kind": "steps",
+    "items": [
+      [
+        "01",
+        "Inspect the run",
+        "Revisions, trainable parameters, validation result"
+      ],
+      [
+        "02",
+        "Inspect the saved adapter",
+        "Adapter configuration and task head"
+      ],
+      [
+        "03",
+        "Try a new example",
+        "One plausible prediction plus one failure"
+      ]
+    ],
+    "bottom": "A prepared training run keeps the live segment within two minutes.",
+    "time": "14:00–16:00",
+    "notes": "2 minutes including terminal switch. Open the real preparation/training outputs. State whether the run is happening now or was completed before the talk. Show that the adapter folder is small relative to the complete merged model, without claiming a fixed ratio unless the measured files support it. Read a validation metric and a known failure. Keep the audience focused on the saved artifact and its dependency on the base model. If training is still running, immediately switch to the completed rehearsal outputs. Do not rerun a long job on stage.\nTransition: A convincing example is not the release decision.",
+    "sources": [
+      "https://huggingface.co/docs/peft/quicktour#save-model"
+    ]
+  },
+  {
+    "title": "Evaluation as a release gate",
+    "kind": "table",
+    "headers": [
+      "Question",
+      "Evidence",
+      "Decision"
+    ],
+    "rows": [
+      [
+        "Does quality hold?",
+        "Macro-F1 and per-class recall",
+        "Meet predeclared floors"
+      ],
+      [
+        "Did optimization regress?",
+        "Same held-out rows, each artifact",
+        "Stay within allowed drop"
+      ],
+      [
+        "Where does it fail?",
+        "Confusion matrix and error examples",
+        "Review consequential errors"
+      ],
+      [
+        "Does it fit the target?",
+        "Latency and artifact size",
+        "Meet the deployment budget"
+      ]
+    ],
+    "bottom": "Live moment: a deliberately failing report blocks the release.",
+    "time": "16:00–18:30",
+    "notes": "2 minutes 30 seconds. Show the actual evaluation JSON and confusion matrix. Accuracy is useful, but macro-F1 weights classes equally; per-class recall reveals a weak class. A small held-out slice has uncertainty, and news examples do not validate safety-critical decisions or distribution shift. Show gate thresholds set in config before the test run. Run the deliberately failing gate fixture, explicitly label it synthetic test data, and show the nonzero exit status. Then show the real candidate gate outcome without changing thresholds to obtain a pass. A failed gate is a successful engineering demonstration. For generative tasks, swap in task-specific exact match/schema checks, groundedness/factuality review, and calibrated human review; a single judge score is insufficient.\nTransition: The runtime artifact gets evaluated too.",
+    "sources": [
+      "https://huggingface.co/docs/evaluate/index",
+      "https://huggingface.co/docs/lighteval/main/index"
+    ]
+  },
+  {
+    "title": "Optimum ONNX targets the CPU",
+    "kind": "code",
+    "code": "merged = model.merge_and_unload()\nmerged.save_pretrained(\"artifacts/merged\")\n\nort = ORTModelForSequenceClassification\nort_model = ort.from_pretrained(\n    \"artifacts/merged\", export=True\n)\n\nqconfig = AutoQuantizationConfig.avx2(\n    is_static=False\n)",
+    "rightTitle": "Export sequence",
+    "right": "Merge the supported adapter.\n\nExport the merged weights.\n\nQuantize for the target CPU.\n\nKeep tokenizer and labels.",
+    "bottom": "Install: optimum-onnx[onnxruntime]     Import: optimum.onnxruntime",
+    "time": "18:30–20:30",
+    "notes": "2 minutes. Show the executable export command or the completed exported artifacts, according to rehearsal timing. The slide omits quantizer construction/save calls to keep it legible; they are in demo.py. Our selected architecture supports this path. Dynamic INT8 changes runtime arithmetic and storage; it differs from QLoRA's 4-bit base loading for adapter training. AVX2 is our x86 target choice, not a universal configuration for ARM or GPUs. Static quantization would need representative calibration data from training/calibration sources, never tuning on the held-out test. Save tokenizer, configuration and label mapping beside the exported model.\nTransition: Smaller files are only one part of the result.",
+    "sources": [
+      "https://huggingface.co/docs/optimum-onnx/installation",
+      "https://huggingface.co/docs/optimum-onnx/onnxruntime/quickstart",
+      "https://huggingface.co/docs/optimum-onnx/onnxruntime/usage_guides/quantization"
+    ]
+  },
+  {
+    "title": "Measured quality and CPU latency",
+    "kind": "measured",
+    "leftTitle": "Compare the same workload",
+    "left": "Merged PyTorch\nONNX floating point\nONNX INT8\n\nSame inputs and CPU target",
+    "rightTitle": "Report the conditions",
+    "right": "Hardware and thread count\nBatch size and token length\nWarm-up and sample count\np50 / p95 latency\nQuality after export",
+    "bottom": "Same 800-example test set. Small score differences do not establish improvement.",
+    "time": "20:30–22:00",
+    "notes": "90 seconds. These are actual measurements from the local rehearsal on September 17, 2026. The test set is a balanced, fixed 800-example slice with 200 examples per class. Quality uses the same held-out rows for the merged PyTorch model and the two exported packages. The benchmark is one warm sequential CPU run, not a concurrent service capacity test. All models use 4 CPU threads and fixed 128-token padding, 100 requests after 10 warm-ups. Timings include tokenization and forward execution, excluding startup, network, and queueing. Weight size excludes tokenizer/config files. Hardware: Intel Core i9-14900HX; training used an RTX 4090 Laptop GPU, but every latency here is CPU.\n\nPyTorch FP32: accuracy 90.25%, macro-F1 0.902308, p50 33.48 ms, p95 59.81 ms, weights 267838720 bytes.\nONNX FP32: accuracy 90.25%, macro-F1 0.902308, p50 30.33 ms, p95 41.56 ms, weights 267938323 bytes.\nONNX INT8: accuracy 90.50%, macro-F1 0.904809, p50 25.82 ms, p95 33.57 ms, weights 67370935 bytes.\n\nThe small INT8 quality difference is not evidence of an accuracy improvement. Quantization can trade quality for footprint and speed, so inspect the actual errors and gate. This measured run does not predict a phone, microcontroller, or other CPU. Rehearse under event conditions. Show the source JSON and current artifact hashes if asked.\nTransition: Deployment target determines the next branch.",
+    "sources": [
+      "demo/results/evaluation.json",
+      "demo/results/benchmark.json",
+      "demo/results/gate.json",
+      "https://huggingface.co/docs/optimum-onnx/onnxruntime/usage_guides/quantization"
+    ],
+    "headers": [
+      "Runtime",
+      "Macro-F1",
+      "p95 latency",
+      "Weights"
+    ],
+    "rows": [
+      [
+        "PyTorch FP32",
+        "0.902",
+        "59.8 ms",
+        "255.4 MiB"
+      ],
+      [
+        "ONNX FP32",
+        "0.902",
+        "41.6 ms",
+        "255.5 MiB"
+      ],
+      [
+        "ONNX INT8",
+        "0.905",
+        "33.6 ms",
+        "64.2 MiB"
+      ]
+    ],
+    "conditions": "Intel Core i9-14900HX, 4 CPU threads, batch 1, padded length 128\n100 sequential requests after 10 warm-ups\nIncludes tokenization + forward. Excludes loading, network, and queueing."
+  },
+  {
+    "title": "Inference across deployment targets",
+    "kind": "table",
+    "headers": [
+      "Target",
+      "A suitable path",
+      "What changes"
+    ],
+    "rows": [
+      [
+        "Laptop / constrained CPU",
+        "Optimum ONNX + ONNX Runtime",
+        "CPU features, memory, input size"
+      ],
+      [
+        "Browser",
+        "Transformers.js, WASM / WebGPU",
+        "Supported exports, download size"
+      ],
+      [
+        "Large LLM on GPUs",
+        "vLLM / SGLang",
+        "KV cache, batching, parallelism"
+      ],
+      [
+        "Managed dedicated service",
+        "Inference Endpoints",
+        "Autoscaling, logs, cost limits"
+      ]
+    ],
+    "bottom": "The classifier runs locally. Browser and GPU serving are separate extensions.",
+    "time": "22:00–24:00",
+    "notes": "2 minutes. Separate the demonstrated path from architecture guidance. The laptop classifier is a constrained CPU example, not an actual phone deployment. Transformers.js is a separate supported-model/export path. A causal LLM served with vLLM is a different model and runtime. Tensor parallelism partitions a model to fit/work across GPUs; replicas improve capacity for independent requests. KV cache and activation memory matter in addition to weights. Endpoints offers managed dedicated deployment but still needs appropriate hardware, limits, tests, and monitoring. TGI is in maintenance mode in current docs; vLLM/SGLang are current new-deployment examples.\nTransition: Serving the file still leaves release operations.",
+    "sources": [
+      "https://huggingface.co/docs/transformers.js/index",
+      "https://docs.vllm.ai/en/latest/serving/parallelism_scaling/",
+      "https://huggingface.co/docs/inference-endpoints/en/index",
+      "https://huggingface.co/docs/text-generation-inference/en/index"
+    ]
+  },
+  {
+    "title": "A deployment you can operate",
+    "kind": "steps",
+    "items": [
+      [
+        "01",
+        "Package the exact candidate",
+        "Weights, tokenizer, labels, versions, evaluation record"
+      ],
+      [
+        "02",
+        "Serve behind an input contract",
+        "Length limits, health checks, timeouts, observability"
+      ],
+      [
+        "03",
+        "Promote with a rollback path",
+        "Canary traffic, quality checks, previous revision"
+      ]
+    ],
+    "bottom": "Live: the local Gradio app loads the exported artifact.",
+    "time": "24:00–26:00",
+    "notes": "2 minutes including local app switch. Start the prepared Gradio app or use the already running localhost tab. Submit a short example and show the model/runtime identity. This proves an exported model can back an interface; it is a local demo, not a production deployment. Explain the remaining service work: auth for sensitive access, input limits, health/readiness checks, concurrency/load testing, structured logs, monitored quality, and rollback to an immutable artifact. A Space is useful for sharing a demo; a dedicated Endpoint or owned service can meet different operational requirements. No paid resources or public writes are required in this talk package.\nTransition: The ecosystem also shortens work outside the training loop.",
+    "sources": [
+      "https://huggingface.co/docs/hub/spaces-overview",
+      "https://huggingface.co/docs/inference-endpoints/en/index"
+    ]
+  },
+  {
+    "title": "Five more ways to save work",
+    "kind": "extras",
+    "items": [
+      [
+        "Datasets streaming",
+        "Inspect a large source before a full download"
+      ],
+      [
+        "Spaces",
+        "Share a versioned interactive demo"
+      ],
+      [
+        "Jobs",
+        "Run a script on hosted compute"
+      ],
+      [
+        "Inference Providers",
+        "Compare supported hosted models through one client"
+      ],
+      [
+        "Collections and model cards",
+        "Give collaborators a useful starting point"
+      ]
+    ],
+    "bottom": "Choose by the engineering job. Hardware and hosting can incur charges.",
+    "time": "26:00–28:00",
+    "notes": "2 minutes. Use a quick tour rather than opening five unpredictable live tabs. Streaming can avoid a full initial download; approximate shuffle buffers still matter. Spaces connects a repository to a demo app. Current compute-space eligibility and pricing vary, so do not promise every audience member a free CPU Space. Jobs moves a script to hosted compute and may incur charges. Providers routes supported models to providers; uploading any custom model does not make it provider-hosted. Collections can organize the talk's models, data, docs, and Spaces when the speaker chooses to publish one. Optional take-home branches include Sentence Transformers for retrieval, Diffusers for generative media, and LeRobot for robotics.\nTransition: Everyone can take one version of this workflow home.",
+    "sources": [
+      "https://huggingface.co/docs/datasets/stream",
+      "https://huggingface.co/docs/hub/spaces-overview",
+      "https://huggingface.co/docs/hub/jobs",
+      "https://huggingface.co/docs/inference-providers/index",
+      "https://huggingface.co/docs/hub/collections"
+    ]
+  },
+  {
+    "title": "The workflow to take home",
+    "kind": "closing",
+    "leftTitle": "For students",
+    "left": "Run one small task end to end.\n\nExplain one failure.\n\nShare a reproducible artifact.",
+    "rightTitle": "For ML engineers",
+    "right": "Version the whole release.\n\nGate quality after optimization.\n\nMeasure the target workload.",
+    "bottom": "Hub + adaptation + evidence + the right runtime",
+    "time": "28:00–30:00",
+    "notes": "2 minutes. Return to the promise: Hub conventions make artifacts accessible; PEFT reduces the trainable update; Accelerate handles training execution; Optimum targets the runtime; evaluation and operations turn these into an engineering workflow. Ask one audience prediction: if quantization cuts file size but harms a class recall floor, do we ship? Let someone answer, then point back to the release contract. Direct students to the notebook and handout. Direct engineers to the manifest, gate, benchmark protocol, and deployment notes. End on time at minute 30 and move to questions. No claim that the local demo validates a multi-GPU cluster or a real edge product.",
+    "sources": []
+  },
+  {
+    "title": "Questions",
+    "kind": "qa",
+    "subtitle": "What would block this model\nfrom shipping in your project?",
+    "bottom": "Muntaser Syed     huggingface.co/Jemsbhai",
+    "time": "30:00–35:00",
+    "notes": "5 minutes. Take questions. Good prompts if the room is quiet: When would you use RAG instead of fine-tuning? How would you evaluate rare classes? What changes on a phone? What does a second GPU solve? The appendix covers QLoRA, multi-GPU strategy, evaluation beyond classification, and sources. Use the Q&A guide for short answers. Keep the boundary clear between verified local results and unexecuted hardware recipes.",
+    "sources": [
+      "https://huggingface.co/Jemsbhai"
+    ]
+  },
+  {
+    "title": "Appendix: QLoRA for a causal LLM",
+    "kind": "columns",
+    "leftTitle": "Training path",
+    "left": "Load a supported base in 4-bit.\nPrepare it for low-bit training.\nAttach LoRA adapters.\nTrain on task-formatted examples.",
+    "rightTitle": "Extra decisions",
+    "right": "Chat template and tokenization\nTarget modules and sequence length\nHardware / library compatibility\nTask-specific evaluation\nAdapter loading or merge strategy",
+    "bottom": "Extension recipe. The main classifier demo uses ordinary LoRA.",
+    "time": "Appendix",
+    "notes": "Use only if asked. QLoRA combines low-bit base loading and LoRA, often using bitsandbytes for supported hardware. It is not the ONNX INT8 export shown in the main talk. A causal model requires task-appropriate prompt formatting, data licenses, evaluation, and memory planning. Do not promise that a particular parameter count will fit solely from weight bits: activations, optimizer states, sequence length, and other overhead matter. Serving the adapter or merging depends on the selected model/runtime/quantization path. This package's executed results apply to the classifier only.",
+    "sources": [
+      "https://huggingface.co/docs/peft/developer_guides/quantization",
+      "https://huggingface.co/docs/transformers/quantization/bitsandbytes"
+    ]
+  },
+  {
+    "title": "Appendix: what a second GPU solves",
+    "kind": "table",
+    "headers": [
+      "Need",
+      "Strategy",
+      "Important limit"
+    ],
+    "rows": [
+      [
+        "Train faster, model fits",
+        "Distributed data parallel",
+        "Model copy per GPU, communication"
+      ],
+      [
+        "Train a larger model",
+        "FSDP / DeepSpeed sharding",
+        "Configuration and interconnect"
+      ],
+      [
+        "Serve a large LLM",
+        "Tensor / pipeline parallelism",
+        "KV cache and runtime support"
+      ],
+      [
+        "Serve more requests",
+        "Replicas and batching",
+        "Tail latency under concurrency"
+      ]
+    ],
+    "bottom": "accelerate launch and vllm serve solve different stages.",
+    "time": "Appendix",
+    "notes": "Answer the hardware question before naming a strategy. More devices can improve capacity, fit, or throughput, but each has a communication and operational cost. Show deployment-notes.md for a parameterized vLLM launch recipe and a multi-GPU Accelerate recipe. Those paths are not executed on this single-GPU machine. device_map='auto' provides big-model inference dispatch/offload, not a substitute for distributed training or throughput-oriented serving.",
+    "sources": [
+      "https://huggingface.co/docs/accelerate/quicktour",
+      "https://docs.vllm.ai/en/latest/serving/parallelism_scaling/",
+      "https://huggingface.co/docs/accelerate/concept_guides/big_model_inference"
+    ]
+  },
+  {
+    "title": "Appendix: evaluation follows the task",
+    "kind": "table",
+    "headers": [
+      "Task",
+      "Useful evidence",
+      "Common blind spot"
+    ],
+    "rows": [
+      [
+        "Classification",
+        "Macro-F1, recall by class, confusion",
+        "Rare classes and distribution shift"
+      ],
+      [
+        "Retrieval / RAG",
+        "Recall@k, answer support, citations",
+        "Correct answer from wrong evidence"
+      ],
+      [
+        "Structured generation",
+        "Schema validity, exact field match",
+        "Valid JSON with incorrect values"
+      ],
+      [
+        "Open-ended generation",
+        "Task rubrics, human review, calibrated judges",
+        "Judge bias and unstable prompts"
+      ]
+    ],
+    "bottom": "LightEval helps run LLM evaluations. The release policy remains yours.",
+    "time": "Appendix",
+    "notes": "Metrics become useful when tied to a concrete decision. Lock prompts, generation settings, datasets and model revisions. Test subgroup and adversarial cases where relevant. Calibrate automated judges against representative human review and track disagreement. A benchmark average does not establish correctness for every user. Quantify uncertainty for the intended use and keep final test examples out of iterative prompt/model selection. LightEval is an orchestration option for LLM evaluation, not a certification system.",
+    "sources": [
+      "https://huggingface.co/docs/lighteval/main/index",
+      "https://huggingface.co/docs/evaluate/index"
+    ]
+  },
+  {
+    "title": "Appendix: useful starting points",
+    "kind": "resources",
+    "items": [
+      [
+        "Your speaker’s models and datasets",
+        "huggingface.co/Jemsbhai"
+      ],
+      [
+        "Adapter training",
+        "huggingface.co/docs/peft"
+      ],
+      [
+        "Training execution",
+        "huggingface.co/docs/accelerate"
+      ],
+      [
+        "CPU export and quantization",
+        "huggingface.co/docs/optimum-onnx"
+      ],
+      [
+        "Hands-on courses",
+        "huggingface.co/learn"
+      ]
+    ],
+    "bottom": "The companion handout includes direct links and exercises.",
+    "time": "Appendix",
+    "notes": "Point the audience to attendee-handout.md, the executable notebook, and the reference list. All externally researched slide claims have source links in notes. Documentation was checked September 17, 2026; rehearse with the included pinned environment and current hosting terms before the event. This is an independent community talk, not an official Hugging Face presentation.",
+    "sources": [
+      "https://huggingface.co/Jemsbhai",
+      "https://huggingface.co/docs/peft",
+      "https://huggingface.co/docs/accelerate",
+      "https://huggingface.co/docs/optimum-onnx",
+      "https://huggingface.co/learn"
+    ]
+  }
+]

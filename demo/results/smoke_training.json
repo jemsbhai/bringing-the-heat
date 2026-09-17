@@ -1,0 +1,100 @@
+{
+  "environment": {
+    "python": "3.12.12",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "cpu_logical_count": 32,
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU",
+    "packages": {
+      "torch": "2.8.0+cu128",
+      "transformers": "4.55.4",
+      "peft": "0.17.1",
+      "accelerate": "1.10.1",
+      "datasets": "4.0.0",
+      "optimum-onnx": "0.0.3",
+      "onnxruntime": "1.30.0",
+      "scikit-learn": "1.7.2",
+      "gradio": "5.50.0"
+    }
+  },
+  "seconds": 23.052308300015284,
+  "seed": 42,
+  "epochs": 1,
+  "smoke_only": true,
+  "learning_rate": 0.0003,
+  "per_device_batch_size": 32,
+  "world_size": 1,
+  "effective_batch_size": 32,
+  "trainable_parameters": 741124,
+  "total_parameters": 67697672,
+  "trainable_percent": 1.0947555183286066,
+  "selection": "highest validation macro F1",
+  "history": [
+    {
+      "epoch": 1,
+      "mean_loss": 1.3383217096328734,
+      "validation": {
+        "n": 400,
+        "accuracy": 0.665,
+        "macro_f1": 0.5945863043828791,
+        "accuracy_95pct_wilson": [
+          0.6173691278572266,
+          0.7094917007448789
+        ],
+        "per_class": {
+          "World": {
+            "precision": 0.8217821782178217,
+            "recall": 0.83,
+            "f1": 0.8258706467661692,
+            "support": 100
+          },
+          "Sports": {
+            "precision": 0.9666666666666667,
+            "recall": 0.87,
+            "f1": 0.9157894736842105,
+            "support": 100
+          },
+          "Business": {
+            "precision": 0.4567307692307692,
+            "recall": 0.95,
+            "f1": 0.6168831168831169,
+            "support": 100
+          },
+          "Sci/Tech": {
+            "precision": 1.0,
+            "recall": 0.01,
+            "f1": 0.019801980198019802,
+            "support": 100
+          }
+        },
+        "confusion_matrix": [
+          [
+            83,
+            2,
+            15,
+            0
+          ],
+          [
+            2,
+            87,
+            11,
+            0
+          ],
+          [
+            5,
+            0,
+            95,
+            0
+          ],
+          [
+            11,
+            1,
+            87,
+            1
+          ]
+        ]
+      }
+    }
+  ]
+}
