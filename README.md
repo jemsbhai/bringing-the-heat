@@ -1,68 +1,70 @@
-# Bringing the Heat: talk materials
+# Bringing the Heat: Supercharging Your ML Pipelines with HuggingFace
 
-**[Muntaser Syed](https://muntasersyed.com) · Miami Dade College · 30 minutes + 5 minutes Q&A**
+**[Muntaser Syed](https://muntasersyed.com) · Florida Institute of Technology**
 
-Designed for students and working ML engineers. The talk opens with Muntaser's actual public MultiSpecQR models and datasets, then follows one compact classifier through the Hugging Face stack: **Hub → reproducible data → PEFT LoRA + Accelerate → Optimum ONNX INT8 → evaluation → release gate → inference**.
+Presented at **Miami Dade College**.
+
+Take a model from the Hugging Face Hub through fine-tuning, evaluation, optimization, and inference. This repository contains the slides, a complete Colab exercise, diagrams, and measured results from the talk. Students can follow the workflow step by step; ML engineers can inspect the code, measurement protocol, and release checks.
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jemsbhai/bringing-the-heat/blob/main/demo/Bringing_the_Heat_Colab.ipynb)
 
-## Run the complete demo
+**[View the slides](https://drive.google.com/file/d/1cWJ_CbI899vkuPVZTnfYJgcGdz8jv3t7/view)** · **[Download all materials](https://github.com/jemsbhai/bringing-the-heat/releases/download/v1.0.0/Bringing-the-Heat-kit.zip)**
 
-1. Open the Colab notebook above and select **Runtime → Change runtime type → T4 GPU** if available. CPU works but full training is substantially slower.
-2. Choose **Runtime → Run all**. The notebook installs its teaching libraries, downloads public model/data files, trains for three epochs, exports and quantizes, evaluates the heldout test set, benchmarks inference, and checks the release policy.
-3. Inspect the real gate outcome, run the deliberate failure example, and download your results bundle from the final cell.
+## What you'll build
 
-No Hugging Face token, Drive mount, paid API, or public web server is required. The notebook embeds its source, so it starts from a fresh runtime. Colab availability varies; rehearse before presenting. The [Colab validation record](demo/COLAB_TESTED.md) separates actual Colab evidence from local checks.
+The exercise trains a news classifier to recognize **World, Sports, Business, and Sci/Tech**. Follow one model through the pipeline:
 
-**Verified on a fresh Colab T4 runtime:** all 11 code cells completed in about 16 minutes, including ten inline figures, the full training/evaluation workflow, a passing teaching gate, a correctly blocked deliberate regression, and four inference examples. The [executed notebook](demo/Bringing_the_Heat_Colab_executed.ipynb) preserves the outputs. CPU evaluation took most of that time; run the complete notebook before the talk and rerun headline inference live.
+**Hub + Datasets → Transformers → PEFT LoRA + Accelerate → Optimum ONNX INT8 → evaluation → release gate → inference**
 
-## Start here
+Along the way, you'll learn to:
 
-- [Download the complete materials kit](https://github.com/jemsbhai/bringing-the-heat/releases/download/v1.0.0/Bringing-the-Heat-kit.zip): slides, notebooks, speaker materials, source, and recorded results.
-- [Public deck on Google Drive](https://drive.google.com/file/d/1cWJ_CbI899vkuPVZTnfYJgcGdz8jv3t7/view): the opening slide's QR code links here.
-- [Hosted Colab notebook](https://colab.research.google.com/drive/1Q9WkLenTKLEd-R0wTzsCgF1mrLS1NCIh): view the presenter's run or save your own copy. The badge above opens the versioned exercise from GitHub.
-- [Editable PowerPoint](output/Bringing-the-Heat.pptx): 17 talk slides, Q&A, and 4 appendix slides. Includes timed speaker notes and source links.
-- [Offline slides](output/slides-offline.html): self-contained browser fallback. Arrow keys advance; N toggles notes.
-- [Presenter guide](output/presenter-guide.md): full slide-by-slide narrative.
-- [Stage runbook](output/stage-runbook.md): live commands, rehearsal, timing cuts, and failure recovery.
-- [Colab notebook](demo/Bringing_the_Heat_Colab.ipynb): complete fresh-runtime exercise.
-- [Local stage notebook](demo/Bringing_the_Heat.ipynb) and [demo README](demo/README.md): the original local workflow, saved laptop outputs, and tested setup.
-- [Attendee handout](output/attendee-handout.md): tool map, exercises, and further learning.
-- [Measured results](output/measured-results.md): the actual classifier quality, CPU latency, and artifact sizes.
-- [Q&A guide](output/qa-guide.md) and [deployment extensions](output/deployment-notes.md).
-- [Personal Hub showcase](showcase/README.md): saved public metadata and a genuine MultiSpecQR sample.
-- [Slide authoring files](authoring/README.md): editable slide content and build instructions.
-
-The deck uses process diagrams for the workflow, data splits, LoRA, training execution, export, and release decisions. Charts show recorded training progress and inference tradeoffs. The Colab notebook creates its own plots from each run, including a confusion matrix, per-class recall, latency distributions, model sizes, quality scores, and release-gate outcomes.
-
-## Visual walkthrough
-
-[Browse all ten Colab figures as PNG or SVG](assets/colab-figures/README.md). These snapshots come from the recorded Colab run; running the notebook generates new charts from your own measurements.
+- Pin model and dataset revisions and keep training, validation, and test data separate.
+- Fine-tune a small subset of parameters with PEFT and run the training loop with Accelerate.
+- Export and quantize with Optimum, then evaluate the actual exported model.
+- Compare quality, per-class recall, latency distributions, and model size.
+- Use an executable release policy to catch regressions before deployment.
 
 ![Workflow through the Hugging Face ecosystem](assets/colab-figures/01_workflow.png)
 
+## Run the notebook
+
+1. **Open the Colab notebook** using the badge above. Save a copy to your Google Drive if you want to keep your edits and outputs.
+2. Select **Runtime → Change runtime type → T4 GPU**, if available, then choose **Runtime → Run all**. CPU execution is supported but full training takes longer.
+3. Follow the plots as the notebook trains, exports, evaluates, and benchmarks the model. Inspect the real release decision and the deliberately failing example.
+4. Try your own headlines in section 8. Download the generated results ZIP from Colab's **Files** sidebar before the runtime expires.
+
+No Hugging Face token, Drive mount, or paid API is required. The notebook includes its source and installs its dependencies. A complete run on a fresh Colab T4 took **about 16 minutes**, with all 11 code cells and ten figures completing successfully. Runtime availability and timing vary.
+
+To explore without running anything, open the [executed notebook](demo/Bringing_the_Heat_Colab_executed.ipynb) or the [hosted Colab with saved outputs](https://colab.research.google.com/drive/1Q9WkLenTKLEd-R0wTzsCgF1mrLS1NCIh). For local setup and commands, see the [demo README](demo/README.md).
+
+## Explore the materials
+
+| Resource | What you'll find |
+|---|---|
+| [Slides on Google Drive](https://drive.google.com/file/d/1cWJ_CbI899vkuPVZTnfYJgcGdz8jv3t7/view) | Process diagrams, training curves, measured comparisons, and deployment choices |
+| [PowerPoint](output/Bringing-the-Heat.pptx) / [offline slides](output/slides-offline.html) | Downloadable versions of the deck |
+| [Attendee handout](output/attendee-handout.md) | Tool map, exercises, and further reading |
+| [Figure gallery](assets/colab-figures/README.md) | All ten notebook figures as PNG and SVG |
+| [Measured results](output/measured-results.md) / [Colab validation](demo/COLAB_TESTED.md) | Results, hardware details, and benchmark conditions |
+| [Questions and answers](output/qa-guide.md) | Explanations of common fine-tuning and deployment questions |
+| [Deployment extensions](output/deployment-notes.md) | Paths to browser, ARM, multi-GPU, and managed serving |
+| [Muntaser's Hugging Face profile](https://huggingface.co/Jemsbhai) | The public MultiSpecQR models and datasets featured in the talk |
+
+## Read the results
+
 ![Measured CPU latency distribution and percentiles](assets/colab-figures/07_latency.png)
 
-## Talk arc
+The notebook generates its charts from each run's actual reports. The figure gallery preserves a completed Colab run; the deck's charts show a separate laptop run. Compare results within the same hardware and measurement protocol. Full reports and raw latency samples are available in [demo/results](demo/results/).
 
-| Minutes | Focus |
-|---|---|
-| 0–4 | Production expectations and your own Hub work |
-| 4–8 | Ecosystem roles, one task, reproducible data |
-| 8–16 | LoRA, Accelerate, and the candidate artifact |
-| 16–22 | Release criteria, ONNX INT8, measured results |
-| 22–28 | Deployment choices, notebook inference, ecosystem extras |
-| 28–30 | Takeaways for students and engineers |
-| 30–35 | Questions |
+A **BLOCK** result is useful evidence: inspect the failed check and its underlying examples. The supplied thresholds illustrate a release policy; set requirements for your own application before evaluating it. Small quality differences on this test set do not establish a general improvement.
 
-## Demonstration boundary
+## Try it yourself
 
-The core is DistilBERT + AG News, PEFT LoRA, Accelerate, Optimum ONNX, evaluation, a CPU benchmark, and inference. The local kit also includes a Gradio app. [Local validation](demo/TESTED.md) records executed checks, and [saved results](demo/results/) contain the presenter's laptop measurements.
+- Change the inference headlines and inspect where the classifier makes mistakes.
+- Compare overall accuracy with each class's recall and confusion-matrix row.
+- Compare PyTorch FP32, ONNX FP32, and ONNX INT8 on quality, latency, and weight size.
+- Adapt the workflow to another dataset using the [handout's exercises](output/attendee-handout.md). Establish new data splits and acceptance criteria before training.
 
-The slides' latency numbers come from that laptop. The Colab notebook records its own hardware and uses a separate, frozen teaching policy. A **BLOCK** result is valid evidence: inspect it rather than lowering thresholds after seeing the test results. Neither policy is a product SLA.
+The complete runnable example uses DistilBERT and AG News. Browser, ARM64, multi-GPU, QLoRA, and managed Endpoints are extension recipes, with their validation scope recorded in the materials. MultiSpecQR is a separate computer-vision project with its own model architecture.
 
-Browser, ARM64, multi-GPU, QLoRA, and managed Endpoints are explicitly labeled extension recipes. The personal MultiSpecQR showcase uses its own custom CNN library; it does not claim automatic compatibility with the classifier recipe.
-
-Public source metadata and official documentation were checked September 17, 2026. Rehearse on the event hardware and recheck hosting terms before the talk. The demo reads public Hub assets without publishing models or datasets to an account.
-
-This repository and the lightweight ZIP contain teaching materials, source, and recorded results. Python environments, cached downloads, trained weights, and internal build-validation files are excluded; the notebook regenerates its model artifacts.
+The repository and materials ZIP include source, slides, notebooks, figures, and recorded results. Running the notebook downloads the public inputs and regenerates model artifacts. Its final results bundle also includes the trained INT8 model, tokenizer, adapter, and reports.

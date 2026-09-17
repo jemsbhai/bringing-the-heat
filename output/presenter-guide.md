@@ -35,7 +35,7 @@
 
 ### 1. Bringing the Heat: Supercharging Your ML Pipelines with HuggingFace (0:00–0:45)
 
-OPEN (45 seconds). Ask for a quick show of hands: who has downloaded a model from the Hub, and who has had to support one after deployment? Pause briefly. Say: Today we will follow one model through a repeatable workflow. You will see the code, the evidence that could block a release, and the choices that change when the target hardware changes. Introduce yourself with the supplied bio: Muntaser Syed, Lead GenAI Engineer at Insight Global, formerly NVIDIA. Venue: Miami Dade College. Do not add employer performance claims.
+OPEN (45 seconds). Ask for a quick show of hands: who has downloaded a model from the Hub, and who has had to support one after deployment? Pause briefly. Say: Today we will follow one model through a repeatable workflow. You will see the code, the evidence that could block a release, and the choices that change when the target hardware changes. Introduce yourself with the supplied bio: Muntaser Syed, Lead GenAI Engineer at Insight Global, formerly NVIDIA. Academic affiliation: Florida Institute of Technology. Venue: Miami Dade College. Do not add employer performance claims.
 Transition: A notebook prediction is the beginning of the story.
 
 - <https://muntasersyed.com>

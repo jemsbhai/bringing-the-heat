@@ -2,7 +2,9 @@
 
 **Supercharging Your ML Pipelines with Hugging Face**  
 Muntaser Syed, Lead GenAI Engineer at Insight Global, formerly NVIDIA  
-Miami Dade College
+Academic affiliation: Florida Institute of Technology
+
+Venue: Miami Dade College
 
 ## The workflow
 

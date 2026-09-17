@@ -2,13 +2,13 @@
 
 One coherent path: **Hub + Datasets → Transformers → PEFT LoRA + Accelerate → Optimum ONNX INT8 → measured release gate → local Gradio UI**.
 
-The classifier routes AG News text to World, Sports, Business, or Sci/Tech. It is deliberately small enough to explain to students and concrete enough to discuss with ML engineers. Muntaser's custom MultiSpecQR assets are a separate Hub showcase: this transformer LoRA recipe does not pretend to fit that CNN architecture.
+Build a classifier that routes AG News text to World, Sports, Business, or Sci/Tech. Follow its data, training, exported artifacts, and release checks, then adapt the workflow to your own task. The MultiSpecQR models featured in the talk are a separate computer-vision example with their own CNN architecture.
 
 ## Run the full exercise in Google Colab
 
 Open **`Bringing_the_Heat_Colab.ipynb`**, choose **Runtime → Change runtime type → T4 GPU** when available, then **Runtime → Run all**. CPU also works but full training takes longer. The notebook performs the complete pipeline: dependency installation, pinned public downloads, three-epoch training, export/quantization, evaluation, CPU benchmark, real and deliberately failing gates, inference, and a downloadable artifact/evidence bundle. There are no replayed metrics or optional training skips.
 
-**Complete visual notebook tested on hosted Colab:** all 11 code cells completed on a T4/Python 3.13 runtime with zero errors and **ten inline figures**. The run reached its completion marker in **15 minutes 48 seconds**, followed by ZIP compression. The real gate passed and the deliberate regression correctly blocked. Full CPU evaluation was the longest stage. Pre-run before presenting; `Bringing_the_Heat_Colab_executed.ipynb` contains the latest verified outputs, and `COLAB_TESTED.md` records the environment and measurements. Its code exactly matches the clean, unexecuted notebook provided for a new run.
+**Complete visual notebook tested on hosted Colab:** all 11 code cells completed on a T4/Python 3.13 runtime with zero errors and **ten inline figures**. The run reached its completion marker in **15 minutes 48 seconds**, followed by ZIP compression. The real gate passed and the deliberate regression correctly blocked. Full CPU evaluation was the longest stage. To inspect results without running the exercise, open `Bringing_the_Heat_Colab_executed.ipynb`; `COLAB_TESTED.md` records the environment and measurements. Its code exactly matches the clean, unexecuted notebook provided for a new run.
 
 The visual notebook includes a workflow diagram, data-split provenance, a LoRA path and measured trainable-parameter budget, epoch loss/validation curves, export footprint, a confusion matrix with class-recall floors, latency distributions and p50/p95, quality-versus-size comparisons, a release-gate matrix, and inference score bars. Numeric plots read the current run's JSON reports. `visuals.py` is embedded in the notebook; Matplotlib is pinned in its isolated environment. The final bundle includes all ten figures as both PNG and SVG, so they can be reused in slides or handouts.
 
@@ -33,9 +33,9 @@ From this directory, with [uv installed](https://docs.astral.sh/uv/getting-start
 
 Python 3.12 is required. The dependency locks record the tested Windows environment. CPU and CUDA torch wheels have separate lock files. On Linux/macOS, use a Python 3.12 environment, install `requirements.lock`, then the appropriate PyTorch wheel for that platform; these platforms are not rehearsed here. There is no requirement for an HF login: the script explicitly downloads public data/model artifacts without a token. No upload, paid endpoint, or cloud resource is created.
 
-`prepare` downloads the exact commits in `hub_revisions.json` and writes `artifacts/manifest.json`. It preserves an existing prepared manifest. The public base weights are approximately 256 MiB. Package installation and first downloads belong in preparation, not on stage. Allow several GiB for dependencies, data and the exported artifacts.
+`prepare` downloads the exact commits in `hub_revisions.json` and writes `artifacts/manifest.json`. It preserves an existing prepared manifest. The public base weights are approximately 256 MiB. Allow time for the initial installation and downloads, and several GiB for dependencies, data and the exported artifacts.
 
-## Rehearse the real run
+## Run the local pipeline
 
 ```powershell
 ./rehearse.ps1       # Uses the GPU if available; -Cpu forces CPU
@@ -53,7 +53,7 @@ The underlying commands are intentionally simple:
 .venv/Scripts/python.exe app.py              # http://127.0.0.1:7860
 ```
 
-`Bringing_the_Heat.ipynb` is the talk driver. Start it with `.venv/Scripts/python.exe -m jupyterlab Bringing_the_Heat.ipynb`. Its ordinary cells replay measurements and run inference against prepared artifacts. A guarded optional cell runs five real training steps with `train --smoke` into a separate `smoke_adapter` so it cannot replace the rehearsed candidate.
+`Bringing_the_Heat.ipynb` is the local walkthrough. Start it with `.venv/Scripts/python.exe -m jupyterlab Bringing_the_Heat.ipynb`. Its ordinary cells display saved measurements and run inference against prepared artifacts. A guarded optional cell runs five real training steps with `train --smoke` into a separate `smoke_adapter`, preserving the fully trained candidate. Use the Colab notebook above for an end-to-end Run all exercise.
 
 On a Linux multi-GPU training host, the same training loop can be launched with:
 
@@ -84,9 +84,9 @@ The local Gradio app binds only to localhost, does not share publicly, and is a 
 
 `export --target arm64` is the analogous recipe for a target with ARM64, but this project has only measured AVX2 on the rehearsal laptop. An INT8 model running on a laptop CPU is a concrete constrained-device example, not evidence about every edge device.
 
-## On-stage fallback
+## Work offline with prepared artifacts
 
-Set `$env:HF_HUB_OFFLINE='1'` and `$env:HF_DATASETS_OFFLINE='1'` after preparation. `preflight`, training, exports, inference and results inspection use local inputs. Skip any long-running cell during the talk and open the existing JSON results. If the browser fails, the notebook's `classify` cell uses the exact same local model. If there is no GPU, use the prepared adapter; do not spend talk time retraining on CPU.
+After downloading inputs and preparing the local environment, set `$env:HF_HUB_OFFLINE='1'` and `$env:HF_DATASETS_OFFLINE='1'`. `preflight`, training, exports, inference and results inspection then use local inputs. If you have already trained and exported a model, you can inspect its JSON reports and run the notebook's `classify` cell without retraining. CPU training is available when no GPU is present, with longer execution times.
 
 ## Official API references
 
