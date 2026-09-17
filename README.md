@@ -14,8 +14,11 @@ Designed for students and working ML engineers. The talk opens with Muntaser's a
 
 No Hugging Face token, Drive mount, paid API, or public web server is required. The notebook embeds its source, so it starts from a fresh runtime. Colab availability varies; rehearse before presenting. The [Colab validation record](demo/COLAB_TESTED.md) separates actual Colab evidence from local checks.
 
+**Verified on a fresh Colab T4 runtime:** all 11 code cells completed in about 15½ minutes, including the full training/evaluation workflow, a passing teaching gate, a correctly blocked deliberate regression, and four inference examples. The [executed notebook](demo/Bringing_the_Heat_Colab_executed.ipynb) preserves the outputs. CPU evaluation took most of that time; run the complete notebook before the talk and rerun headline inference live.
+
 ## Start here
 
+- [Download the complete materials kit](https://github.com/jemsbhai/bringing-the-heat/releases/download/v1.0.0/Bringing-the-Heat-kit.zip): slides, notebooks, speaker materials, source, and recorded results.
 - [Public deck on Google Drive](https://drive.google.com/file/d/1cWJ_CbI899vkuPVZTnfYJgcGdz8jv3t7/view): the opening slide's QR code links here.
 - [Hosted Colab notebook](https://colab.research.google.com/drive/1Q9WkLenTKLEd-R0wTzsCgF1mrLS1NCIh): view the presenter's run or save your own copy. The badge above opens the versioned exercise from GitHub.
 - [Editable PowerPoint](output/Bringing-the-Heat.pptx): 17 talk slides, Q&A, and 4 appendix slides. Includes timed speaker notes and source links.

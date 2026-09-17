@@ -1,0 +1,1538 @@
+{
+  "validation_scope": "Actual Google Colab hosted T4 execution",
+  "notebook_url": "https://colab.research.google.com/drive/1Q9WkLenTKLEd-R0wTzsCgF1mrLS1NCIh",
+  "executed_code_cells": 11,
+  "cell_errors": 0,
+  "canonical_code_match": true,
+  "code_sha256": "54c59fde8bb281eb357ae0bf332f3cd3a75bb58dc38eec488b95e31858d61e8c",
+  "saved_notebook_sha256": "04f8e50cf2de3bf3c8609706f9cd0ed8806801a5d118a55471d281a23b7fd618",
+  "completion": {
+    "status": "ALL_PIPELINE_STAGES_COMPLETED",
+    "run_label": "20260917-160231-233039",
+    "completed_utc": "2026-09-17T16:17:52.637167+00:00",
+    "source_sha256": {
+      "demo.py": "fcb33be9f65bbb6ae7c66bc2276f4e867e43e39ff02553fbfced605e4e16f967",
+      "hub_revisions.json": "12c749a913590c8548fe58d1993d70e19d504ab2dbdecb34fda0f2c7df9ca808",
+      "requirements-colab.txt": "8d6ff599104806c9f4396622658cc630cbf945b873258a1052cd357ce4a9b726",
+      "colab_policy.json": "619185f5a200de8c8268f8b3720fd6859685bcc9bb573532cec3a8e0c501fef5"
+    },
+    "training_epochs": 3,
+    "smoke_only": false,
+    "environment": {
+      "python": "3.13.15",
+      "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+      "processor": "x86_64",
+      "cpu_logical_count": 2,
+      "cuda_available": true,
+      "gpu": "Tesla T4",
+      "packages": {
+        "torch": "2.11.0+cu128",
+        "transformers": "4.55.4",
+        "peft": "0.17.1",
+        "accelerate": "1.10.1",
+        "datasets": "4.0.0",
+        "optimum-onnx": "0.0.3",
+        "onnxruntime": "1.30.0",
+        "scikit-learn": "1.7.2",
+        "gradio": "6.26.0"
+      }
+    },
+    "gate_passed": true,
+    "deliberate_failure_blocked": true,
+    "inference_examples": 4
+  },
+  "command_wall_seconds": {
+    "create_environment": 0.1,
+    "install": 31.5,
+    "import_check": 24.7,
+    "prepare": 7.5,
+    "preflight": 7.1,
+    "train-epochs": 69.4,
+    "export-target": 27.6,
+    "evaluate": 683.3,
+    "benchmark-threads": 55.6,
+    "gate": 1.7,
+    "gate-inject-failure": 1.8,
+    "predict-threads": 10.8
+  },
+  "validation_history": [
+    {
+      "epoch": 1,
+      "loss": 0.4991258254647255,
+      "validation_macro_f1": 0.9014558517934996
+    },
+    {
+      "epoch": 2,
+      "loss": 0.2865968254953623,
+      "validation_macro_f1": 0.9001123408253887
+    },
+    {
+      "epoch": 3,
+      "loss": 0.25251735277473925,
+      "validation_macro_f1": 0.909692089790283
+    }
+  ],
+  "evaluation_summary": {
+    "pytorch": {
+      "n": 800,
+      "accuracy": 0.895,
+      "macro_f1": 0.8947334935235721
+    },
+    "onnx": {
+      "n": 800,
+      "accuracy": 0.895,
+      "macro_f1": 0.8947334935235721
+    },
+    "int8": {
+      "n": 800,
+      "accuracy": 0.89875,
+      "macro_f1": 0.8985763739035568
+    }
+  },
+  "majority_class_baseline": {
+    "chosen_label": "World",
+    "rule": "Most frequent training label; ties choose lowest label index",
+    "n": 800,
+    "accuracy": 0.25,
+    "macro_f1": 0.1,
+    "accuracy_95pct_wilson": [
+      0.2212364664027642,
+      0.28115305909579164
+    ],
+    "per_class": {
+      "World": {
+        "precision": 0.25,
+        "recall": 1.0,
+        "f1": 0.4,
+        "support": 200
+      },
+      "Sports": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 200
+      },
+      "Business": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 200
+      },
+      "Sci/Tech": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 200
+      }
+    },
+    "confusion_matrix": [
+      [
+        200,
+        0,
+        0,
+        0
+      ],
+      [
+        200,
+        0,
+        0,
+        0
+      ],
+      [
+        200,
+        0,
+        0,
+        0
+      ],
+      [
+        200,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  "int8_per_class": {
+    "World": {
+      "precision": 0.9243243243243243,
+      "recall": 0.855,
+      "f1": 0.8883116883116883,
+      "support": 200
+    },
+    "Sports": {
+      "precision": 0.9516908212560387,
+      "recall": 0.985,
+      "f1": 0.9680589680589681,
+      "support": 200
+    },
+    "Business": {
+      "precision": 0.8356807511737089,
+      "recall": 0.89,
+      "f1": 0.8619854721549637,
+      "support": 200
+    },
+    "Sci/Tech": {
+      "precision": 0.8871794871794871,
+      "recall": 0.865,
+      "f1": 0.8759493670886076,
+      "support": 200
+    }
+  },
+  "benchmark_summary_rounded_for_display": {
+    "pytorch": {
+      "p50_ms": 124.61,
+      "p95_ms": 251.38,
+      "weights_MiB": 255.43
+    },
+    "onnx": {
+      "p50_ms": 104.33,
+      "p95_ms": 223.92,
+      "weights_MiB": 255.53
+    },
+    "int8": {
+      "p50_ms": 103.66,
+      "p95_ms": 204.86,
+      "weights_MiB": 64.25
+    }
+  },
+  "gate": {
+    "passed": true,
+    "checks": {
+      "same_heldout_split": true,
+      "exact_runtime_artifacts": true,
+      "complete_class_report": true,
+      "benchmark_protocol": true,
+      "minimum_test_size": true,
+      "accuracy": true,
+      "macro_f1": true,
+      "every_class_recall": true,
+      "quantization_f1_regression": true,
+      "cpu_p95_latency": true,
+      "weight_size": true
+    },
+    "policy": {
+      "policy_scope": "Colab teaching policy; measurements belong to this VM, not a production or edge SLA",
+      "min_test_examples": 800,
+      "min_accuracy": 0.8,
+      "min_macro_f1": 0.8,
+      "min_class_recall": 0.65,
+      "max_macro_f1_drop": 0.02,
+      "benchmark_threads": 2,
+      "max_cpu_p95_ms": 250.0,
+      "max_weights_bytes": 104857600
+    },
+    "injected_failure": false,
+    "scope": "Teaching gate on this locked sample and CPU; not a production certification"
+  },
+  "deliberate_failure": {
+    "passed": false,
+    "checks": {
+      "same_heldout_split": true,
+      "exact_runtime_artifacts": true,
+      "complete_class_report": true,
+      "benchmark_protocol": true,
+      "minimum_test_size": true,
+      "accuracy": true,
+      "macro_f1": true,
+      "every_class_recall": false,
+      "quantization_f1_regression": true,
+      "cpu_p95_latency": true,
+      "weight_size": true
+    },
+    "policy": {
+      "policy_scope": "Colab teaching policy; measurements belong to this VM, not a production or edge SLA",
+      "min_test_examples": 800,
+      "min_accuracy": 0.8,
+      "min_macro_f1": 0.8,
+      "min_class_recall": 0.65,
+      "max_macro_f1_drop": 0.02,
+      "benchmark_threads": 2,
+      "max_cpu_p95_ms": 250.0,
+      "max_weights_bytes": 104857600
+    },
+    "injected_failure": true,
+    "scope": "Teaching gate on this locked sample and CPU; not a production certification"
+  },
+  "inference": {
+    "backend": "onnx_int8",
+    "artifact": {
+      "sha256": "f7745043e97246793cd89b1fa0341e35349c846bd5fa6eff5ba29c5b02e0dba1",
+      "files": {
+        "config.json": "2621fc586373cf114f6592e6a49429bb14349a9d26ec0072c99fc4d086a8b4bc",
+        "model_quantized.onnx": "9cfac96ba62cd7ae5510bd2dce1a8224a0ce9598c7feef95bdfe81a81e21c06b",
+        "ort_config.json": "62a98e992faf1b0af04e290a749ee1ea087cef9cd758615fc7b3cebf2446da1d",
+        "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+        "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+        "tokenizer_config.json": "a3c9410f27554c6e26af779fd147e536c6c5f9e5cb0e6b8f38ddaa25e1b0f6af",
+        "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+      },
+      "max_length": 128,
+      "truncation": true,
+      "label_order": [
+        "World",
+        "Sports",
+        "Business",
+        "Sci/Tech"
+      ]
+    },
+    "scores_are_calibrated": false,
+    "predictions": [
+      {
+        "text": "The Miami team won the championship after a dramatic final quarter.",
+        "label": "Sports",
+        "scores": {
+          "World": 0.004324177745729685,
+          "Sports": 0.9912737011909485,
+          "Business": 0.0038488872814923525,
+          "Sci/Tech": 0.0005532603827305138
+        }
+      },
+      {
+        "text": "Shares climbed after the company reported higher quarterly earnings.",
+        "label": "Business",
+        "scores": {
+          "World": 0.010276718996465206,
+          "Sports": 0.0004751763481181115,
+          "Business": 0.9839106798171997,
+          "Sci/Tech": 0.005337489768862724
+        }
+      },
+      {
+        "text": "Scientists unveiled a new processor for energy-efficient computing.",
+        "label": "Sci/Tech",
+        "scores": {
+          "World": 0.00865967757999897,
+          "Sports": 0.0002597396378405392,
+          "Business": 0.035234589129686356,
+          "Sci/Tech": 0.9558460116386414
+        }
+      },
+      {
+        "text": "Leaders met for talks on a new international peace agreement.",
+        "label": "World",
+        "scores": {
+          "World": 0.9687193632125854,
+          "Sports": 0.0040551163256168365,
+          "Business": 0.023900335654616356,
+          "Sci/Tech": 0.003325133351609111
+        }
+      }
+    ]
+  },
+  "evidence_note": "Saved Colab outputs verified against canonical notebook. Exact runtime JSON reports, raw latency samples and artifact identities were retrieved from the downloaded runtime-generated ZIP; the display summary remains labeled as rounded.",
+  "runtime_reports": {
+    "preflight": {
+      "status": "PASS",
+      "environment": {
+        "python": "3.13.15",
+        "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+        "processor": "x86_64",
+        "cpu_logical_count": 2,
+        "cuda_available": true,
+        "gpu": "Tesla T4",
+        "packages": {
+          "torch": "2.11.0+cu128",
+          "transformers": "4.55.4",
+          "peft": "0.17.1",
+          "accelerate": "1.10.1",
+          "datasets": "4.0.0",
+          "optimum-onnx": "0.0.3",
+          "onnxruntime": "1.30.0",
+          "scikit-learn": "1.7.2",
+          "gradio": "6.26.0"
+        }
+      },
+      "split_integrity": "PASS",
+      "cpu_threads_for_benchmark": 2,
+      "cuda_smoke": 32.0
+    },
+    "training": {
+      "environment": {
+        "python": "3.13.15",
+        "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+        "processor": "x86_64",
+        "cpu_logical_count": 2,
+        "cuda_available": true,
+        "gpu": "Tesla T4",
+        "packages": {
+          "torch": "2.11.0+cu128",
+          "transformers": "4.55.4",
+          "peft": "0.17.1",
+          "accelerate": "1.10.1",
+          "datasets": "4.0.0",
+          "optimum-onnx": "0.0.3",
+          "onnxruntime": "1.30.0",
+          "scikit-learn": "1.7.2",
+          "gradio": "6.26.0"
+        }
+      },
+      "seconds": 57.714752171999976,
+      "seed": 42,
+      "epochs": 3,
+      "smoke_only": false,
+      "learning_rate": 0.0003,
+      "per_device_batch_size": 32,
+      "world_size": 1,
+      "effective_batch_size": 32,
+      "trainable_parameters": 741124,
+      "total_parameters": 67697672,
+      "trainable_percent": 1.0947555183286066,
+      "selection": "highest validation macro F1",
+      "history": [
+        {
+          "epoch": 1,
+          "mean_loss": 0.4991258254647255,
+          "validation": {
+            "n": 400,
+            "accuracy": 0.9025,
+            "macro_f1": 0.9014558517934996,
+            "accuracy_95pct_wilson": [
+              0.8694870411682052,
+              0.9278552831490519
+            ],
+            "per_class": {
+              "World": {
+                "precision": 0.9134615384615384,
+                "recall": 0.95,
+                "f1": 0.9313725490196079,
+                "support": 100
+              },
+              "Sports": {
+                "precision": 0.98,
+                "recall": 0.98,
+                "f1": 0.98,
+                "support": 100
+              },
+              "Business": {
+                "precision": 0.8141592920353983,
+                "recall": 0.92,
+                "f1": 0.863849765258216,
+                "support": 100
+              },
+              "Sci/Tech": {
+                "precision": 0.9156626506024096,
+                "recall": 0.76,
+                "f1": 0.8306010928961749,
+                "support": 100
+              }
+            },
+            "confusion_matrix": [
+              [
+                95,
+                1,
+                4,
+                0
+              ],
+              [
+                0,
+                98,
+                0,
+                2
+              ],
+              [
+                3,
+                0,
+                92,
+                5
+              ],
+              [
+                6,
+                1,
+                17,
+                76
+              ]
+            ]
+          }
+        },
+        {
+          "epoch": 2,
+          "mean_loss": 0.2865968254953623,
+          "validation": {
+            "n": 400,
+            "accuracy": 0.9,
+            "macro_f1": 0.9001123408253887,
+            "accuracy_95pct_wilson": [
+              0.8666887392099005,
+              0.925701148310355
+            ],
+            "per_class": {
+              "World": {
+                "precision": 0.9191919191919192,
+                "recall": 0.91,
+                "f1": 0.914572864321608,
+                "support": 100
+              },
+              "Sports": {
+                "precision": 0.98,
+                "recall": 0.98,
+                "f1": 0.98,
+                "support": 100
+              },
+              "Business": {
+                "precision": 0.8673469387755102,
+                "recall": 0.85,
+                "f1": 0.8585858585858586,
+                "support": 100
+              },
+              "Sci/Tech": {
+                "precision": 0.8349514563106796,
+                "recall": 0.86,
+                "f1": 0.8472906403940886,
+                "support": 100
+              }
+            },
+            "confusion_matrix": [
+              [
+                91,
+                1,
+                4,
+                4
+              ],
+              [
+                0,
+                98,
+                0,
+                2
+              ],
+              [
+                4,
+                0,
+                85,
+                11
+              ],
+              [
+                4,
+                1,
+                9,
+                86
+              ]
+            ]
+          }
+        },
+        {
+          "epoch": 3,
+          "mean_loss": 0.25251735277473925,
+          "validation": {
+            "n": 400,
+            "accuracy": 0.91,
+            "macro_f1": 0.909692089790283,
+            "accuracy_95pct_wilson": [
+              0.877916547675384,
+              0.9342830870328781
+            ],
+            "per_class": {
+              "World": {
+                "precision": 0.9306930693069307,
+                "recall": 0.94,
+                "f1": 0.9353233830845771,
+                "support": 100
+              },
+              "Sports": {
+                "precision": 0.98,
+                "recall": 0.98,
+                "f1": 0.98,
+                "support": 100
+              },
+              "Business": {
+                "precision": 0.8348623853211009,
+                "recall": 0.91,
+                "f1": 0.8708133971291866,
+                "support": 100
+              },
+              "Sci/Tech": {
+                "precision": 0.9,
+                "recall": 0.81,
+                "f1": 0.8526315789473684,
+                "support": 100
+              }
+            },
+            "confusion_matrix": [
+              [
+                94,
+                1,
+                4,
+                1
+              ],
+              [
+                0,
+                98,
+                0,
+                2
+              ],
+              [
+                3,
+                0,
+                91,
+                6
+              ],
+              [
+                4,
+                1,
+                14,
+                81
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    "evaluation": {
+      "split": "locked test",
+      "split_sha256": "1700db6e66621dcb489759df8c6cce4004334c9815054b9dc6bbfbb293a26721",
+      "models": {
+        "pytorch": {
+          "n": 800,
+          "accuracy": 0.895,
+          "macro_f1": 0.8947334935235721,
+          "accuracy_95pct_wilson": [
+            0.87183611863204,
+            0.9143884310802417
+          ],
+          "per_class": {
+            "World": {
+              "precision": 0.9052631578947369,
+              "recall": 0.86,
+              "f1": 0.882051282051282,
+              "support": 200
+            },
+            "Sports": {
+              "precision": 0.9514563106796117,
+              "recall": 0.98,
+              "f1": 0.9655172413793104,
+              "support": 200
+            },
+            "Business": {
+              "precision": 0.8536585365853658,
+              "recall": 0.875,
+              "f1": 0.8641975308641975,
+              "support": 200
+            },
+            "Sci/Tech": {
+              "precision": 0.8693467336683417,
+              "recall": 0.865,
+              "f1": 0.8671679197994987,
+              "support": 200
+            }
+          },
+          "confusion_matrix": [
+            [
+              172,
+              10,
+              9,
+              9
+            ],
+            [
+              2,
+              196,
+              1,
+              1
+            ],
+            [
+              9,
+              0,
+              175,
+              16
+            ],
+            [
+              7,
+              0,
+              20,
+              173
+            ]
+          ]
+        },
+        "onnx": {
+          "n": 800,
+          "accuracy": 0.895,
+          "macro_f1": 0.8947334935235721,
+          "accuracy_95pct_wilson": [
+            0.87183611863204,
+            0.9143884310802417
+          ],
+          "per_class": {
+            "World": {
+              "precision": 0.9052631578947369,
+              "recall": 0.86,
+              "f1": 0.882051282051282,
+              "support": 200
+            },
+            "Sports": {
+              "precision": 0.9514563106796117,
+              "recall": 0.98,
+              "f1": 0.9655172413793104,
+              "support": 200
+            },
+            "Business": {
+              "precision": 0.8536585365853658,
+              "recall": 0.875,
+              "f1": 0.8641975308641975,
+              "support": 200
+            },
+            "Sci/Tech": {
+              "precision": 0.8693467336683417,
+              "recall": 0.865,
+              "f1": 0.8671679197994987,
+              "support": 200
+            }
+          },
+          "confusion_matrix": [
+            [
+              172,
+              10,
+              9,
+              9
+            ],
+            [
+              2,
+              196,
+              1,
+              1
+            ],
+            [
+              9,
+              0,
+              175,
+              16
+            ],
+            [
+              7,
+              0,
+              20,
+              173
+            ]
+          ]
+        },
+        "int8": {
+          "n": 800,
+          "accuracy": 0.89875,
+          "macro_f1": 0.8985763739035568,
+          "accuracy_95pct_wilson": [
+            0.8759035400979053,
+            0.917785166731898
+          ],
+          "per_class": {
+            "World": {
+              "precision": 0.9243243243243243,
+              "recall": 0.855,
+              "f1": 0.8883116883116883,
+              "support": 200
+            },
+            "Sports": {
+              "precision": 0.9516908212560387,
+              "recall": 0.985,
+              "f1": 0.9680589680589681,
+              "support": 200
+            },
+            "Business": {
+              "precision": 0.8356807511737089,
+              "recall": 0.89,
+              "f1": 0.8619854721549637,
+              "support": 200
+            },
+            "Sci/Tech": {
+              "precision": 0.8871794871794871,
+              "recall": 0.865,
+              "f1": 0.8759493670886076,
+              "support": 200
+            }
+          },
+          "confusion_matrix": [
+            [
+              171,
+              10,
+              13,
+              6
+            ],
+            [
+              1,
+              197,
+              1,
+              1
+            ],
+            [
+              7,
+              0,
+              178,
+              15
+            ],
+            [
+              6,
+              0,
+              21,
+              173
+            ]
+          ]
+        }
+      },
+      "environment": {
+        "python": "3.13.15",
+        "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+        "processor": "x86_64",
+        "cpu_logical_count": 2,
+        "cuda_available": true,
+        "gpu": "Tesla T4",
+        "packages": {
+          "torch": "2.11.0+cu128",
+          "transformers": "4.55.4",
+          "peft": "0.17.1",
+          "accelerate": "1.10.1",
+          "datasets": "4.0.0",
+          "optimum-onnx": "0.0.3",
+          "onnxruntime": "1.30.0",
+          "scikit-learn": "1.7.2",
+          "gradio": "6.26.0"
+        }
+      },
+      "artifacts": {
+        "pytorch": {
+          "sha256": "ff9d1d73d64191a501167295ef9ec6dc336cb2d340009f2b2efb5845a7bac454",
+          "files": {
+            "config.json": "2621fc586373cf114f6592e6a49429bb14349a9d26ec0072c99fc4d086a8b4bc",
+            "model.safetensors": "c58df68b45e00c9f94ca2ece930799295afa36de677a58ed70f7bdf8943ec398",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+            "tokenizer_config.json": "a3c9410f27554c6e26af779fd147e536c6c5f9e5cb0e6b8f38ddaa25e1b0f6af",
+            "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+          },
+          "max_length": 128,
+          "truncation": true,
+          "label_order": [
+            "World",
+            "Sports",
+            "Business",
+            "Sci/Tech"
+          ]
+        },
+        "onnx": {
+          "sha256": "b0d0d90398d924b3d25c0b889b0731379c4b21931a8275fc454f9aa1342bf506",
+          "files": {
+            "config.json": "2621fc586373cf114f6592e6a49429bb14349a9d26ec0072c99fc4d086a8b4bc",
+            "model.onnx": "0b7b33fffb42228ad097317a15431e23c307c9ea2bc8a531c9e985ffddedfa3b",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+            "tokenizer_config.json": "a3c9410f27554c6e26af779fd147e536c6c5f9e5cb0e6b8f38ddaa25e1b0f6af",
+            "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+          },
+          "max_length": 128,
+          "truncation": true,
+          "label_order": [
+            "World",
+            "Sports",
+            "Business",
+            "Sci/Tech"
+          ]
+        },
+        "int8": {
+          "sha256": "f7745043e97246793cd89b1fa0341e35349c846bd5fa6eff5ba29c5b02e0dba1",
+          "files": {
+            "config.json": "2621fc586373cf114f6592e6a49429bb14349a9d26ec0072c99fc4d086a8b4bc",
+            "model_quantized.onnx": "9cfac96ba62cd7ae5510bd2dce1a8224a0ce9598c7feef95bdfe81a81e21c06b",
+            "ort_config.json": "62a98e992faf1b0af04e290a749ee1ea087cef9cd758615fc7b3cebf2446da1d",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+            "tokenizer_config.json": "a3c9410f27554c6e26af779fd147e536c6c5f9e5cb0e6b8f38ddaa25e1b0f6af",
+            "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+          },
+          "max_length": 128,
+          "truncation": true,
+          "label_order": [
+            "World",
+            "Sports",
+            "Business",
+            "Sci/Tech"
+          ]
+        }
+      },
+      "majority_class_baseline": {
+        "chosen_label": "World",
+        "rule": "Most frequent training label; ties choose lowest label index",
+        "n": 800,
+        "accuracy": 0.25,
+        "macro_f1": 0.1,
+        "accuracy_95pct_wilson": [
+          0.2212364664027642,
+          0.28115305909579164
+        ],
+        "per_class": {
+          "World": {
+            "precision": 0.25,
+            "recall": 1.0,
+            "f1": 0.4,
+            "support": 200
+          },
+          "Sports": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 200
+          },
+          "Business": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 200
+          },
+          "Sci/Tech": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 200
+          }
+        },
+        "confusion_matrix": [
+          [
+            200,
+            0,
+            0,
+            0
+          ],
+          [
+            200,
+            0,
+            0,
+            0
+          ],
+          [
+            200,
+            0,
+            0,
+            0
+          ],
+          [
+            200,
+            0,
+            0,
+            0
+          ]
+        ]
+      }
+    },
+    "benchmark": {
+      "environment": {
+        "python": "3.13.15",
+        "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+        "processor": "x86_64",
+        "cpu_logical_count": 2,
+        "cuda_available": true,
+        "gpu": "Tesla T4",
+        "packages": {
+          "torch": "2.11.0+cu128",
+          "transformers": "4.55.4",
+          "peft": "0.17.1",
+          "accelerate": "1.10.1",
+          "datasets": "4.0.0",
+          "optimum-onnx": "0.0.3",
+          "onnxruntime": "1.30.0",
+          "scikit-learn": "1.7.2",
+          "gradio": "6.26.0"
+        }
+      },
+      "threads": 2,
+      "batch_size": 1,
+      "sequence_length": 128,
+      "samples": 100,
+      "warmup": 10,
+      "device": "CPU",
+      "timing_scope": "Tokenization + model forward, sequential batch=1 requests; excludes load, networking and queueing",
+      "split_sha256": "1700db6e66621dcb489759df8c6cce4004334c9815054b9dc6bbfbb293a26721",
+      "models": {
+        "pytorch": {
+          "latencies_ms": [
+            143.880092,
+            115.463471,
+            117.317289,
+            116.393068,
+            119.786951,
+            117.179107,
+            119.474729,
+            127.859222,
+            120.902233,
+            152.052576,
+            122.582961,
+            127.026308,
+            130.213506,
+            120.673284,
+            121.157373,
+            124.834032,
+            120.208072,
+            146.212088,
+            124.788671,
+            129.701675,
+            118.00908,
+            127.70452,
+            116.555709,
+            121.466809,
+            118.943058,
+            126.38218,
+            140.796003,
+            123.134337,
+            140.686536,
+            125.327681,
+            144.551965,
+            142.134475,
+            124.426913,
+            143.664029,
+            138.03377,
+            126.917809,
+            129.723174,
+            128.053439,
+            121.20018,
+            122.081776,
+            115.819283,
+            120.986099,
+            146.593494,
+            127.424796,
+            121.309185,
+            122.152485,
+            122.646723,
+            124.024826,
+            119.822119,
+            120.996032,
+            146.568008,
+            123.22392,
+            130.893175,
+            119.758396,
+            123.688556,
+            126.263682,
+            122.079466,
+            121.263317,
+            129.313036,
+            137.665564,
+            119.434423,
+            120.149507,
+            122.807393,
+            122.050109,
+            115.182254,
+            119.082413,
+            118.056102,
+            148.911897,
+            125.358208,
+            123.4942,
+            131.71173,
+            122.966267,
+            122.600437,
+            131.091281,
+            208.728161,
+            240.818476,
+            260.173708,
+            478.448973,
+            488.335088,
+            235.857296,
+            202.002219,
+            251.56165,
+            279.593734,
+            203.764088,
+            211.01937,
+            251.374699,
+            132.427096,
+            146.393814,
+            126.074269,
+            119.021537,
+            122.764051,
+            119.174295,
+            119.860121,
+            120.825727,
+            120.82981,
+            146.748775,
+            126.462043,
+            156.593209,
+            121.588305,
+            122.977407
+          ],
+          "p50_ms": 124.60779199999999,
+          "p95_ms": 251.38404655,
+          "mean_ms": 144.76306455,
+          "sequential_requests_per_second": 6.90783939334614,
+          "weights_bytes": 267838720
+        },
+        "onnx": {
+          "latencies_ms": [
+            109.404563,
+            99.709671,
+            103.586272,
+            100.8511,
+            105.46463,
+            104.15797,
+            100.830752,
+            103.439002,
+            100.07182,
+            154.822442,
+            105.13372,
+            99.833937,
+            100.364753,
+            101.57995,
+            102.779627,
+            100.108631,
+            104.125679,
+            102.218359,
+            105.621295,
+            129.777502,
+            101.567942,
+            103.678248,
+            103.306003,
+            101.534353,
+            103.083546,
+            100.456506,
+            101.714202,
+            98.695627,
+            107.175699,
+            125.804541,
+            99.101554,
+            101.91088,
+            99.686672,
+            175.657393,
+            189.288319,
+            214.85382,
+            223.666071,
+            217.462916,
+            254.998554,
+            243.961764,
+            222.289421,
+            238.875006,
+            228.787119,
+            175.943997,
+            211.673612,
+            205.455589,
+            202.386421,
+            169.689859,
+            233.926749,
+            170.980219,
+            105.76129,
+            99.422688,
+            103.423585,
+            126.944346,
+            105.214793,
+            100.753878,
+            103.049654,
+            100.296833,
+            106.644226,
+            107.452598,
+            101.42825,
+            102.765291,
+            100.760219,
+            137.538391,
+            161.2068,
+            103.377348,
+            104.487928,
+            108.116504,
+            109.685357,
+            101.530109,
+            119.463413,
+            111.25367,
+            131.366571,
+            105.829974,
+            104.445182,
+            101.522406,
+            107.437056,
+            110.284251,
+            100.927389,
+            102.011698,
+            102.069431,
+            110.203361,
+            131.567338,
+            107.667739,
+            102.496326,
+            101.198382,
+            103.223931,
+            105.059701,
+            101.276974,
+            104.218002,
+            103.705901,
+            105.204794,
+            130.908054,
+            103.085541,
+            99.586106,
+            104.478561,
+            107.658458,
+            98.761908,
+            102.374342,
+            100.420716
+          ],
+          "p50_ms": 104.331592,
+          "p95_ms": 223.92212339999998,
+          "mean_ms": 124.71061541,
+          "sequential_requests_per_second": 8.018563589894805,
+          "weights_bytes": 267938324
+        },
+        "int8": {
+          "latencies_ms": [
+            126.834497,
+            102.017219,
+            108.871294,
+            126.428018,
+            99.81812,
+            101.13267,
+            104.123787,
+            99.874995,
+            103.371633,
+            112.863628,
+            132.883614,
+            128.224736,
+            112.877227,
+            109.343663,
+            105.105608,
+            125.427985,
+            101.059475,
+            98.32036,
+            114.581879,
+            121.663868,
+            102.774769,
+            103.509823,
+            100.826556,
+            97.699587,
+            98.561548,
+            99.49631,
+            99.060072,
+            102.232706,
+            105.375093,
+            106.417385,
+            155.734119,
+            160.949817,
+            157.104793,
+            187.932494,
+            198.258503,
+            203.533191,
+            212.886506,
+            217.243389,
+            204.766917,
+            199.973187,
+            203.93502,
+            185.923356,
+            208.000955,
+            206.721519,
+            197.488159,
+            162.167204,
+            214.01976,
+            156.394019,
+            98.340468,
+            101.307755,
+            98.185927,
+            101.027414,
+            98.254084,
+            98.750713,
+            96.544716,
+            98.006108,
+            124.373636,
+            100.272189,
+            100.55821,
+            101.056833,
+            99.282789,
+            103.614749,
+            99.767147,
+            102.469147,
+            105.368915,
+            107.818835,
+            126.220378,
+            103.548142,
+            104.08976,
+            102.61761,
+            101.450818,
+            100.449537,
+            97.411955,
+            103.93209,
+            101.352827,
+            101.387389,
+            113.227484,
+            106.161525,
+            104.372875,
+            102.477923,
+            101.599626,
+            97.247312,
+            101.457962,
+            102.81679,
+            103.415304,
+            103.700263,
+            105.528771,
+            118.915008,
+            102.607086,
+            100.34431,
+            105.373328,
+            95.979389,
+            98.67427,
+            102.831926,
+            109.026407,
+            99.185617,
+            102.403973,
+            130.284654,
+            136.052062,
+            110.116356
+          ],
+          "p50_ms": 103.65750600000001,
+          "p95_ms": 204.8646471,
+          "mean_ms": 121.15071395,
+          "sequential_requests_per_second": 8.25418165024359,
+          "weights_bytes": 67370935
+        }
+      },
+      "artifacts": {
+        "pytorch": {
+          "sha256": "ff9d1d73d64191a501167295ef9ec6dc336cb2d340009f2b2efb5845a7bac454",
+          "files": {
+            "config.json": "2621fc586373cf114f6592e6a49429bb14349a9d26ec0072c99fc4d086a8b4bc",
+            "model.safetensors": "c58df68b45e00c9f94ca2ece930799295afa36de677a58ed70f7bdf8943ec398",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+            "tokenizer_config.json": "a3c9410f27554c6e26af779fd147e536c6c5f9e5cb0e6b8f38ddaa25e1b0f6af",
+            "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+          },
+          "max_length": 128,
+          "truncation": true,
+          "label_order": [
+            "World",
+            "Sports",
+            "Business",
+            "Sci/Tech"
+          ]
+        },
+        "onnx": {
+          "sha256": "b0d0d90398d924b3d25c0b889b0731379c4b21931a8275fc454f9aa1342bf506",
+          "files": {
+            "config.json": "2621fc586373cf114f6592e6a49429bb14349a9d26ec0072c99fc4d086a8b4bc",
+            "model.onnx": "0b7b33fffb42228ad097317a15431e23c307c9ea2bc8a531c9e985ffddedfa3b",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+            "tokenizer_config.json": "a3c9410f27554c6e26af779fd147e536c6c5f9e5cb0e6b8f38ddaa25e1b0f6af",
+            "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+          },
+          "max_length": 128,
+          "truncation": true,
+          "label_order": [
+            "World",
+            "Sports",
+            "Business",
+            "Sci/Tech"
+          ]
+        },
+        "int8": {
+          "sha256": "f7745043e97246793cd89b1fa0341e35349c846bd5fa6eff5ba29c5b02e0dba1",
+          "files": {
+            "config.json": "2621fc586373cf114f6592e6a49429bb14349a9d26ec0072c99fc4d086a8b4bc",
+            "model_quantized.onnx": "9cfac96ba62cd7ae5510bd2dce1a8224a0ce9598c7feef95bdfe81a81e21c06b",
+            "ort_config.json": "62a98e992faf1b0af04e290a749ee1ea087cef9cd758615fc7b3cebf2446da1d",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+            "tokenizer_config.json": "a3c9410f27554c6e26af779fd147e536c6c5f9e5cb0e6b8f38ddaa25e1b0f6af",
+            "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+          },
+          "max_length": 128,
+          "truncation": true,
+          "label_order": [
+            "World",
+            "Sports",
+            "Business",
+            "Sci/Tech"
+          ]
+        }
+      }
+    },
+    "gate": {
+      "passed": true,
+      "checks": {
+        "same_heldout_split": true,
+        "exact_runtime_artifacts": true,
+        "complete_class_report": true,
+        "benchmark_protocol": true,
+        "minimum_test_size": true,
+        "accuracy": true,
+        "macro_f1": true,
+        "every_class_recall": true,
+        "quantization_f1_regression": true,
+        "cpu_p95_latency": true,
+        "weight_size": true
+      },
+      "policy": {
+        "policy_scope": "Colab teaching policy; measurements belong to this VM, not a production or edge SLA",
+        "min_test_examples": 800,
+        "min_accuracy": 0.8,
+        "min_macro_f1": 0.8,
+        "min_class_recall": 0.65,
+        "max_macro_f1_drop": 0.02,
+        "benchmark_threads": 2,
+        "max_cpu_p95_ms": 250.0,
+        "max_weights_bytes": 104857600
+      },
+      "injected_failure": false,
+      "scope": "Teaching gate on this locked sample and CPU; not a production certification"
+    },
+    "gate_deliberate_failure": {
+      "passed": false,
+      "checks": {
+        "same_heldout_split": true,
+        "exact_runtime_artifacts": true,
+        "complete_class_report": true,
+        "benchmark_protocol": true,
+        "minimum_test_size": true,
+        "accuracy": true,
+        "macro_f1": true,
+        "every_class_recall": false,
+        "quantization_f1_regression": true,
+        "cpu_p95_latency": true,
+        "weight_size": true
+      },
+      "policy": {
+        "policy_scope": "Colab teaching policy; measurements belong to this VM, not a production or edge SLA",
+        "min_test_examples": 800,
+        "min_accuracy": 0.8,
+        "min_macro_f1": 0.8,
+        "min_class_recall": 0.65,
+        "max_macro_f1_drop": 0.02,
+        "benchmark_threads": 2,
+        "max_cpu_p95_ms": 250.0,
+        "max_weights_bytes": 104857600
+      },
+      "injected_failure": true,
+      "scope": "Teaching gate on this locked sample and CPU; not a production certification"
+    },
+    "inference": {
+      "backend": "onnx_int8",
+      "artifact": {
+        "sha256": "f7745043e97246793cd89b1fa0341e35349c846bd5fa6eff5ba29c5b02e0dba1",
+        "files": {
+          "config.json": "2621fc586373cf114f6592e6a49429bb14349a9d26ec0072c99fc4d086a8b4bc",
+          "model_quantized.onnx": "9cfac96ba62cd7ae5510bd2dce1a8224a0ce9598c7feef95bdfe81a81e21c06b",
+          "ort_config.json": "62a98e992faf1b0af04e290a749ee1ea087cef9cd758615fc7b3cebf2446da1d",
+          "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+          "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+          "tokenizer_config.json": "a3c9410f27554c6e26af779fd147e536c6c5f9e5cb0e6b8f38ddaa25e1b0f6af",
+          "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+        },
+        "max_length": 128,
+        "truncation": true,
+        "label_order": [
+          "World",
+          "Sports",
+          "Business",
+          "Sci/Tech"
+        ]
+      },
+      "scores_are_calibrated": false,
+      "predictions": [
+        {
+          "text": "The Miami team won the championship after a dramatic final quarter.",
+          "label": "Sports",
+          "scores": {
+            "World": 0.004324177745729685,
+            "Sports": 0.9912737011909485,
+            "Business": 0.0038488872814923525,
+            "Sci/Tech": 0.0005532603827305138
+          }
+        },
+        {
+          "text": "Shares climbed after the company reported higher quarterly earnings.",
+          "label": "Business",
+          "scores": {
+            "World": 0.010276718996465206,
+            "Sports": 0.0004751763481181115,
+            "Business": 0.9839106798171997,
+            "Sci/Tech": 0.005337489768862724
+          }
+        },
+        {
+          "text": "Scientists unveiled a new processor for energy-efficient computing.",
+          "label": "Sci/Tech",
+          "scores": {
+            "World": 0.00865967757999897,
+            "Sports": 0.0002597396378405392,
+            "Business": 0.035234589129686356,
+            "Sci/Tech": 0.9558460116386414
+          }
+        },
+        {
+          "text": "Leaders met for talks on a new international peace agreement.",
+          "label": "World",
+          "scores": {
+            "World": 0.9687193632125854,
+            "Sports": 0.0040551163256168365,
+            "Business": 0.023900335654616356,
+            "Sci/Tech": 0.003325133351609111
+          }
+        }
+      ]
+    },
+    "run_complete": {
+      "status": "ALL_PIPELINE_STAGES_COMPLETED",
+      "run_label": "20260917-160231-233039",
+      "completed_utc": "2026-09-17T16:17:52.637167+00:00",
+      "source_sha256": {
+        "demo.py": "fcb33be9f65bbb6ae7c66bc2276f4e867e43e39ff02553fbfced605e4e16f967",
+        "hub_revisions.json": "12c749a913590c8548fe58d1993d70e19d504ab2dbdecb34fda0f2c7df9ca808",
+        "requirements-colab.txt": "8d6ff599104806c9f4396622658cc630cbf945b873258a1052cd357ce4a9b726",
+        "colab_policy.json": "619185f5a200de8c8268f8b3720fd6859685bcc9bb573532cec3a8e0c501fef5"
+      },
+      "training_epochs": 3,
+      "smoke_only": false,
+      "environment": {
+        "python": "3.13.15",
+        "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+        "processor": "x86_64",
+        "cpu_logical_count": 2,
+        "cuda_available": true,
+        "gpu": "Tesla T4",
+        "packages": {
+          "torch": "2.11.0+cu128",
+          "transformers": "4.55.4",
+          "peft": "0.17.1",
+          "accelerate": "1.10.1",
+          "datasets": "4.0.0",
+          "optimum-onnx": "0.0.3",
+          "onnxruntime": "1.30.0",
+          "scikit-learn": "1.7.2",
+          "gradio": "6.26.0"
+        }
+      },
+      "gate_passed": true,
+      "deliberate_failure_blocked": true,
+      "inference_examples": 4
+    }
+  },
+  "input_manifest": {
+    "model_id": "distilbert/distilbert-base-uncased",
+    "dataset_id": "fancyzhx/ag_news",
+    "model_revision": "12040accade4e8a0f71eabdb258fecc2e7e948be",
+    "dataset_revision": "eb185aade064a813bc0b7f42de02595523103ca4",
+    "seed": 42,
+    "max_length": 128,
+    "labels": [
+      "World",
+      "Sports",
+      "Business",
+      "Sci/Tech"
+    ],
+    "splits": {
+      "train": {
+        "count": 3200,
+        "sha256": "1b033d9aaba70e652f2fa28784f2dfad9a7be4be3fe0356b5a4a4b234f784ff8",
+        "class_counts": [
+          800,
+          800,
+          800,
+          800
+        ]
+      },
+      "validation": {
+        "count": 400,
+        "sha256": "bbd740e09897eb64112112d989eabf910ce12d113d669cd545be3e19f2e4a602",
+        "class_counts": [
+          100,
+          100,
+          100,
+          100
+        ]
+      },
+      "test": {
+        "count": 800,
+        "sha256": "1700db6e66621dcb489759df8c6cce4004334c9815054b9dc6bbfbb293a26721",
+        "class_counts": [
+          200,
+          200,
+          200,
+          200
+        ]
+      }
+    },
+    "split_policy": "Balanced fixed subsets; validation from official train, test from official test; normalized exact-text deduplication across all subsets. Near duplicates are not detected.",
+    "policy_sha256": "619185f5a200de8c8268f8b3720fd6859685bcc9bb573532cec3a8e0c501fef5",
+    "created_utc": "2026-09-17T16:03:34Z"
+  },
+  "artifact_bundle_sha256": "250ba27abdd57b1b9a2a0e3488dcbaa02db3ed7776196f5934c7ea9053c7bbb3"
+}

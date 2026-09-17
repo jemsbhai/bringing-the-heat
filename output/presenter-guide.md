@@ -162,7 +162,7 @@ Transition: Serving the file still leaves release operations.
 
 ### 15. A deployment you can operate (24:00–26:00)
 
-2 minutes including local app switch. Start the prepared Gradio app or use the already running localhost tab. Submit a short example and show the model/runtime identity. This proves an exported model can back an interface; it is a local demo, not a production deployment. Explain the remaining service work: auth for sensitive access, input limits, health/readiness checks, concurrency/load testing, structured logs, monitored quality, and rollback to an immutable artifact. A Space is useful for sharing a demo; a dedicated Endpoint or owned service can meet different operational requirements. No paid resources or public writes are required in this talk package.
+2 minutes including the Colab demo. Open notebook section 8, change HEADLINES, and rerun the inference cell. Point to the exported INT8 artifact that the cell loads and show the resulting predictions. The local Gradio app is an optional fallback if Colab is unavailable. This demonstrates the exported model artifact in an interactive demo. Explain the remaining service work: auth for sensitive access, input limits, health/readiness checks, concurrency/load testing, structured logs, monitored quality, and rollback to an immutable artifact. A Space is useful for sharing a demo; a dedicated Endpoint or owned service can meet different operational requirements. No paid resources or public writes are required in this talk package.
 Transition: The ecosystem also shortens work outside the training loop.
 
 - <https://huggingface.co/docs/hub/spaces-overview>
