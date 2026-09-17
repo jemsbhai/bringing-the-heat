@@ -11,3 +11,5 @@ After changing content or layout, render every slide and check the result at pre
 Slide 1's QR opens the hosted deck; slide 2's QR opens the public GitHub repository containing the talk materials.
 
 The measured-results slide reports the saved laptop run. Colab outputs are separate measurements and should only replace it after updating the hardware, protocol, and validation notes alongside the numbers.
+
+Process diagrams use editable slide shapes and connectors. The charts contain editable data in embedded workbooks. Their plotted values come from the saved laptop training, evaluation, and benchmark reports; notes identify the source and measurement conditions. When updating a chart, update its data and labels together, preserve the units, and keep validation scores separate from heldout test results.

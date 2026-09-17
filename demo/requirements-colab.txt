@@ -14,3 +14,4 @@ diffusers==0.35.1
 onnx==1.22.0
 onnxruntime==1.30.0
 scikit-learn==1.7.2
+matplotlib==3.10.0

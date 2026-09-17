@@ -41,6 +41,8 @@ Hosting availability, hardware, and charges depend on the chosen service and acc
 
 The [public repository](https://github.com/jemsbhai/bringing-the-heat) includes the slides, notes, notebook, scripts, and measured reports. The optional local Gradio interface and offline rehearsal instructions are in `demo/README.md`.
 
+Use the notebook's plots to ask three questions: does validation improve as training loss falls, which classes still fail, and what changes after export and quantization? Compare the same test examples and benchmark protocol across runtimes. The slide charts report the laptop rehearsal; your Colab charts report your own run.
+
 The example makes the mechanics inspectable. Its small classroom data slice and local timing measurements do not establish production quality, mobile-device performance, or multi-GPU scaling.
 
 ## A release record you can copy

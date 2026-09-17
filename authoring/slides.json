@@ -51,7 +51,7 @@
   },
   {
     "title": "A workflow through the ecosystem",
-    "kind": "table",
+    "kind": "diagram",
     "headers": [
       "Engineering job",
       "Hugging Face tools",
@@ -79,15 +79,239 @@
         "Runtime package and release record"
       ]
     ],
-    "bottom": "PEFT adapts. Accelerate runs training. Optimum targets inference hardware.",
+    "bottom": "PEFT adapts. Accelerate runs training. Optimum exports. Re-evaluate the export.",
     "time": "4:00–5:30",
-    "notes": "90 seconds. This is the only broad ecosystem map before the demo. Distinguish the three named libraries precisely: PEFT changes how many parameters we train; Accelerate handles training execution and distributed concerns; Optimum provides hardware-oriented integrations, with ONNX in a dedicated package. None independently supplies all of production. Evaluate supplies reusable ML metrics; LightEval is a current option for LLM evaluation. Our classifier uses scikit-learn for transparent metric calculations rather than pretending one metric package is mandatory.\nTransition: Keep the problem small enough to inspect the whole path.",
+    "notes": "90 seconds. Follow the four process nodes from source discovery to deployment. Each lower document is the artifact that travels with the model. This is the only broad ecosystem map before the demo. Distinguish the three named libraries precisely: PEFT changes how many parameters we train; Accelerate handles training execution and distributed concerns; Optimum provides hardware-oriented integrations, with ONNX in a dedicated package. None independently supplies all of production. Evaluate supplies reusable ML metrics; LightEval is a current option for LLM evaluation. Our classifier uses scikit-learn for transparent metric calculations rather than pretending one metric package is mandatory.\nTransition: Keep the problem small enough to inspect the whole path.\nValidation guides training choices. Each optimized runtime is tested again on the locked test set before release; the first evaluation stage is not the final evaluation of exported artifacts.",
     "sources": [
       "https://huggingface.co/docs/peft/quicktour",
       "https://huggingface.co/docs/accelerate/quicktour",
       "https://huggingface.co/docs/optimum-onnx/index",
       "https://huggingface.co/docs/evaluate/index"
-    ]
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "stage0",
+          "text": "Discover\nand version",
+          "x": 64,
+          "y": 207,
+          "w": 248,
+          "h": 122,
+          "color": "yellow",
+          "fill": "table",
+          "line": "yellow",
+          "size": 29,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "artifact0",
+          "text": "Commit IDs\nSplit manifest",
+          "x": 64,
+          "y": 464,
+          "w": 248,
+          "h": 108,
+          "color": "fg",
+          "fill": "table",
+          "line": "muted",
+          "size": 25,
+          "geometry": "flowChartDocument",
+          "bold": false
+        },
+        {
+          "id": "stage1",
+          "text": "Adapt the\nmodel",
+          "x": 356,
+          "y": 207,
+          "w": 248,
+          "h": 122,
+          "color": "yellow",
+          "fill": "table",
+          "line": "yellow",
+          "size": 29,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "artifact1",
+          "text": "Adapter\nTraining config",
+          "x": 356,
+          "y": 464,
+          "w": 248,
+          "h": 108,
+          "color": "fg",
+          "fill": "table",
+          "line": "muted",
+          "size": 25,
+          "geometry": "flowChartDocument",
+          "bold": false
+        },
+        {
+          "id": "stage2",
+          "text": "Evaluate the\ncandidate",
+          "x": 648,
+          "y": 207,
+          "w": 248,
+          "h": 122,
+          "color": "yellow",
+          "fill": "table",
+          "line": "yellow",
+          "size": 29,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "artifact2",
+          "text": "Scores and slices\nFailure examples",
+          "x": 648,
+          "y": 464,
+          "w": 248,
+          "h": 108,
+          "color": "fg",
+          "fill": "table",
+          "line": "muted",
+          "size": 25,
+          "geometry": "flowChartDocument",
+          "bold": false
+        },
+        {
+          "id": "stage3",
+          "text": "Optimize\nand deliver",
+          "x": 940,
+          "y": 207,
+          "w": 248,
+          "h": 122,
+          "color": "yellow",
+          "fill": "table",
+          "line": "yellow",
+          "size": 29,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "artifact3",
+          "text": "Runtime package\nRelease record",
+          "x": 940,
+          "y": 464,
+          "w": 248,
+          "h": 108,
+          "color": "fg",
+          "fill": "table",
+          "line": "muted",
+          "size": 25,
+          "geometry": "flowChartDocument",
+          "bold": false
+        }
+      ],
+      "edges": [
+        {
+          "source": "stage0",
+          "target": "artifact0",
+          "fromSide": "bottom",
+          "toSide": "top",
+          "kind": "straight",
+          "color": "muted"
+        },
+        {
+          "source": "stage1",
+          "target": "artifact1",
+          "fromSide": "bottom",
+          "toSide": "top",
+          "kind": "straight",
+          "color": "muted"
+        },
+        {
+          "source": "stage0",
+          "target": "stage1",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "straight",
+          "color": "yellow"
+        },
+        {
+          "source": "stage2",
+          "target": "artifact2",
+          "fromSide": "bottom",
+          "toSide": "top",
+          "kind": "straight",
+          "color": "muted"
+        },
+        {
+          "source": "stage1",
+          "target": "stage2",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "straight",
+          "color": "yellow"
+        },
+        {
+          "source": "stage3",
+          "target": "artifact3",
+          "fromSide": "bottom",
+          "toSide": "top",
+          "kind": "straight",
+          "color": "muted"
+        },
+        {
+          "source": "stage2",
+          "target": "stage3",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "straight",
+          "color": "yellow"
+        }
+      ],
+      "labels": [
+        {
+          "text": "Hub\nDatasets",
+          "x": 64,
+          "y": 348,
+          "w": 258,
+          "h": 82,
+          "size": 25,
+          "color": "fg",
+          "bold": false,
+          "fill": "bg",
+          "align": "center"
+        },
+        {
+          "text": "Transformers\nPEFT + Accelerate",
+          "x": 356,
+          "y": 348,
+          "w": 258,
+          "h": 82,
+          "size": 25,
+          "color": "fg",
+          "bold": false,
+          "fill": "bg",
+          "align": "center"
+        },
+        {
+          "text": "Metrics\nEvaluate / LightEval",
+          "x": 648,
+          "y": 348,
+          "w": 258,
+          "h": 82,
+          "size": 25,
+          "color": "fg",
+          "bold": false,
+          "fill": "bg",
+          "align": "center"
+        },
+        {
+          "text": "Optimum ONNX\nSpaces / Endpoints",
+          "x": 940,
+          "y": 348,
+          "w": 258,
+          "h": 82,
+          "size": 25,
+          "color": "fg",
+          "bold": false,
+          "fill": "bg",
+          "align": "center"
+        }
+      ]
+    }
   },
   {
     "title": "The live build: a news classifier",
@@ -105,22 +329,150 @@
     ]
   },
   {
-    "title": "Data and model provenance",
-    "kind": "code",
+    "title": "Different splits make different decisions",
+    "kind": "diagram",
     "code": "snapshot_download(\n    repo_id=MODEL_ID,\n    revision=MODEL_COMMIT,\n)\n\nload_dataset(\n    DATASET_ID,\n    revision=DATASET_COMMIT,\n)",
     "rightTitle": "The run manifest records",
     "right": "Full commit SHAs\nSplit membership and seed\nTokenizer and label mapping\nPackage versions\nEvaluation configuration",
-    "bottom": "Training, validation, and test examples serve different decisions.",
+    "bottom": "Manifest: revisions, split IDs, tokenizer/labels, package versions, evaluation config.",
     "time": "6:30–8:00",
-    "notes": "90 seconds. These are schematic excerpts with configuration variables; the executable script resolves and records the full revisions. A repository name is an address, while a full commit SHA identifies a version. Show the actual manifest. Training fits parameters. Validation selects settings. The held-out test estimates performance after choices are locked. Normalize and check duplicate text across splits; real projects also split by user, source, or time when leakage follows those relationships. This classroom slice is not proof for a future news distribution. Streaming is useful for large sources, but requires explicit sampling and shuffling decisions.\nTransition: Before adapting anything, we need an honest baseline.",
+    "notes": "90 seconds. The diagram separates source provenance from the decisions made with each split. The executable script resolves and records full revisions; the model and tokenizer also have pinned versions. A repository name is an address, while a full commit SHA identifies a version. Show the actual manifest. Training fits parameters. Validation selects settings. The held-out test estimates performance after choices are locked. Normalize and check duplicate text across splits; real projects also split by user, source, or time when leakage follows those relationships. This classroom slice is not proof for a future news distribution. Streaming is useful for large sources, but requires explicit sampling and shuffling decisions.\nTransition: Before adapting anything, we need an honest baseline.",
     "sources": [
       "https://huggingface.co/docs/huggingface_hub/guides/download",
       "https://huggingface.co/docs/datasets/stream"
-    ]
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "dataset",
+          "text": "Dataset revision\n+ split seed",
+          "x": 64,
+          "y": 315,
+          "w": 260,
+          "h": 126,
+          "color": "yellow",
+          "fill": "table",
+          "line": "yellow",
+          "size": 29,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "train",
+          "text": "TRAIN",
+          "x": 440,
+          "y": 193,
+          "w": 256,
+          "h": 92,
+          "color": "fg",
+          "fill": "table",
+          "line": "blue",
+          "size": 30,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "validation",
+          "text": "VALIDATION",
+          "x": 440,
+          "y": 341,
+          "w": 256,
+          "h": 92,
+          "color": "fg",
+          "fill": "table",
+          "line": "orange",
+          "size": 30,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "test",
+          "text": "HELD-OUT TEST",
+          "x": 440,
+          "y": 489,
+          "w": 256,
+          "h": 92,
+          "color": "fg",
+          "fill": "table",
+          "line": "green",
+          "size": 28,
+          "geometry": "rect",
+          "bold": true
+        }
+      ],
+      "edges": [
+        {
+          "source": "dataset",
+          "target": "train",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "elbow",
+          "color": "muted"
+        },
+        {
+          "source": "dataset",
+          "target": "validation",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "elbow",
+          "color": "muted"
+        },
+        {
+          "source": "dataset",
+          "target": "test",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "elbow",
+          "color": "muted"
+        }
+      ],
+      "labels": [
+        {
+          "text": "Model + tokenizer: pinned commit SHA",
+          "x": 64,
+          "y": 170,
+          "w": 350,
+          "h": 110,
+          "size": 26,
+          "color": "fg",
+          "bold": false
+        },
+        {
+          "text": "Fit adapter and task head",
+          "x": 756,
+          "y": 211,
+          "w": 444,
+          "h": 80,
+          "size": 30,
+          "color": "fg",
+          "bold": false
+        },
+        {
+          "text": "Choose settings and checkpoint",
+          "x": 756,
+          "y": 359,
+          "w": 450,
+          "h": 80,
+          "size": 30,
+          "color": "fg",
+          "bold": false
+        },
+        {
+          "text": "Estimate quality after choices lock",
+          "x": 756,
+          "y": 496,
+          "w": 450,
+          "h": 86,
+          "size": 30,
+          "color": "fg",
+          "bold": false
+        }
+      ]
+    }
   },
   {
-    "title": "LoRA changes the training budget",
-    "kind": "lora",
+    "title": "LoRA learns a compact adjustment",
+    "kind": "diagram",
     "formula": "W′ = W + BA",
     "leftTitle": "Frozen base",
     "left": "The pretrained weight matrix W\nkeeps its learned values.",
@@ -128,11 +480,172 @@
     "right": "Small matrices A and B\nlearn the task adjustment.",
     "bottom": "Fewer trainable parameters. The base model still occupies memory.",
     "time": "8:00–10:00",
-    "notes": "2 minutes. Explain the matrix idea without requiring linear algebra: keep the main model, learn a compact adjustment. For a d_out by d_in matrix, full tuning updates d_out*d_in entries; rank-r LoRA adds r*(d_in+d_out), where r is usually much smaller than either dimension. This is parameter arithmetic, not a claim about equal quality or speed. The task classifier head still trains and must be saved. For this demo the starting classification head is newly initialized, so an untrained base would be a sanity check, not a strong pretrained news baseline. The evaluation report includes a majority-class baseline. A serious study would also compare full fine-tuning and simpler task-specific alternatives.\nTransition: Here is the part that attaches the adapter.",
+    "notes": "2 minutes. Explain the matrix idea without requiring linear algebra: keep the main model, learn a compact adjustment. For a d_out by d_in matrix, full tuning updates d_out*d_in entries; rank-r LoRA adds r*(d_in+d_out), where r is usually much smaller than either dimension. This is parameter arithmetic, not a claim about equal quality or speed. The task classifier head still trains and must be saved. For this demo the starting classification head is newly initialized, so an untrained base would be a sanity check, not a strong pretrained news baseline. The evaluation report includes a majority-class baseline. A serious study would also compare full fine-tuning and simpler task-specific alternatives.\nTransition: Here is the part that attaches the adapter.\nRecorded laptop training.json: 741,124 trainable parameters out of 67,697,672 total (1.0947555%). This is trainable parameter share, not a measured speedup over full fine-tuning. No full-fine-tune baseline was run.",
     "sources": [
       "https://huggingface.co/docs/peft/main/conceptual_guides/lora",
-      "https://huggingface.co/docs/peft/quicktour"
-    ]
+      "https://huggingface.co/docs/peft/quicktour",
+      "demo/results/training.json"
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "input",
+          "text": "Input x",
+          "x": 64,
+          "y": 318,
+          "w": 170,
+          "h": 94,
+          "color": "fg",
+          "fill": "table",
+          "line": "muted",
+          "size": 30,
+          "geometry": "rect",
+          "bold": false
+        },
+        {
+          "id": "frozen",
+          "text": "W\nFrozen base",
+          "x": 390,
+          "y": 202,
+          "w": 324,
+          "h": 142,
+          "color": "blue",
+          "fill": "table",
+          "line": "blue",
+          "size": 31,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "A",
+          "text": "A\nTrainable",
+          "x": 374,
+          "y": 455,
+          "w": 160,
+          "h": 106,
+          "color": "yellow",
+          "fill": "table",
+          "line": "yellow",
+          "size": 28,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "B",
+          "text": "B\nTrainable",
+          "x": 598,
+          "y": 455,
+          "w": 160,
+          "h": 106,
+          "color": "yellow",
+          "fill": "table",
+          "line": "yellow",
+          "size": 28,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "sum",
+          "text": "+",
+          "x": 866,
+          "y": 323,
+          "w": 90,
+          "h": 90,
+          "color": "fg",
+          "fill": "table",
+          "line": "muted",
+          "size": 52,
+          "geometry": "ellipse",
+          "bold": false
+        },
+        {
+          "id": "output",
+          "text": "Output",
+          "x": 1054,
+          "y": 321,
+          "w": 154,
+          "h": 94,
+          "color": "fg",
+          "fill": "table",
+          "line": "muted",
+          "size": 28,
+          "geometry": "rect",
+          "bold": false
+        }
+      ],
+      "edges": [
+        {
+          "source": "input",
+          "target": "frozen",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "elbow",
+          "color": "blue"
+        },
+        {
+          "source": "input",
+          "target": "A",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "elbow",
+          "color": "yellow"
+        },
+        {
+          "source": "A",
+          "target": "B",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "straight",
+          "color": "yellow"
+        },
+        {
+          "source": "frozen",
+          "target": "sum",
+          "fromSide": "right",
+          "toSide": "top",
+          "kind": "elbow",
+          "color": "blue"
+        },
+        {
+          "source": "B",
+          "target": "sum",
+          "fromSide": "right",
+          "toSide": "bottom",
+          "kind": "elbow",
+          "color": "yellow"
+        },
+        {
+          "source": "sum",
+          "target": "output",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "straight",
+          "color": "muted"
+        }
+      ],
+      "labels": [
+        {
+          "text": "W′ = W + BA",
+          "x": 790,
+          "y": 173,
+          "w": 420,
+          "h": 89,
+          "size": 46,
+          "color": "yellow",
+          "bold": true
+        },
+        {
+          "text": "1.09% of parameters train in this run, including the task head",
+          "x": 64,
+          "y": 579,
+          "w": 1152,
+          "h": 39,
+          "size": 25,
+          "color": "fg",
+          "bold": false
+        }
+      ]
+    }
   },
   {
     "title": "PEFT in the training script",
@@ -150,21 +663,171 @@
   },
   {
     "title": "Accelerate carries the training loop",
-    "kind": "code",
+    "kind": "diagram",
     "code": "accelerator = Accelerator()\nmodel, optimizer, train_loader = (\n    accelerator.prepare(\n        model, optimizer, train_loader\n    )\n)\n\nloss = model(**batch).loss\naccelerator.backward(loss)\noptimizer.step()",
     "rightTitle": "Same task, different launch",
     "right": "One CPU or GPU\n\nDistributed data parallel\nwhen the model fits per GPU\n\nFSDP / DeepSpeed\nwhen state must be sharded",
     "bottom": "Distributed metrics need all workers’ predictions: gather_for_metrics.",
     "time": "12:00–14:00",
-    "notes": "2 minutes. The slide is a shortened training excerpt, not a complete loop: the executable also clears gradients, moves data through prepared loaders, controls seeds, and saves on the main process. Explain that DDP replicates a model per process; more GPUs do not automatically make a too-large model fit. FSDP/DeepSpeed shard state but add configuration and communication costs. Show accelerate launch in the runbook. Our local rehearsal validates one process; multi-GPU is an explicit extension that needs a cluster test. Inference device_map='auto' is a different path and should not be taught as distributed training.\nTransition: The trained adapter now becomes a candidate artifact.",
+    "notes": "2 minutes. The top flow repeats for each batch. The bottom row shows launch strategies, with the one-device path demonstrated and distributed paths kept as extensions. In the full executable loop, the executable also clears gradients, moves data through prepared loaders, controls seeds, and saves on the main process. Explain that DDP replicates a model per process; more GPUs do not automatically make a too-large model fit. FSDP/DeepSpeed shard state but add configuration and communication costs. Show accelerate launch in the runbook. Our local rehearsal validates one process; multi-GPU is an explicit extension that needs a cluster test. Inference device_map='auto' is a different path and should not be taught as distributed training.\nTransition: The trained adapter now becomes a candidate artifact.",
     "sources": [
       "https://huggingface.co/docs/accelerate/quicktour",
       "https://huggingface.co/docs/accelerate/concept_guides/big_model_inference"
-    ]
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "prepare",
+          "text": "Prepare\nmodel, optimizer, loader",
+          "x": 64,
+          "y": 230,
+          "w": 252,
+          "h": 148,
+          "color": "yellow",
+          "fill": "table",
+          "line": "yellow",
+          "size": 27,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "forward",
+          "text": "Forward\nCompute loss",
+          "x": 366,
+          "y": 230,
+          "w": 238,
+          "h": 148,
+          "color": "fg",
+          "fill": "table",
+          "line": "muted",
+          "size": 29,
+          "geometry": "rect",
+          "bold": false
+        },
+        {
+          "id": "backward",
+          "text": "Backward\nCompute gradients",
+          "x": 654,
+          "y": 230,
+          "w": 258,
+          "h": 148,
+          "color": "yellow",
+          "fill": "table",
+          "line": "yellow",
+          "size": 27,
+          "geometry": "rect",
+          "bold": false
+        },
+        {
+          "id": "update",
+          "text": "Update\nstep + zero_grad",
+          "x": 962,
+          "y": 230,
+          "w": 254,
+          "h": 148,
+          "color": "fg",
+          "fill": "table",
+          "line": "muted",
+          "size": 27,
+          "geometry": "rect",
+          "bold": false
+        },
+        {
+          "id": "single",
+          "text": "One CPU / GPU",
+          "x": 64,
+          "y": 495,
+          "w": 306,
+          "h": 88,
+          "color": "blue",
+          "fill": "table",
+          "line": "blue",
+          "size": 29,
+          "geometry": "rect",
+          "bold": false
+        },
+        {
+          "id": "ddp",
+          "text": "DDP\nModel copy per GPU",
+          "x": 420,
+          "y": 476,
+          "w": 356,
+          "h": 126,
+          "color": "fg",
+          "fill": "table",
+          "line": "muted",
+          "size": 27,
+          "geometry": "rect",
+          "bold": false
+        },
+        {
+          "id": "shard",
+          "text": "FSDP / DeepSpeed\nShard training state",
+          "x": 826,
+          "y": 476,
+          "w": 390,
+          "h": 126,
+          "color": "fg",
+          "fill": "table",
+          "line": "muted",
+          "size": 27,
+          "geometry": "rect",
+          "bold": false
+        }
+      ],
+      "edges": [
+        {
+          "source": "prepare",
+          "target": "forward",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "straight",
+          "color": "yellow"
+        },
+        {
+          "source": "forward",
+          "target": "backward",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "straight",
+          "color": "yellow"
+        },
+        {
+          "source": "backward",
+          "target": "update",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "straight",
+          "color": "yellow"
+        }
+      ],
+      "labels": [
+        {
+          "text": "Repeat for each batch",
+          "x": 366,
+          "y": 395,
+          "w": 580,
+          "h": 40,
+          "size": 25,
+          "color": "fg",
+          "bold": false
+        },
+        {
+          "text": "Same loop, different launch strategy",
+          "x": 64,
+          "y": 430,
+          "w": 1100,
+          "h": 46,
+          "size": 27,
+          "color": "yellow",
+          "bold": false
+        }
+      ]
+    }
   },
   {
-    "title": "Live checkpoint: the candidate artifact",
-    "kind": "steps",
+    "title": "Loss falls while validation stays steady",
+    "kind": "trainingCharts",
     "items": [
       [
         "01",
@@ -182,16 +845,19 @@
         "One plausible prediction plus one failure"
       ]
     ],
-    "bottom": "A prepared training run keeps the live segment within two minutes.",
+    "bottom": "Recorded laptop training: RTX 4090 Laptop GPU, seed 42. Colab is a separate run.",
     "time": "14:00–16:00",
-    "notes": "2 minutes including terminal switch. Open the real preparation/training outputs. State whether the run is happening now or was completed before the talk. Show that the adapter folder is small relative to the complete merged model, without claiming a fixed ratio unless the measured files support it. Read a validation metric and a known failure. Keep the audience focused on the saved artifact and its dependency on the base model. If training is still running, immediately switch to the completed rehearsal outputs. Do not rerun a long job on stage.\nTransition: A convincing example is not the release decision.",
+    "notes": "2 minutes including the live checkpoint. These native charts read the three epochs directly from demo/results/training.json, the recorded laptop LoRA run. Training loss falls from 0.4946 to 0.2452, while validation macro-F1 stays near 0.907 and dips in epoch 2. The separate F1 axis spans 0 to 1 so small changes are not exaggerated. Epoch 3 has the highest validation macro-F1 (0.907437) and determines the saved checkpoint. The validation set has 400 rows. Training uses an RTX 4090 Laptop GPU; hosted Colab is a separate verified T4 run with different values. Do not claim a steady accuracy rise or compare LoRA speed with full fine-tuning, because no such baseline was run.\nOpen the saved adapter, its base revision and task head. Show one prediction and one failure. State whether the live run completed before the talk, and use the recorded artifacts if the job is still running.\nTransition: A convincing example is not the release decision.\nChart values are rounded to 12 significant digits for portable native Excel workbooks; the referenced JSON preserves the complete recorded precision.",
     "sources": [
+      "demo/results/training.json",
+      "demo/results/colab_validation.json",
       "https://huggingface.co/docs/peft/quicktour#save-model"
-    ]
+    ],
+    "trainingSource": "demo/results/training.json"
   },
   {
-    "title": "Evaluation as a release gate",
-    "kind": "table",
+    "title": "Evaluation decides whether a release proceeds",
+    "kind": "diagram",
     "headers": [
       "Question",
       "Evidence",
@@ -221,37 +887,339 @@
     ],
     "bottom": "Live moment: a deliberately failing report blocks the release.",
     "time": "16:00–18:30",
-    "notes": "2 minutes 30 seconds. Show the actual evaluation JSON and confusion matrix. Accuracy is useful, but macro-F1 weights classes equally; per-class recall reveals a weak class. A small held-out slice has uncertainty, and news examples do not validate safety-critical decisions or distribution shift. Show gate thresholds set in config before the test run. Run the deliberately failing gate fixture, explicitly label it synthetic test data, and show the nonzero exit status. Then show the real candidate gate outcome without changing thresholds to obtain a pass. A failed gate is a successful engineering demonstration. For generative tasks, swap in task-specific exact match/schema checks, groundedness/factuality review, and calibrated human review; a single judge score is insufficient.\nTransition: The runtime artifact gets evaluated too.",
+    "notes": "2 minutes 30 seconds. Show the actual evaluation JSON and confusion matrix. Accuracy is useful, but macro-F1 weights classes equally; per-class recall reveals a weak class. A small held-out slice has uncertainty, and news examples do not validate safety-critical decisions or distribution shift. Show gate thresholds set in config before the test run. Run the deliberately failing gate fixture, explicitly label it synthetic test data, and show the nonzero exit status. Then show the real candidate gate outcome without changing thresholds to obtain a pass. A failed gate is a successful engineering demonstration. For generative tasks, swap in task-specific exact match/schema checks, groundedness/factuality review, and calibrated human review; a single judge score is insufficient.\nTransition: The runtime artifact gets evaluated too.\nThe decision flow shows the actual recorded laptop gate policy. The full gate also checks split identity, exact artifact hashes, benchmark protocol, and complete class reports. Hosted Colab uses its documented CPU budget and separate report; do not copy laptop latency expectations to its shared CPU.",
     "sources": [
       "https://huggingface.co/docs/evaluate/index",
-      "https://huggingface.co/docs/lighteval/main/index"
-    ]
+      "https://huggingface.co/docs/lighteval/main/index",
+      "demo/results/gate.json",
+      "demo/results/gate_deliberate_failure.json"
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "lock",
+          "text": "Lock test rows\n+ artifact hashes",
+          "x": 64,
+          "y": 260,
+          "w": 238,
+          "h": 150,
+          "color": "fg",
+          "fill": "table",
+          "line": "muted",
+          "size": 29,
+          "geometry": "rect",
+          "bold": false
+        },
+        {
+          "id": "evaluate",
+          "text": "Evaluate\nquality + runtime",
+          "x": 362,
+          "y": 260,
+          "w": 248,
+          "h": 150,
+          "color": "yellow",
+          "fill": "table",
+          "line": "yellow",
+          "size": 29,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "decide",
+          "text": "All checks\npass?",
+          "x": 650,
+          "y": 239,
+          "w": 276,
+          "h": 192,
+          "color": "fg",
+          "fill": "table",
+          "line": "yellow",
+          "size": 24,
+          "geometry": "diamond",
+          "bold": false
+        },
+        {
+          "id": "promote",
+          "text": "PROMOTE",
+          "x": 1000,
+          "y": 214,
+          "w": 216,
+          "h": 98,
+          "color": "green",
+          "fill": "table",
+          "line": "green",
+          "size": 29,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "block",
+          "text": "BLOCK",
+          "x": 1000,
+          "y": 409,
+          "w": 216,
+          "h": 98,
+          "color": "orange",
+          "fill": "table",
+          "line": "orange",
+          "size": 29,
+          "geometry": "rect",
+          "bold": true
+        }
+      ],
+      "edges": [
+        {
+          "source": "lock",
+          "target": "evaluate",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "straight",
+          "color": "muted"
+        },
+        {
+          "source": "evaluate",
+          "target": "decide",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "straight",
+          "color": "yellow"
+        },
+        {
+          "source": "decide",
+          "target": "promote",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "elbow",
+          "color": "green"
+        },
+        {
+          "source": "decide",
+          "target": "block",
+          "fromSide": "bottom",
+          "toSide": "left",
+          "kind": "elbow",
+          "color": "orange"
+        }
+      ],
+      "labels": [
+        {
+          "text": "Yes",
+          "x": 929,
+          "y": 222,
+          "w": 72,
+          "h": 40,
+          "size": 24,
+          "color": "green",
+          "bold": true
+        },
+        {
+          "text": "No",
+          "x": 920,
+          "y": 464,
+          "w": 72,
+          "h": 40,
+          "size": 24,
+          "color": "orange",
+          "bold": true
+        },
+        {
+          "text": "Quality: macro-F1 ≥ 0.80, each class recall ≥ 0.65, INT8 F1 drop ≤ 0.02",
+          "x": 64,
+          "y": 505,
+          "w": 874,
+          "h": 85,
+          "size": 25,
+          "color": "fg",
+          "bold": false
+        },
+        {
+          "text": "Laptop policy: p95 ≤ 75 ms, weights ≤ 100 MiB, at least 800 test rows",
+          "x": 64,
+          "y": 574,
+          "w": 1152,
+          "h": 39,
+          "size": 24,
+          "color": "muted",
+          "bold": false
+        }
+      ]
+    }
   },
   {
-    "title": "Optimum ONNX targets the CPU",
-    "kind": "code",
+    "title": "Optimum turns the model into a CPU artifact",
+    "kind": "diagram",
     "code": "merged = model.merge_and_unload()\nmerged.save_pretrained(\"artifacts/merged\")\n\nort = ORTModelForSequenceClassification\nort_model = ort.from_pretrained(\n    \"artifacts/merged\", export=True\n)\n\nqconfig = AutoQuantizationConfig.avx2(\n    is_static=False\n)",
     "rightTitle": "Export sequence",
     "right": "Merge the supported adapter.\n\nExport the merged weights.\n\nQuantize for the target CPU.\n\nKeep tokenizer and labels.",
     "bottom": "Install: optimum-onnx[onnxruntime]     Import: optimum.onnxruntime",
     "time": "18:30–20:30",
-    "notes": "2 minutes. Show the executable export command or the completed exported artifacts, according to rehearsal timing. The slide omits quantizer construction/save calls to keep it legible; they are in demo.py. Our selected architecture supports this path. Dynamic INT8 changes runtime arithmetic and storage; it differs from QLoRA's 4-bit base loading for adapter training. AVX2 is our x86 target choice, not a universal configuration for ARM or GPUs. Static quantization would need representative calibration data from training/calibration sources, never tuning on the held-out test. Save tokenizer, configuration and label mapping beside the exported model.\nTransition: Smaller files are only one part of the result.",
+    "notes": "2 minutes. Show the executable export command or the completed exported artifacts, according to rehearsal timing. Follow the merge, export and quantization arrows. The executable quantizer construction and save calls are in demo.py. Evaluate both ONNX FP32 and INT8 using the same held-out rows before promoting the runtime package. Our selected architecture supports this path. Dynamic INT8 changes runtime arithmetic and storage; it differs from QLoRA's 4-bit base loading for adapter training. AVX2 is our x86 target choice, not a universal configuration for ARM or GPUs. Static quantization would need representative calibration data from training/calibration sources, never tuning on the held-out test. Save tokenizer, configuration and label mapping beside the exported model.\nTransition: Smaller files are only one part of the result.",
     "sources": [
       "https://huggingface.co/docs/optimum-onnx/installation",
       "https://huggingface.co/docs/optimum-onnx/onnxruntime/quickstart",
       "https://huggingface.co/docs/optimum-onnx/onnxruntime/usage_guides/quantization"
-    ]
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "base",
+          "text": "Frozen base\nPinned revision",
+          "x": 64,
+          "y": 234,
+          "w": 238,
+          "h": 114,
+          "color": "blue",
+          "fill": "table",
+          "line": "blue",
+          "size": 28,
+          "geometry": "rect",
+          "bold": false
+        },
+        {
+          "id": "adapter",
+          "text": "Trained adapter\n+ task head",
+          "x": 64,
+          "y": 427,
+          "w": 238,
+          "h": 114,
+          "color": "yellow",
+          "fill": "table",
+          "line": "yellow",
+          "size": 28,
+          "geometry": "rect",
+          "bold": false
+        },
+        {
+          "id": "merge",
+          "text": "Merge",
+          "x": 370,
+          "y": 315,
+          "w": 214,
+          "h": 120,
+          "color": "fg",
+          "fill": "table",
+          "line": "muted",
+          "size": 32,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "export",
+          "text": "Export\nONNX FP32",
+          "x": 644,
+          "y": 315,
+          "w": 242,
+          "h": 120,
+          "color": "fg",
+          "fill": "table",
+          "line": "orange",
+          "size": 31,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "quantize",
+          "text": "Quantize\nONNX INT8",
+          "x": 946,
+          "y": 315,
+          "w": 270,
+          "h": 120,
+          "color": "yellow",
+          "fill": "table",
+          "line": "yellow",
+          "size": 31,
+          "geometry": "rect",
+          "bold": true
+        }
+      ],
+      "edges": [
+        {
+          "source": "base",
+          "target": "merge",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "elbow",
+          "color": "blue"
+        },
+        {
+          "source": "adapter",
+          "target": "merge",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "elbow",
+          "color": "yellow"
+        },
+        {
+          "source": "merge",
+          "target": "export",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "straight",
+          "color": "muted"
+        },
+        {
+          "source": "export",
+          "target": "quantize",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "straight",
+          "color": "yellow"
+        }
+      ],
+      "labels": [
+        {
+          "text": "merge_and_unload()",
+          "x": 360,
+          "y": 462,
+          "w": 266,
+          "h": 64,
+          "size": 22,
+          "color": "muted",
+          "bold": false
+        },
+        {
+          "text": "export=True",
+          "x": 656,
+          "y": 462,
+          "w": 222,
+          "h": 64,
+          "size": 23,
+          "color": "muted",
+          "bold": false
+        },
+        {
+          "text": "Dynamic INT8\nAVX2 CPU target",
+          "x": 946,
+          "y": 457,
+          "w": 270,
+          "h": 84,
+          "size": 25,
+          "color": "muted",
+          "bold": false
+        },
+        {
+          "text": "Tokenizer, labels and configuration travel with every runtime package",
+          "x": 362,
+          "y": 555,
+          "w": 848,
+          "h": 62,
+          "size": 26,
+          "color": "fg",
+          "bold": false
+        }
+      ]
+    }
   },
   {
-    "title": "Measured quality and CPU latency",
-    "kind": "measured",
+    "title": "INT8 cuts weight size and CPU latency",
+    "kind": "runtimeCharts",
     "leftTitle": "Compare the same workload",
     "left": "Merged PyTorch\nONNX floating point\nONNX INT8\n\nSame inputs and CPU target",
     "rightTitle": "Report the conditions",
     "right": "Hardware and thread count\nBatch size and token length\nWarm-up and sample count\np50 / p95 latency\nQuality after export",
-    "bottom": "Same 800-example test set. Small score differences do not establish improvement.",
+    "bottom": "Same 800 test examples. Small F1 differences do not establish improvement.",
     "time": "20:30–22:00",
-    "notes": "90 seconds. These are actual measurements from the local rehearsal on September 17, 2026. The test set is a balanced, fixed 800-example slice with 200 examples per class. Quality uses the same held-out rows for the merged PyTorch model and the two exported packages. The benchmark is one warm sequential CPU run, not a concurrent service capacity test. All models use 4 CPU threads and fixed 128-token padding, 100 requests after 10 warm-ups. Timings include tokenization and forward execution, excluding startup, network, and queueing. Weight size excludes tokenizer/config files. Hardware: Intel Core i9-14900HX; training used an RTX 4090 Laptop GPU, but every latency here is CPU.\n\nPyTorch FP32: accuracy 90.25%, macro-F1 0.902308, p50 33.48 ms, p95 59.81 ms, weights 267838720 bytes.\nONNX FP32: accuracy 90.25%, macro-F1 0.902308, p50 30.33 ms, p95 41.56 ms, weights 267938323 bytes.\nONNX INT8: accuracy 90.50%, macro-F1 0.904809, p50 25.82 ms, p95 33.57 ms, weights 67370935 bytes.\n\nThe small INT8 quality difference is not evidence of an accuracy improvement. Quantization can trade quality for footprint and speed, so inspect the actual errors and gate. This measured run does not predict a phone, microcontroller, or other CPU. Rehearse under event conditions. Show the source JSON and current artifact hashes if asked.\nTransition: Deployment target determines the next branch.",
+    "notes": "90 seconds. These are actual measurements from the local rehearsal on September 17, 2026. The test set is a balanced, fixed 800-example slice with 200 examples per class. Quality uses the same held-out rows for the merged PyTorch model and the two exported packages. The benchmark is one warm sequential CPU run, not a concurrent service capacity test. All models use 4 CPU threads and fixed 128-token padding, 100 requests after 10 warm-ups. Timings include tokenization and forward execution, excluding startup, network, and queueing. Weight size excludes tokenizer/config files. Hardware: Intel Core i9-14900HX; training used an RTX 4090 Laptop GPU, but every latency here is CPU.\n\nPyTorch FP32: accuracy 90.25%, macro-F1 0.902308, p50 33.48 ms, p95 59.81 ms, weights 267838720 bytes.\nONNX FP32: accuracy 90.25%, macro-F1 0.902308, p50 30.33 ms, p95 41.56 ms, weights 267938323 bytes.\nONNX INT8: accuracy 90.50%, macro-F1 0.904809, p50 25.82 ms, p95 33.57 ms, weights 67370935 bytes.\n\nThe small INT8 quality difference is not evidence of an accuracy improvement. Quantization can trade quality for footprint and speed, so inspect the actual errors and gate. This measured run does not predict a phone, microcontroller, or other CPU. Rehearse under event conditions. Show the source JSON and current artifact hashes if asked.\nTransition: Deployment target determines the next branch.\nThe three native editable charts load their values directly from the recorded laptop evaluation and benchmark JSON. Each metric has its own axis and units. Macro-F1 spans 0–1; latency and weight-size bars start at zero. Weight size uses MiB = bytes / 1,048,576. The charts compare runtime representations of one trained candidate, not LoRA versus full fine-tuning. This laptop benchmark is separate from hosted Colab and its CPU measurements.\nChart values are rounded to 12 significant digits for portable native Excel workbooks; the referenced JSON preserves the complete recorded precision.",
     "sources": [
       "demo/results/evaluation.json",
       "demo/results/benchmark.json",
@@ -284,11 +1252,13 @@
         "64.2 MiB"
       ]
     ],
-    "conditions": "Intel Core i9-14900HX, 4 CPU threads, batch 1, padded length 128\n100 sequential requests after 10 warm-ups\nIncludes tokenization + forward. Excludes loading, network, and queueing."
+    "conditions": "Intel Core i9-14900HX, 4 CPU threads, batch 1, padded length 128\n100 sequential requests after 10 warm-ups. Tokenization + forward only.",
+    "evaluationSource": "demo/results/evaluation.json",
+    "benchmarkSource": "demo/results/benchmark.json"
   },
   {
-    "title": "Inference across deployment targets",
-    "kind": "table",
+    "title": "The deployment target chooses the runtime",
+    "kind": "diagram",
     "headers": [
       "Target",
       "A suitable path",
@@ -324,7 +1294,197 @@
       "https://docs.vllm.ai/en/latest/serving/parallelism_scaling/",
       "https://huggingface.co/docs/inference-endpoints/en/index",
       "https://huggingface.co/docs/text-generation-inference/en/index"
-    ]
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "target",
+          "text": "Deployment\ntarget",
+          "x": 64,
+          "y": 315,
+          "w": 248,
+          "h": 132,
+          "color": "fg",
+          "fill": "table",
+          "line": "muted",
+          "size": 32,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "cpu",
+          "text": "CPU",
+          "x": 430,
+          "y": 186,
+          "w": 310,
+          "h": 76,
+          "color": "fg",
+          "fill": "table",
+          "line": "yellow",
+          "size": 28,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "browser",
+          "text": "Browser",
+          "x": 430,
+          "y": 300,
+          "w": 310,
+          "h": 76,
+          "color": "fg",
+          "fill": "table",
+          "line": "muted",
+          "size": 28,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "gpu",
+          "text": "Large LLM on GPUs",
+          "x": 430,
+          "y": 414,
+          "w": 310,
+          "h": 76,
+          "color": "fg",
+          "fill": "table",
+          "line": "muted",
+          "size": 28,
+          "geometry": "rect",
+          "bold": true
+        },
+        {
+          "id": "managed",
+          "text": "Managed service",
+          "x": 430,
+          "y": 528,
+          "w": 310,
+          "h": 76,
+          "color": "fg",
+          "fill": "table",
+          "line": "muted",
+          "size": 28,
+          "geometry": "rect",
+          "bold": true
+        }
+      ],
+      "edges": [
+        {
+          "source": "target",
+          "target": "cpu",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "elbow",
+          "color": "yellow"
+        },
+        {
+          "source": "target",
+          "target": "browser",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "elbow",
+          "color": "muted"
+        },
+        {
+          "source": "target",
+          "target": "gpu",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "elbow",
+          "color": "muted"
+        },
+        {
+          "source": "target",
+          "target": "managed",
+          "fromSide": "right",
+          "toSide": "left",
+          "kind": "elbow",
+          "color": "muted"
+        }
+      ],
+      "labels": [
+        {
+          "text": "Optimum ONNX",
+          "x": 798,
+          "y": 183,
+          "w": 420,
+          "h": 42,
+          "size": 29,
+          "color": "yellow",
+          "bold": true
+        },
+        {
+          "text": "CPU features, memory, input size",
+          "x": 798,
+          "y": 227,
+          "w": 420,
+          "h": 54,
+          "size": 22,
+          "color": "muted",
+          "bold": false
+        },
+        {
+          "text": "Transformers.js",
+          "x": 798,
+          "y": 297,
+          "w": 420,
+          "h": 42,
+          "size": 29,
+          "color": "fg",
+          "bold": true
+        },
+        {
+          "text": "WASM / WebGPU, supported exports",
+          "x": 798,
+          "y": 341,
+          "w": 420,
+          "h": 54,
+          "size": 22,
+          "color": "muted",
+          "bold": false
+        },
+        {
+          "text": "vLLM / SGLang",
+          "x": 798,
+          "y": 411,
+          "w": 420,
+          "h": 42,
+          "size": 29,
+          "color": "fg",
+          "bold": true
+        },
+        {
+          "text": "KV cache, batching, parallelism",
+          "x": 798,
+          "y": 455,
+          "w": 420,
+          "h": 54,
+          "size": 22,
+          "color": "muted",
+          "bold": false
+        },
+        {
+          "text": "Inference Endpoints",
+          "x": 798,
+          "y": 525,
+          "w": 420,
+          "h": 42,
+          "size": 29,
+          "color": "fg",
+          "bold": true
+        },
+        {
+          "text": "Autoscaling, logs, cost limits",
+          "x": 798,
+          "y": 569,
+          "w": 420,
+          "h": 54,
+          "size": 22,
+          "color": "muted",
+          "bold": false
+        }
+      ]
+    }
   },
   {
     "title": "A deployment you can operate",

@@ -38,7 +38,7 @@ Keep three epochs for the complete exercise. A gate that returns **BLOCK** is a 
 """)
 code("""from pathlib import Path
 import datetime, hashlib, importlib.metadata, json, os, platform, site, subprocess, sys, time, zipfile
-from IPython.display import display, Markdown
+from IPython.display import display, Markdown, Image
 
 EPOCHS = 3
 BATCH_SIZE = 32
@@ -84,7 +84,7 @@ def command(argv, *, log_name, allowed=(0,)):
 """)
 
 payload = {name: (ROOT / name).read_text(encoding="utf-8") for name in
-           ["demo.py", "hub_revisions.json", "requirements-colab.txt", "colab_policy.json"]}
+           ["demo.py", "visuals.py", "hub_revisions.json", "requirements-colab.txt", "colab_policy.json"]}
 hashes = {name: hashlib.sha256(value.encode()).hexdigest() for name, value in payload.items()}
 code("#@title Materialize the exact demo source bundled with this notebook\n"
      + "# Expand this cell to inspect the complete source. No repository clone is required.\n"
@@ -132,11 +132,19 @@ from transformers import AutoModelForSequenceClassification
 from peft import LoraConfig
 from accelerate import Accelerator
 from optimum.onnxruntime import ORTModelForSequenceClassification, ORTQuantizer
-import datasets, onnxruntime, sklearn
+import datasets, onnxruntime, sklearn, matplotlib
 print('Torch:', torch.__version__)
 print('CUDA available:', torch.cuda.is_available())
 print('Training device:', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'CPU — full training will take longer')
 print('Teaching stack imports: PASS')'''], log_name='import_check')
+
+def draw(stage, *figure_names):
+    # Render from this run's files in the same pinned environment as the pipeline.
+    command([PYTHON, WORK / 'visuals.py', stage, '--root', WORK], log_name=f'plot-{stage}')
+    for name in figure_names:
+        display(Image(filename=str(WORK / 'figures' / f'{name}.png'), width=1100))
+
+draw('workflow', '01_workflow')
 """)
 
 md("""## 2 · Turn Hub objects into reproducible inputs
@@ -151,6 +159,7 @@ display({name: {'examples': split['count'], 'sha256': split['sha256']}
          for name, split in manifest['splits'].items()})
 print('Model:', manifest['model_id'], '@', manifest['model_revision'])
 print('Dataset:', manifest['dataset_id'], '@', manifest['dataset_revision'])
+draw('splits', '02_splits')
 """)
 
 md("""## 3 · Train the small part: PEFT + Accelerate
@@ -176,6 +185,7 @@ print(f\"Trainable: {training['trainable_parameters']:,} / {training['total_para
 display([{'epoch': item['epoch'], 'loss': item['mean_loss'],
           'validation_macro_f1': item['validation']['macro_f1']}
          for item in training['history']])
+draw('training', '03_lora_budget', '04_training_progress')
 """)
 
 md("""## 4 · Export the candidate, then quantize with Optimum
@@ -195,6 +205,7 @@ exported = read('results/export.json')
 display({name: round(sum(item['bytes'] for item in files.values()) / 1024**2, 2)
          for name, files in exported['artifacts'].items()})
 print('Values above are total packaged MiB, not peak memory.')
+draw('export', '05_export_footprint')
 """)
 
 md("""## 5 · Evaluate the exact artifact on the locked test
@@ -207,6 +218,7 @@ display({name: {key: score[key] for key in ['n', 'accuracy', 'macro_f1']}
 display({'majority_class_baseline': evaluation['majority_class_baseline']})
 display({'int8_per_class': evaluation['models']['int8']['per_class']})
 print('INT8 accuracy 95% Wilson interval:', evaluation['models']['int8']['accuracy_95pct_wilson'])
+draw('evaluation', '06_evaluation')
 """)
 
 md("""## 6 · Measure inference on this VM
@@ -220,6 +232,7 @@ display({name: {'p50_ms': round(score['p50_ms'], 2), 'p95_ms': round(score['p95_
                 'weights_MiB': round(score['weights_bytes'] / 1024**2, 2)}
          for name, score in benchmark['models'].items()})
 display(benchmark['environment'])
+draw('benchmark', '07_latency', '08_quality_size')
 """)
 
 md("""## 7 · Make the release decision executable
@@ -236,6 +249,7 @@ run('gate', '--inject-failure', allowed=(2,))
 injected = read('results/gate_deliberate_failure.json')
 assert not injected['checks']['every_class_recall'] and not injected['passed']
 print('Deliberate slice regression was blocked correctly.')
+draw('gates', '09_release_gate')
 """)
 
 md("""## 8 · Inference with the packaged INT8 artifact
@@ -254,10 +268,11 @@ for headline in HEADLINES:
     predict_args.extend(['--text', headline])
 run(*predict_args)
 display(read('results/inference.json')['predictions'])
+draw('inference', '10_inference')
 """)
 
 md("""## 9 · Keep the evidence and artifact
-The bundle contains the measured INT8 runtime, tokenizer, adapter, pinned-input manifest, source, policy, and JSON reports. It excludes the base/merged FP32 weights and raw dataset. Download it using Colab's **Files** sidebar before the runtime expires. Set `DOWNLOAD_NOW=True` for an immediate browser download.
+The bundle contains the measured INT8 runtime, tokenizer, adapter, pinned-input manifest, source, policy, JSON reports, and every visual as **PNG + SVG**. The workflow and LoRA path are conceptual diagrams; numerical charts are generated from this run's actual results. It excludes the base/merged FP32 weights and raw dataset. Download it using Colab's **Files** sidebar before the runtime expires. Set `DOWNLOAD_NOW=True` for an immediate browser download.
 
 For a real rollout, this handoff still needs a deployment target, service limits, authentication, concurrent load tests, observability, staged rollout and rollback. Colab hosts the exercise; it is not your production serving platform.
 """)
@@ -269,12 +284,13 @@ code("""complete = {
     'environment': benchmark['environment'], 'gate_passed': gate['passed'],
     'deliberate_failure_blocked': not injected['passed'],
     'inference_examples': len(read('results/inference.json')['predictions']),
+    'visuals': read('figures/provenance.json'),
 }
 (WORK / 'results' / 'run_complete.json').write_text(json.dumps(complete, indent=2) + '\\n', encoding='utf-8')
 BUNDLE = BASE / f'bringing-the-heat-colab-{RUN_LABEL}.zip'
-files = [WORK / name for name in ['demo.py', 'hub_revisions.json', 'requirements-colab.txt',
+files = [WORK / name for name in ['demo.py', 'visuals.py', 'hub_revisions.json', 'requirements-colab.txt',
     'release_policy.json', 'source_manifest.json', 'artifacts/manifest.json']]
-for folder in ['results', 'artifacts/adapter', 'artifacts/onnx_int8']:
+for folder in ['results', 'figures', 'artifacts/adapter', 'artifacts/onnx_int8']:
     files.extend(path for path in (WORK / folder).rglob('*') if path.is_file() and '.cache' not in path.parts)
 with zipfile.ZipFile(BUNDLE, 'w', compression=zipfile.ZIP_DEFLATED) as archive:
     for path in files:

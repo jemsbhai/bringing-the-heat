@@ -13,7 +13,7 @@ for (const [key,value] of Object.entries({SKILL_DIR:skill,RUNTIME_PYTHON:py,RUNT
 }
 const runtimeRequire = createRequire(path.join(runtimeModules,'..','artifact-runtime-resolver.cjs'));
 const { Presentation, PresentationFile, FileBlob } = await import(pathToFileURL(runtimeRequire.resolve('@oai/artifact-tool')).href);
-const { finalizePresentation } = await import(pathToFileURL(path.join(skill,'container_tools/artifact_tool_utils.mjs')).href);
+const { finalizePresentation, applyPresentationChartFont } = await import(pathToFileURL(path.join(skill,'container_tools/artifact_tool_utils.mjs')).href);
 const data = JSON.parse(await fs.readFile(path.join(root,'authoring/slides.json'),'utf8'));
 if (data.length !== 22) throw new Error('The talk deck must retain its 22 slides.');
 if (!data[0].deckUrl?.startsWith('https://')) throw new Error('Set the cover deckUrl to its verified public Google URL before building.');
@@ -23,7 +23,7 @@ const renderDir = path.join(buildDir,'rendered');
 await fs.mkdir(renderDir,{recursive:true});
 await fs.mkdir(path.join(buildDir,'finalized'),{recursive:true});
 const deck = Presentation.create({slideSize:{width:1280,height:720}});
-const C={bg:'#151820',fg:'#FFF9ED',muted:'#B9BECA',yellow:'#FFD21E',orange:'#FF9D55',table:'#20242E'};
+const C={bg:'#151820',fg:'#FFF9ED',muted:'#B9BECA',yellow:'#FFD21E',orange:'#FF9D55',table:'#20242E',blue:'#86BFFF',green:'#78D9B0'};
 const family='Arial', mono='Consolas';
 
 function text(s,t,x,y,w,h,size=30,color=C.fg,bold=false,font=family){
@@ -54,6 +54,71 @@ function table(s,d){
   t.cells.block({row:0,column:0,rowCount:1,columnCount:cols}).assign({fill:C.table,textStyle:{typeface:family,fontSize:27,color:C.yellow,bold:true}});
   for(let r=1;r<values.length;r++)if(r%2===0)t.cells.block({row:r,column:0,rowCount:1,columnCount:cols}).fill=C.table;
 }
+// These are native PowerPoint shapes and connectors, so each step stays editable.
+function diagram(s,d){
+  const nodes=new Map();
+  for(const n of d.diagram.nodes){
+    const shape=s.shapes.add({name:n.id,geometry:n.geometry??'rect',position:{left:n.x,top:n.y,width:n.w,height:n.h},fill:C[n.fill??'table'],line:{fill:C[n.line??'muted'],width:2}});
+    shape.text=n.text;
+    shape.text.style={fontSize:n.size??28,typeface:family,color:C[n.color??'fg'],bold:n.bold??false,alignment:'center',verticalAlignment:'middle',autoFit:'none',wrap:true,insets:{left:12,right:12,top:8,bottom:8}};
+    nodes.set(n.id,shape);
+  }
+  for(const e of d.diagram.edges){
+    s.shapes.connect(nodes.get(e.source),nodes.get(e.target),{fromSide:e.fromSide,toSide:e.toSide,kind:e.kind??'straight',line:{fill:C[e.color??'muted'],width:3},tail:{type:'triangle',width:'med',length:'med'}});
+  }
+  for(const a of d.diagram.labels??[]){
+    const shape=text(s,a.text,a.x,a.y,a.w,a.h,a.size??25,C[a.color??'muted'],a.bold??false);
+    if(a.fill)shape.fill=C[a.fill];
+    if(a.align)shape.text.alignment=a.align;
+  }
+}
+const chartFont={typeface:family,fontSize:21,fill:C.fg};
+const grid={fill:'#434958',width:1,style:'solid'};
+function nativeChart(s,{type,title,x,y,w,h,categories,values,color=C.yellow,min=0,max,majorUnit,format='0.0',axisFormat=format,points,axisTitle}){
+  // Excel preserves 15 significant decimal digits. Keep twelve in chart caches
+  // and their embedded workbooks; the referenced JSON retains the exact output.
+  const chartValues=values.map(value=>Number(value.toPrecision(12)));
+  const chart=s.charts.add(type,{
+    position:{left:x,top:y,width:w,height:h},
+    title,titlePlacement:'aboveChart',titleTextStyle:{...chartFont,fontSize:28,bold:true},
+    categories,series:[{name:title,values:chartValues,valuesFormatCode:format,fill:color,line:{fill:color,width:4,style:'solid'},marker:{symbol:type==='line'?'circle':'none',size:9},...(points?{points}: {})}],
+    hasLegend:false,
+    ...(type==='bar'?{barOptions:{direction:'column',grouping:'clustered',gapWidth:70}}:{lineOptions:{grouping:'standard',smooth:false}}),
+    xAxis:{visible:true,textStyle:{...chartFont,fontSize:20},line:{fill:C.muted,width:1},majorGridlines:null,...(axisTitle?{title:{text:axisTitle,textStyle:chartFont}}:{})},
+    yAxis:{visible:true,min,max,majorUnit,numberFormatCode:axisFormat,textStyle:{...chartFont,fontSize:19},line:{fill:C.muted,width:1},majorGridlines:grid},
+    dataLabels:{showValue:true,position:'outEnd',textStyle:{...chartFont,fontSize:22,bold:true}},
+    chartFill:C.bg,chartLine:{fill:'none',width:0},plotAreaFill:C.bg,plotAreaLine:{fill:'none',width:0},
+  });
+  applyPresentationChartFont(chart,{fontFamily:family});
+  return chart;
+}
+async function trainingCharts(s,d){
+  const run=JSON.parse(await fs.readFile(path.join(root,d.trainingSource),'utf8'));
+  if(run.smoke_only || !run.history?.length)throw new Error('Training chart requires recorded full-run history.');
+  const epochs=run.history.map(e=>String(e.epoch));
+  const loss=run.history.map(e=>e.mean_loss);
+  const f1=run.history.map(e=>e.validation.macro_f1);
+  nativeChart(s,{type:'line',title:'Mean training loss',x:64,y:191,w:536,h:354,categories:epochs,values:loss,color:C.orange,min:0,max:0.6,majorUnit:0.2,format:'0.000',axisFormat:'0.0',axisTitle:'Epoch'});
+  nativeChart(s,{type:'line',title:'Validation macro-F1',x:680,y:191,w:536,h:354,categories:epochs,values:f1,color:C.yellow,min:0,max:1,majorUnit:0.25,format:'0.0000',axisFormat:'0.00',axisTitle:'Epoch'});
+  const selected=run.history.reduce((best,e)=>e.validation.macro_f1>best.validation.macro_f1?e:best);
+  text(s,`Checkpoint: epoch ${selected.epoch}, selected by validation macro-F1`,64,548,1152,43,29,C.yellow,true);
+  text(s,`${selected.validation.n} validation rows. The held-out test does not choose the checkpoint.`,64,589,1152,34,23,C.muted);
+}
+async function runtimeCharts(s,d){
+  const evaluation=JSON.parse(await fs.readFile(path.join(root,d.evaluationSource),'utf8'));
+  const benchmark=JSON.parse(await fs.readFile(path.join(root,d.benchmarkSource),'utf8'));
+  if(evaluation.split_sha256!==benchmark.split_sha256 || benchmark.device!=='CPU')throw new Error('Runtime charts require matching evaluation/benchmark splits and CPU timings.');
+  const ids=['pytorch','onnx','int8'];
+  const categories=['PyTorch\nFP32','ONNX\nFP32','ONNX\nINT8'];
+  const points=[C.blue,C.orange,C.yellow].map((fill,idx)=>({idx,fill,line:{fill,width:0}}));
+  const sizeDrop=(1-benchmark.models.int8.weights_bytes/benchmark.models.pytorch.weights_bytes)*100;
+  const latencyDrop=(1-benchmark.models.int8.p95_ms/benchmark.models.pytorch.p95_ms)*100;
+  text(s,`Recorded laptop run: ${sizeDrop.toFixed(1)}% fewer weight bytes and ${latencyDrop.toFixed(1)}% lower p95 with INT8`,64,169,1152,42,25,C.yellow);
+  nativeChart(s,{type:'bar',title:'Macro-F1',x:64,y:219,w:355,h:327,categories,values:ids.map(k=>evaluation.models[k].macro_f1),min:0,max:1,majorUnit:0.25,format:'0.000',axisFormat:'0.00',points});
+  nativeChart(s,{type:'bar',title:'p95 latency (ms)',x:459,y:219,w:355,h:327,categories,values:ids.map(k=>benchmark.models[k].p95_ms),min:0,max:75,majorUnit:25,format:'0.0',axisFormat:'0',points});
+  nativeChart(s,{type:'bar',title:'Weights (MiB)',x:854,y:219,w:355,h:327,categories,values:ids.map(k=>benchmark.models[k].weights_bytes/(1024**2)),min:0,max:300,majorUnit:100,format:'0.0',axisFormat:'0',points});
+  text(s,d.conditions,64,565,1152,57,21,C.muted);
+}
 for(let i=0;i<data.length;i++){
   const d=data[i],s=deck.slides.add();s.background.fill=C.bg;
   if(d.kind==='cover'){
@@ -69,7 +134,10 @@ for(let i=0;i<data.length;i++){
     footer(s,d,i+1);
   }else{
     text(s,d.title,64,54,1152,106,46,C.fg,true);
-    if(d.kind==='columns'||d.kind==='closing')columns(s,d,d.kind==='closing'?204:188);
+    if(d.kind==='diagram')diagram(s,d);
+    else if(d.kind==='trainingCharts')await trainingCharts(s,d);
+    else if(d.kind==='runtimeCharts')await runtimeCharts(s,d);
+    else if(d.kind==='columns'||d.kind==='closing')columns(s,d,d.kind==='closing'?204:188);
     else if(d.kind==='personal'){
       text(s,d.leftTitle,64,185,680,48,32,C.yellow,true);
       text(s,d.left,64,248,654,318,30);
@@ -124,7 +192,8 @@ for(let i=0;i<deck.slides.items.length;i++){
 }
 console.log('All slide previews rendered');
 const out=path.join(buildDir,'finalized','Bringing-the-Heat.pptx');
-const result=await finalizePresentation({workspaceDir:root,candidatePath:candidate,finalPath:out,pythonExecutable:py,integrityValidatorPath:path.join(skill,'container_tools/inspect_presentation_package_integrity.py'),layoutValidatorPath:path.join(skill,'container_tools/inspect_presentation_layout_geometry.py'),layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-bullet-geometry','--validate-heading-fit',...[4,11,13,14,20,21].flatMap(n=>['--require-native-table-slide',String(n)])],explicitTotalSlideCount:22,requiredNativeTableOwnerSlides:[4,11,13,14,20,21],fontPolicy:{basis:'design',families:[family,mono]},verifyArtifactToolImport:true,receiptPath:path.join(buildDir,'validation.json')});
+// Keep finalizer chart snapshots inside this private build directory.
+const result=await finalizePresentation({workspaceDir:buildDir,candidatePath:candidate,finalPath:out,pythonExecutable:py,integrityValidatorPath:path.join(skill,'container_tools/inspect_presentation_package_integrity.py'),layoutValidatorPath:path.join(skill,'container_tools/inspect_presentation_layout_geometry.py'),layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-bullet-geometry','--validate-heading-fit',...[20,21].flatMap(n=>['--require-native-table-slide',String(n)])],explicitTotalSlideCount:22,requiredNativeTableOwnerSlides:[20,21],requiredNativeChartOwnerSlides:[10,13],materializeLiteralChartWorkbooks:true,fontPolicy:{basis:'design',families:[family,mono]},verifyArtifactToolImport:true,receiptPath:path.join(buildDir,'validation.json')});
 console.log(JSON.stringify(result));
 
 // Inspect exports from the finalized PPTX as well as the authoring previews.
@@ -148,7 +217,7 @@ console.log('Presenter guide written');
 const esc=t=>t.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 const imgs=[];
 for(let i=0;i<data.length;i++){
-  const bytes=await fs.readFile(path.join(renderDir,`slide-${String(i+1).padStart(2,'0')}.png`));
+  const bytes=await fs.readFile(path.join(finalRenderDir,`slide-${String(i+1).padStart(2,'0')}.png`));
   const coverLinks=i===0?`<a class="cover-link website" aria-label="Muntaser Syed website" href="${esc(data[i].websiteUrl)}" target="_blank" rel="noopener"></a><a class="cover-link deck" aria-label="Open the Google slide deck" href="${esc(data[i].deckUrl)}" target="_blank" rel="noopener"></a>`:'';
   const repoLinks=data[i].repoUrl?`<a class="cover-link" style="left:5%;top:53.8889%;width:17.5%;height:31.1111%" aria-label="Open the public GitHub repository" href="${esc(data[i].repoUrl)}" target="_blank" rel="noopener"></a><a class="cover-link" style="left:24.21875%;top:63.8889%;width:28.125%;height:12.7778%" aria-label="GitHub repository URL" href="${esc(data[i].repoUrl)}" target="_blank" rel="noopener"></a>`:'';
   imgs.push(`<section ${i?'hidden':''}><div class="slide-frame"><img alt="${esc(data[i].title)}" src="data:image/png;base64,${bytes.toString('base64')}">${coverLinks}${repoLinks}</div><aside hidden><b>${data[i].time}</b><p>${esc(data[i].notes).replaceAll('\n','<br>')}</p></aside></section>`);

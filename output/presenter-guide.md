@@ -13,15 +13,15 @@
 | 3 | 2:00–4:00 | My Hub: MultiSpecQR |
 | 4 | 4:00–5:30 | A workflow through the ecosystem |
 | 5 | 5:30–6:30 | The live build: a news classifier |
-| 6 | 6:30–8:00 | Data and model provenance |
-| 7 | 8:00–10:00 | LoRA changes the training budget |
+| 6 | 6:30–8:00 | Different splits make different decisions |
+| 7 | 8:00–10:00 | LoRA learns a compact adjustment |
 | 8 | 10:00–12:00 | PEFT in the training script |
 | 9 | 12:00–14:00 | Accelerate carries the training loop |
-| 10 | 14:00–16:00 | Live checkpoint: the candidate artifact |
-| 11 | 16:00–18:30 | Evaluation as a release gate |
-| 12 | 18:30–20:30 | Optimum ONNX targets the CPU |
-| 13 | 20:30–22:00 | Measured quality and CPU latency |
-| 14 | 22:00–24:00 | Inference across deployment targets |
+| 10 | 14:00–16:00 | Loss falls while validation stays steady |
+| 11 | 16:00–18:30 | Evaluation decides whether a release proceeds |
+| 12 | 18:30–20:30 | Optimum turns the model into a CPU artifact |
+| 13 | 20:30–22:00 | INT8 cuts weight size and CPU latency |
+| 14 | 22:00–24:00 | The deployment target chooses the runtime |
 | 15 | 24:00–26:00 | A deployment you can operate |
 | 16 | 26:00–28:00 | Five more ways to save work |
 | 17 | 28:00–30:00 | The workflow to take home |
@@ -63,8 +63,9 @@ Transition: The same Hub conventions support a small classifier, a vision model,
 
 ### 4. A workflow through the ecosystem (4:00–5:30)
 
-90 seconds. This is the only broad ecosystem map before the demo. Distinguish the three named libraries precisely: PEFT changes how many parameters we train; Accelerate handles training execution and distributed concerns; Optimum provides hardware-oriented integrations, with ONNX in a dedicated package. None independently supplies all of production. Evaluate supplies reusable ML metrics; LightEval is a current option for LLM evaluation. Our classifier uses scikit-learn for transparent metric calculations rather than pretending one metric package is mandatory.
+90 seconds. Follow the four process nodes from source discovery to deployment. Each lower document is the artifact that travels with the model. This is the only broad ecosystem map before the demo. Distinguish the three named libraries precisely: PEFT changes how many parameters we train; Accelerate handles training execution and distributed concerns; Optimum provides hardware-oriented integrations, with ONNX in a dedicated package. None independently supplies all of production. Evaluate supplies reusable ML metrics; LightEval is a current option for LLM evaluation. Our classifier uses scikit-learn for transparent metric calculations rather than pretending one metric package is mandatory.
 Transition: Keep the problem small enough to inspect the whole path.
+Validation guides training choices. Each optimized runtime is tested again on the locked test set before release; the first evaluation stage is not the final evaluation of exported artifacts.
 
 - <https://huggingface.co/docs/peft/quicktour>
 - <https://huggingface.co/docs/accelerate/quicktour>
@@ -79,21 +80,23 @@ Transition: A reproducible run starts before the optimizer.
 - <https://huggingface.co/distilbert/distilbert-base-uncased>
 - <https://huggingface.co/datasets/fancyzhx/ag_news>
 
-### 6. Data and model provenance (6:30–8:00)
+### 6. Different splits make different decisions (6:30–8:00)
 
-90 seconds. These are schematic excerpts with configuration variables; the executable script resolves and records the full revisions. A repository name is an address, while a full commit SHA identifies a version. Show the actual manifest. Training fits parameters. Validation selects settings. The held-out test estimates performance after choices are locked. Normalize and check duplicate text across splits; real projects also split by user, source, or time when leakage follows those relationships. This classroom slice is not proof for a future news distribution. Streaming is useful for large sources, but requires explicit sampling and shuffling decisions.
+90 seconds. The diagram separates source provenance from the decisions made with each split. The executable script resolves and records full revisions; the model and tokenizer also have pinned versions. A repository name is an address, while a full commit SHA identifies a version. Show the actual manifest. Training fits parameters. Validation selects settings. The held-out test estimates performance after choices are locked. Normalize and check duplicate text across splits; real projects also split by user, source, or time when leakage follows those relationships. This classroom slice is not proof for a future news distribution. Streaming is useful for large sources, but requires explicit sampling and shuffling decisions.
 Transition: Before adapting anything, we need an honest baseline.
 
 - <https://huggingface.co/docs/huggingface_hub/guides/download>
 - <https://huggingface.co/docs/datasets/stream>
 
-### 7. LoRA changes the training budget (8:00–10:00)
+### 7. LoRA learns a compact adjustment (8:00–10:00)
 
 2 minutes. Explain the matrix idea without requiring linear algebra: keep the main model, learn a compact adjustment. For a d_out by d_in matrix, full tuning updates d_out*d_in entries; rank-r LoRA adds r*(d_in+d_out), where r is usually much smaller than either dimension. This is parameter arithmetic, not a claim about equal quality or speed. The task classifier head still trains and must be saved. For this demo the starting classification head is newly initialized, so an untrained base would be a sanity check, not a strong pretrained news baseline. The evaluation report includes a majority-class baseline. A serious study would also compare full fine-tuning and simpler task-specific alternatives.
 Transition: Here is the part that attaches the adapter.
+Recorded laptop training.json: 741,124 trainable parameters out of 67,697,672 total (1.0947555%). This is trainable parameter share, not a measured speedup over full fine-tuning. No full-fine-tune baseline was run.
 
 - <https://huggingface.co/docs/peft/main/conceptual_guides/lora>
 - <https://huggingface.co/docs/peft/quicktour>
+- <demo/results/training.json>
 
 ### 8. PEFT in the training script (10:00–12:00)
 
@@ -105,37 +108,44 @@ Transition: The learning code also needs to run on the hardware we have.
 
 ### 9. Accelerate carries the training loop (12:00–14:00)
 
-2 minutes. The slide is a shortened training excerpt, not a complete loop: the executable also clears gradients, moves data through prepared loaders, controls seeds, and saves on the main process. Explain that DDP replicates a model per process; more GPUs do not automatically make a too-large model fit. FSDP/DeepSpeed shard state but add configuration and communication costs. Show accelerate launch in the runbook. Our local rehearsal validates one process; multi-GPU is an explicit extension that needs a cluster test. Inference device_map='auto' is a different path and should not be taught as distributed training.
+2 minutes. The top flow repeats for each batch. The bottom row shows launch strategies, with the one-device path demonstrated and distributed paths kept as extensions. In the full executable loop, the executable also clears gradients, moves data through prepared loaders, controls seeds, and saves on the main process. Explain that DDP replicates a model per process; more GPUs do not automatically make a too-large model fit. FSDP/DeepSpeed shard state but add configuration and communication costs. Show accelerate launch in the runbook. Our local rehearsal validates one process; multi-GPU is an explicit extension that needs a cluster test. Inference device_map='auto' is a different path and should not be taught as distributed training.
 Transition: The trained adapter now becomes a candidate artifact.
 
 - <https://huggingface.co/docs/accelerate/quicktour>
 - <https://huggingface.co/docs/accelerate/concept_guides/big_model_inference>
 
-### 10. Live checkpoint: the candidate artifact (14:00–16:00)
+### 10. Loss falls while validation stays steady (14:00–16:00)
 
-2 minutes including terminal switch. Open the real preparation/training outputs. State whether the run is happening now or was completed before the talk. Show that the adapter folder is small relative to the complete merged model, without claiming a fixed ratio unless the measured files support it. Read a validation metric and a known failure. Keep the audience focused on the saved artifact and its dependency on the base model. If training is still running, immediately switch to the completed rehearsal outputs. Do not rerun a long job on stage.
+2 minutes including the live checkpoint. These native charts read the three epochs directly from demo/results/training.json, the recorded laptop LoRA run. Training loss falls from 0.4946 to 0.2452, while validation macro-F1 stays near 0.907 and dips in epoch 2. The separate F1 axis spans 0 to 1 so small changes are not exaggerated. Epoch 3 has the highest validation macro-F1 (0.907437) and determines the saved checkpoint. The validation set has 400 rows. Training uses an RTX 4090 Laptop GPU; hosted Colab is a separate verified T4 run with different values. Do not claim a steady accuracy rise or compare LoRA speed with full fine-tuning, because no such baseline was run.
+Open the saved adapter, its base revision and task head. Show one prediction and one failure. State whether the live run completed before the talk, and use the recorded artifacts if the job is still running.
 Transition: A convincing example is not the release decision.
+Chart values are rounded to 12 significant digits for portable native Excel workbooks; the referenced JSON preserves the complete recorded precision.
 
+- <demo/results/training.json>
+- <demo/results/colab_validation.json>
 - <https://huggingface.co/docs/peft/quicktour#save-model>
 
-### 11. Evaluation as a release gate (16:00–18:30)
+### 11. Evaluation decides whether a release proceeds (16:00–18:30)
 
 2 minutes 30 seconds. Show the actual evaluation JSON and confusion matrix. Accuracy is useful, but macro-F1 weights classes equally; per-class recall reveals a weak class. A small held-out slice has uncertainty, and news examples do not validate safety-critical decisions or distribution shift. Show gate thresholds set in config before the test run. Run the deliberately failing gate fixture, explicitly label it synthetic test data, and show the nonzero exit status. Then show the real candidate gate outcome without changing thresholds to obtain a pass. A failed gate is a successful engineering demonstration. For generative tasks, swap in task-specific exact match/schema checks, groundedness/factuality review, and calibrated human review; a single judge score is insufficient.
 Transition: The runtime artifact gets evaluated too.
+The decision flow shows the actual recorded laptop gate policy. The full gate also checks split identity, exact artifact hashes, benchmark protocol, and complete class reports. Hosted Colab uses its documented CPU budget and separate report; do not copy laptop latency expectations to its shared CPU.
 
 - <https://huggingface.co/docs/evaluate/index>
 - <https://huggingface.co/docs/lighteval/main/index>
+- <demo/results/gate.json>
+- <demo/results/gate_deliberate_failure.json>
 
-### 12. Optimum ONNX targets the CPU (18:30–20:30)
+### 12. Optimum turns the model into a CPU artifact (18:30–20:30)
 
-2 minutes. Show the executable export command or the completed exported artifacts, according to rehearsal timing. The slide omits quantizer construction/save calls to keep it legible; they are in demo.py. Our selected architecture supports this path. Dynamic INT8 changes runtime arithmetic and storage; it differs from QLoRA's 4-bit base loading for adapter training. AVX2 is our x86 target choice, not a universal configuration for ARM or GPUs. Static quantization would need representative calibration data from training/calibration sources, never tuning on the held-out test. Save tokenizer, configuration and label mapping beside the exported model.
+2 minutes. Show the executable export command or the completed exported artifacts, according to rehearsal timing. Follow the merge, export and quantization arrows. The executable quantizer construction and save calls are in demo.py. Evaluate both ONNX FP32 and INT8 using the same held-out rows before promoting the runtime package. Our selected architecture supports this path. Dynamic INT8 changes runtime arithmetic and storage; it differs from QLoRA's 4-bit base loading for adapter training. AVX2 is our x86 target choice, not a universal configuration for ARM or GPUs. Static quantization would need representative calibration data from training/calibration sources, never tuning on the held-out test. Save tokenizer, configuration and label mapping beside the exported model.
 Transition: Smaller files are only one part of the result.
 
 - <https://huggingface.co/docs/optimum-onnx/installation>
 - <https://huggingface.co/docs/optimum-onnx/onnxruntime/quickstart>
 - <https://huggingface.co/docs/optimum-onnx/onnxruntime/usage_guides/quantization>
 
-### 13. Measured quality and CPU latency (20:30–22:00)
+### 13. INT8 cuts weight size and CPU latency (20:30–22:00)
 
 90 seconds. These are actual measurements from the local rehearsal on September 17, 2026. The test set is a balanced, fixed 800-example slice with 200 examples per class. Quality uses the same held-out rows for the merged PyTorch model and the two exported packages. The benchmark is one warm sequential CPU run, not a concurrent service capacity test. All models use 4 CPU threads and fixed 128-token padding, 100 requests after 10 warm-ups. Timings include tokenization and forward execution, excluding startup, network, and queueing. Weight size excludes tokenizer/config files. Hardware: Intel Core i9-14900HX; training used an RTX 4090 Laptop GPU, but every latency here is CPU.
 
@@ -145,13 +155,15 @@ ONNX INT8: accuracy 90.50%, macro-F1 0.904809, p50 25.82 ms, p95 33.57 ms, weigh
 
 The small INT8 quality difference is not evidence of an accuracy improvement. Quantization can trade quality for footprint and speed, so inspect the actual errors and gate. This measured run does not predict a phone, microcontroller, or other CPU. Rehearse under event conditions. Show the source JSON and current artifact hashes if asked.
 Transition: Deployment target determines the next branch.
+The three native editable charts load their values directly from the recorded laptop evaluation and benchmark JSON. Each metric has its own axis and units. Macro-F1 spans 0–1; latency and weight-size bars start at zero. Weight size uses MiB = bytes / 1,048,576. The charts compare runtime representations of one trained candidate, not LoRA versus full fine-tuning. This laptop benchmark is separate from hosted Colab and its CPU measurements.
+Chart values are rounded to 12 significant digits for portable native Excel workbooks; the referenced JSON preserves the complete recorded precision.
 
 - <demo/results/evaluation.json>
 - <demo/results/benchmark.json>
 - <demo/results/gate.json>
 - <https://huggingface.co/docs/optimum-onnx/onnxruntime/usage_guides/quantization>
 
-### 14. Inference across deployment targets (22:00–24:00)
+### 14. The deployment target chooses the runtime (22:00–24:00)
 
 2 minutes. Separate the demonstrated path from architecture guidance. The laptop classifier is a constrained CPU example, not an actual phone deployment. Transformers.js is a separate supported-model/export path. A causal LLM served with vLLM is a different model and runtime. Tensor parallelism partitions a model to fit/work across GPUs; replicas improve capacity for independent requests. KV cache and activation memory matter in addition to weights. Endpoints offers managed dedicated deployment but still needs appropriate hardware, limits, tests, and monitoring. TGI is in maintenance mode in current docs; vLLM/SGLang are current new-deployment examples.
 Transition: Serving the file still leaves release operations.

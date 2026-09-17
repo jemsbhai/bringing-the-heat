@@ -36,10 +36,10 @@ Preparation can require several GiB of downloads and disk space. It does not bel
 | 2:00 | 3 | Profile, model card, files, dataset viewer | These are your real reusable artifacts |
 | 5:30 | 5 | Prepared notebook and manifest | One concrete task, fixed inputs |
 | 10:00 | 8 | Highlight LoRA config and trainable count | Only a small fraction of parameters update |
-| 14:00 | 10 | Saved training/adapter outputs; optional isolated smoke cell | Training produces an identifiable artifact |
-| 16:00 | 11 | Evaluation JSON and deliberately failing gate | Metrics can block a release |
+| 14:00 | 10 | Loss and validation-F1 curves; saved adapter | Lower training loss does not guarantee better validation quality |
+| 16:00 | 11 | Confusion matrix, class-recall chart, and deliberate-failure gate visual | Metrics can block a release |
 | 18:30 | 12 | Show export code and prepared ONNX folders | The same trained candidate changes runtime |
-| 20:30 | 13 | Actual benchmark table/JSON | Quality and latency belong together |
+| 20:30 | 13 | Measured latency, weight-size, and quality charts | Speed and size gains must preserve task quality |
 | 24:00 | 15 | Edit a headline in Colab section 8 and run inference; local Gradio is the fallback | The exported artifact backs an interface |
 | 28:00 | 17 | Return to slides | Concrete takeaways and handoff |
 | 30:00 | 18 | Stop the prepared talk | Protect the five-minute Q&A |

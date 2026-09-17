@@ -1,0 +1,46 @@
+{
+  "matplotlib": "3.10.0",
+  "data_source": "This run's artifacts/manifest.json, results/*.json and frozen release_policy.json",
+  "conceptual_diagrams": [
+    "01_workflow",
+    "03_lora_budget (left panel only)"
+  ],
+  "png_files": [
+    "01_workflow.png",
+    "02_splits.png",
+    "03_lora_budget.png",
+    "04_training_progress.png",
+    "05_export_footprint.png",
+    "06_evaluation.png",
+    "07_latency.png",
+    "08_quality_size.png",
+    "09_release_gate.png",
+    "10_inference.png"
+  ],
+  "run_label": "20260917-181550-581335",
+  "completed_utc": "2026-09-17T18:31:38.551918+00:00",
+  "notebook_url": "https://colab.research.google.com/drive/1Q9WkLenTKLEd-R0wTzsCgF1mrLS1NCIh",
+  "validation_report": "../../demo/results/colab_validation.json",
+  "sha256": {
+    "01_workflow.png": "986d6bb1b2210117ea9f0bcc2b231fa1942db6d5f2ae1d6f5cdb13223195852d",
+    "01_workflow.svg": "edc81860faf869d2e855f865ccfafa10e8f6c3e60982650e384e0bab0e28839a",
+    "02_splits.png": "55f172acb082c09a2b1fa2d92b48f2c4a1013754ca020b349ffef9357b13c976",
+    "02_splits.svg": "a53f8042b2b68dd96f0bb048cd8739d46fc40d39d897952c76ab43bfbef0a627",
+    "03_lora_budget.png": "6eea048c1dfecbf5a38fcfa241e126d7701289d197393f3e95987e02e8b09a02",
+    "03_lora_budget.svg": "6a25aadf911101f2155361c882bdb6e08f0271dbdc511ea5f79b6e4dfd142e97",
+    "04_training_progress.png": "d0aa8428c98b4c69b65d4b9a44f648786f6acf6eef0764a50dffbaac23432927",
+    "04_training_progress.svg": "e052c67806c87912fff96c3e8f2da8c7afd3aafca4dcc9401d7dae01e4d8ed44",
+    "05_export_footprint.png": "6df7e500c93a4e8c7e9b1868a2d6265613582b1d227846ac5adb25c2e2710bbb",
+    "05_export_footprint.svg": "b1cf3493788477627befd48effb4d157c01d6ce88bfc9600455794fa913ffad7",
+    "06_evaluation.png": "f004f726f7e4b2ee69ddf9a1bf211d7dbe41fe1b3c25711af8db04ea6b118e22",
+    "06_evaluation.svg": "7505559dfcd5fe19a6a2e21b1ae8b05762e397d13540aaedfe67c1c23343b69a",
+    "07_latency.png": "422a700a1edc6e83c1d1172d4fb5e5f7dcd5e6536876977ef613217a892e33bd",
+    "07_latency.svg": "022608aae69bab3805ea6f348d2097c2e8275ccd2312c596844cd4e6b4585ded",
+    "08_quality_size.png": "c53c1029fa29eada7eec7778c560eb1a9dff961f996809e0d488198b09937e68",
+    "08_quality_size.svg": "9e46d589b89aa32eebd50340a04bf45ad352746fa3184798bb0f51d6709aa254",
+    "09_release_gate.png": "30591c9bb4f1ec26aebda82650915dfc9f8258a3cce6e9fb72b5df73797b7575",
+    "09_release_gate.svg": "caac387398a625a2d8e4b9085765d4083eee4bbfdf1a35ffa17e084728b77fd4",
+    "10_inference.png": "cc2ac5f6e0429b229abd12d5b44a1b6fe6414f282629d08fdfa13542d718cb9a",
+    "10_inference.svg": "67d0a8f11861fcd10d1cf834a09947dd336eb3e9021a70fcab5d4cd2b1de44fb"
+  }
+}

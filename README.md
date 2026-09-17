@@ -14,7 +14,7 @@ Designed for students and working ML engineers. The talk opens with Muntaser's a
 
 No Hugging Face token, Drive mount, paid API, or public web server is required. The notebook embeds its source, so it starts from a fresh runtime. Colab availability varies; rehearse before presenting. The [Colab validation record](demo/COLAB_TESTED.md) separates actual Colab evidence from local checks.
 
-**Verified on a fresh Colab T4 runtime:** all 11 code cells completed in about 15½ minutes, including the full training/evaluation workflow, a passing teaching gate, a correctly blocked deliberate regression, and four inference examples. The [executed notebook](demo/Bringing_the_Heat_Colab_executed.ipynb) preserves the outputs. CPU evaluation took most of that time; run the complete notebook before the talk and rerun headline inference live.
+**Verified on a fresh Colab T4 runtime:** all 11 code cells completed in about 16 minutes, including ten inline figures, the full training/evaluation workflow, a passing teaching gate, a correctly blocked deliberate regression, and four inference examples. The [executed notebook](demo/Bringing_the_Heat_Colab_executed.ipynb) preserves the outputs. CPU evaluation took most of that time; run the complete notebook before the talk and rerun headline inference live.
 
 ## Start here
 
@@ -32,6 +32,16 @@ No Hugging Face token, Drive mount, paid API, or public web server is required. 
 - [Q&A guide](output/qa-guide.md) and [deployment extensions](output/deployment-notes.md).
 - [Personal Hub showcase](showcase/README.md): saved public metadata and a genuine MultiSpecQR sample.
 - [Slide authoring files](authoring/README.md): editable slide content and build instructions.
+
+The deck uses process diagrams for the workflow, data splits, LoRA, training execution, export, and release decisions. Charts show recorded training progress and inference tradeoffs. The Colab notebook creates its own plots from each run, including a confusion matrix, per-class recall, latency distributions, model sizes, quality scores, and release-gate outcomes.
+
+## Visual walkthrough
+
+[Browse all ten Colab figures as PNG or SVG](assets/colab-figures/README.md). These snapshots come from the recorded Colab run; running the notebook generates new charts from your own measurements.
+
+![Workflow through the Hugging Face ecosystem](assets/colab-figures/01_workflow.png)
+
+![Measured CPU latency distribution and percentiles](assets/colab-figures/07_latency.png)
 
 ## Talk arc
 

@@ -8,7 +8,9 @@ The classifier routes AG News text to World, Sports, Business, or Sci/Tech. It i
 
 Open **`Bringing_the_Heat_Colab.ipynb`**, choose **Runtime → Change runtime type → T4 GPU** when available, then **Runtime → Run all**. CPU also works but full training takes longer. The notebook performs the complete pipeline: dependency installation, pinned public downloads, three-epoch training, export/quantization, evaluation, CPU benchmark, real and deliberately failing gates, inference, and a downloadable artifact/evidence bundle. There are no replayed metrics or optional training skips.
 
-**Actually tested on hosted Colab:** all 11 code cells completed on a T4/Python 3.13 runtime in about **15.5 minutes**, including the deliberately failing gate. Full CPU evaluation was the longest stage. Pre-run before presenting; `Bringing_the_Heat_Colab_executed.ipynb` contains the verified saved outputs, and `COLAB_TESTED.md` records the exact environment and measurements. The unexecuted notebook is the clean starting point for a new run.
+**Complete visual notebook tested on hosted Colab:** all 11 code cells completed on a T4/Python 3.13 runtime with zero errors and **ten inline figures**. The run reached its completion marker in **15 minutes 48 seconds**, followed by ZIP compression. The real gate passed and the deliberate regression correctly blocked. Full CPU evaluation was the longest stage. Pre-run before presenting; `Bringing_the_Heat_Colab_executed.ipynb` contains the latest verified outputs, and `COLAB_TESTED.md` records the environment and measurements. Its code exactly matches the clean, unexecuted notebook provided for a new run.
+
+The visual notebook includes a workflow diagram, data-split provenance, a LoRA path and measured trainable-parameter budget, epoch loss/validation curves, export footprint, a confusion matrix with class-recall floors, latency distributions and p50/p95, quality-versus-size comparisons, a release-gate matrix, and inference score bars. Numeric plots read the current run's JSON reports. `visuals.py` is embedded in the notebook; Matplotlib is pinned in its isolated environment. The final bundle includes all ten figures as both PNG and SVG, so they can be reused in slides or handouts.
 
 The notebook embeds the exact source and Hub revisions, so it runs without cloning this repository or mounting Drive. No Hugging Face token is required. It creates a notebook-owned virtual environment, installs `requirements-colab.txt`, and reuses Colab's installed PyTorch/CUDA build without changing the notebook kernel or requiring a restart. Source hashes, runtime package versions and hardware are recorded.
 
@@ -16,7 +18,7 @@ Colab uses `colab_policy.json`: the same quality and footprint checks, **two CPU
 
 Inference is an editable notebook cell using the exact packaged INT8 model. No public Gradio tunnel is created. The final ZIP includes the INT8 model/tokenizer, adapter, source, policy and JSON evidence; use the Colab Files sidebar to download it before the runtime expires. Colab hosts the exercise, not a persistent production service. See the [Colab FAQ](https://research.google.com/colaboratory/faq.html) for resource and sharing behavior.
 
-Run `python make_colab_notebook.py` after editing `demo.py`, Hub revisions, Colab dependencies or policy. It regenerates the self-contained notebook without outputs. `COLAB_TESTED.md` records the scope of validation separately from the laptop rehearsal in `TESTED.md`.
+Run `python make_colab_notebook.py` after editing `demo.py`, `visuals.py`, Hub revisions, Colab dependencies or policy. It regenerates the self-contained notebook without outputs. `COLAB_TESTED.md` records the scope of validation separately from the laptop rehearsal in `TESTED.md`.
 
 ## Setup (Windows / PowerShell)
 
