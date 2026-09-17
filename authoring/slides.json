@@ -18,16 +18,20 @@
   {
     "title": "The production contract",
     "kind": "columns",
+    "repoUrl": "https://github.com/jemsbhai/bringing-the-heat",
+    "repoLabel": "github.com/jemsbhai/\nbringing-the-heat",
+    "repoCaption": "Code + Colab notebook",
     "leftTitle": "A useful prediction",
     "left": "The model gets this example right.\n\nWe can explain the output.",
     "rightTitle": "A release we can defend",
     "right": "We can reproduce its inputs.\n\nWe know where it fails.\n\nWe can meet a latency budget\nand roll back the artifact.",
     "bottom": "Today’s unit of progress: an artifact plus evidence",
     "time": "0:45–2:00",
-    "notes": "75 seconds. Give a concrete failure: the notebook looks good, but a new package version changes preprocessing, or one minority class collapses behind a high average accuracy. The engineering question is what evidence travels with the weights. Introduce the contract: source revisions, preprocessing, test results, runtime configuration, and rollback. This is our proposed engineering framework, not a promise provided by a library. Students should listen for the role of each tool. Engineers should listen for the boundary between training code and an operational service.\nTransition: First, a real artifact you can inspect.",
+    "notes": "75 seconds. Point out the repo QR: it opens the code, Colab notebook, slides, and recorded results. Give a concrete failure: the notebook looks good, but a new package version changes preprocessing, or one minority class collapses behind a high average accuracy. The engineering question is what evidence travels with the weights. Introduce the contract: source revisions, preprocessing, test results, runtime configuration, and rollback. This is our proposed engineering framework, not a promise provided by a library. Students should listen for the role of each tool. Engineers should listen for the boundary between training code and an operational service.\nTransition: First, a real artifact you can inspect.",
     "sources": [
       "https://huggingface.co/docs/hub/model-cards",
-      "https://huggingface.co/docs/huggingface_hub/guides/download"
+      "https://huggingface.co/docs/huggingface_hub/guides/download",
+      "https://github.com/jemsbhai/bringing-the-heat"
     ]
   },
   {

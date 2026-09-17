@@ -43,11 +43,12 @@ Transition: A notebook prediction is the beginning of the story.
 
 ### 2. The production contract (0:45–2:00)
 
-75 seconds. Give a concrete failure: the notebook looks good, but a new package version changes preprocessing, or one minority class collapses behind a high average accuracy. The engineering question is what evidence travels with the weights. Introduce the contract: source revisions, preprocessing, test results, runtime configuration, and rollback. This is our proposed engineering framework, not a promise provided by a library. Students should listen for the role of each tool. Engineers should listen for the boundary between training code and an operational service.
+75 seconds. Point out the repo QR: it opens the code, Colab notebook, slides, and recorded results. Give a concrete failure: the notebook looks good, but a new package version changes preprocessing, or one minority class collapses behind a high average accuracy. The engineering question is what evidence travels with the weights. Introduce the contract: source revisions, preprocessing, test results, runtime configuration, and rollback. This is our proposed engineering framework, not a promise provided by a library. Students should listen for the role of each tool. Engineers should listen for the boundary between training code and an operational service.
 Transition: First, a real artifact you can inspect.
 
 - <https://huggingface.co/docs/hub/model-cards>
 - <https://huggingface.co/docs/huggingface_hub/guides/download>
+- <https://github.com/jemsbhai/bringing-the-heat>
 
 ### 3. My Hub: MultiSpecQR (2:00–4:00)
 

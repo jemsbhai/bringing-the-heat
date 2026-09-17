@@ -8,4 +8,6 @@ The generator uses `@oai/artifact-tool`. It requires the Codex presentation runt
 
 After changing content or layout, render every slide and check the result at presentation size. When changing the deck's cloud location, regenerate the QR image and verify that it decodes to the public viewing URL. The opening slide includes the talk title, Muntaser Syed, the website link, and the deck QR code.
 
+Slide 1's QR opens the hosted deck; slide 2's QR opens the public GitHub repository containing the talk materials.
+
 The measured-results slide reports the saved laptop run. Colab outputs are separate measurements and should only replace it after updating the hardware, protocol, and validation notes alongside the numbers.

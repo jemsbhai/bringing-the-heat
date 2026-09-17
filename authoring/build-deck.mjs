@@ -101,6 +101,12 @@ for(let i=0;i<data.length;i++){
         text(s,it[1],527,y,687,63,d.kind==='resources'?27:28,C.fg);
       });
     }
+    if(d.repoUrl){
+      await image(s,'assets/repo-qr.png',64,388,224,224,`QR code for the public GitHub repository: ${d.repoUrl}`);
+      text(s,d.repoCaption,310,410,360,46,28,C.yellow,true);
+      const repoLink=text(s,d.repoLabel,310,460,360,92,26,C.fg);
+      repoLink.text.get(d.repoLabel).link={uri:d.repoUrl,isExternal:true};
+    }
     footer(s,d,i+1);
   }
   s.speakerNotes.textFrame.setText(`TIMING: ${d.time}\n\n${d.notes}\n\nSOURCES\n${d.sources.join('\n')}`);
@@ -144,7 +150,8 @@ const imgs=[];
 for(let i=0;i<data.length;i++){
   const bytes=await fs.readFile(path.join(renderDir,`slide-${String(i+1).padStart(2,'0')}.png`));
   const coverLinks=i===0?`<a class="cover-link website" aria-label="Muntaser Syed website" href="${esc(data[i].websiteUrl)}" target="_blank" rel="noopener"></a><a class="cover-link deck" aria-label="Open the Google slide deck" href="${esc(data[i].deckUrl)}" target="_blank" rel="noopener"></a>`:'';
-  imgs.push(`<section ${i?'hidden':''}><div class="slide-frame"><img alt="${esc(data[i].title)}" src="data:image/png;base64,${bytes.toString('base64')}">${coverLinks}</div><aside hidden><b>${data[i].time}</b><p>${esc(data[i].notes).replaceAll('\n','<br>')}</p></aside></section>`);
+  const repoLinks=data[i].repoUrl?`<a class="cover-link" style="left:5%;top:53.8889%;width:17.5%;height:31.1111%" aria-label="Open the public GitHub repository" href="${esc(data[i].repoUrl)}" target="_blank" rel="noopener"></a><a class="cover-link" style="left:24.21875%;top:63.8889%;width:28.125%;height:12.7778%" aria-label="GitHub repository URL" href="${esc(data[i].repoUrl)}" target="_blank" rel="noopener"></a>`:'';
+  imgs.push(`<section ${i?'hidden':''}><div class="slide-frame"><img alt="${esc(data[i].title)}" src="data:image/png;base64,${bytes.toString('base64')}">${coverLinks}${repoLinks}</div><aside hidden><b>${data[i].time}</b><p>${esc(data[i].notes).replaceAll('\n','<br>')}</p></aside></section>`);
 }
 await fs.writeFile(path.join(buildDir,'slides-offline.html'),`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Bringing the Heat</title><style>body{margin:0;background:#151820;color:#fff9ed;font:18px Arial}section{width:100vw;height:100vh}section[hidden]{display:none}.slide-frame{position:absolute;width:min(100vw,177.7778vh);height:min(100vh,56.25vw);left:50%;top:50%;transform:translate(-50%,-50%)}section img{display:block;width:100%;height:100%;object-fit:contain}.cover-link{position:absolute;display:block}.cover-link:focus-visible{outline:3px solid #ffd21e}.cover-link.website{left:6.25%;top:74.306%;width:53.90625%;height:8.056%}.cover-link.deck{left:64.0625%;top:31.25%;width:30.625%;height:54.444%}aside{position:fixed;bottom:30px;left:4vw;right:4vw;background:#151820f5;padding:22px;border:1px solid #ffd21e;max-height:36vh;overflow:auto}nav{position:fixed;bottom:4px;right:16px;background:#151820;font-size:13px;color:#b9beca}button{background:transparent;color:inherit;border:0;font:inherit;cursor:pointer}@media print{section{display:block!important;page-break-after:always}.slide-frame{position:relative;width:100%;height:auto;left:0;top:0;transform:none}section img{height:auto}.cover-link{display:none}aside,nav{display:none!important}@page{size:landscape;margin:0}}</style>${imgs.join('')}<nav><button id="prev">Previous</button> <span id="count">1 / 22</span> <button id="next">Next</button> <button id="notes">Notes (N)</button> <button id="full">Full screen</button></nav><script>let i=0;const slides=[...document.querySelectorAll('section')];function go(n){slides[i].hidden=true;i=Math.max(0,Math.min(slides.length-1,n));slides[i].hidden=false;document.querySelector('#count').textContent=(i+1)+' / '+slides.length}function notes(){const a=slides[i].querySelector('aside');a.hidden=!a.hidden}document.querySelector('#prev').onclick=()=>go(i-1);document.querySelector('#next').onclick=()=>go(i+1);document.querySelector('#notes').onclick=notes;document.querySelector('#full').onclick=()=>document.documentElement.requestFullscreen();document.onkeydown=e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(i+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(i-1)}if(e.key.toLowerCase()==='n')notes();if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1)};</script></html>`);
 console.log('Offline slide fallback written');
