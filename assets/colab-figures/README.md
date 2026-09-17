@@ -63,4 +63,3 @@ Every figure is available as PNG and SVG. The notebook regenerates these figures
 [PNG](10_inference.png) · [SVG](10_inference.svg)
 
 ![Inference scores](10_inference.png)
-

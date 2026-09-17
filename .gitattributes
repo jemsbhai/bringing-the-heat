@@ -1,0 +1,2 @@
+# Preserve measured plot exports byte-for-byte; Matplotlib SVG paths contain trailing spaces.
+assets/colab-figures/*.svg -text -whitespace
