@@ -8,7 +8,7 @@
 
 | Slide | Time | Topic |
 |---|---|---|
-| 1 | 0:00–0:45 | Muntaser Syed |
+| 1 | 0:00–0:45 | Bringing the Heat: Supercharging Your ML Pipelines with HuggingFace |
 | 2 | 0:45–2:00 | The production contract |
 | 3 | 2:00–4:00 | My Hub: MultiSpecQR |
 | 4 | 4:00–5:30 | A workflow through the ecosystem |
@@ -33,7 +33,7 @@
 
 ## Speaker notes
 
-### 1. Muntaser Syed (0:00–0:45)
+### 1. Bringing the Heat: Supercharging Your ML Pipelines with HuggingFace (0:00–0:45)
 
 OPEN (45 seconds). Ask for a quick show of hands: who has downloaded a model from the Hub, and who has had to support one after deployment? Pause briefly. Say: Today we will follow one model through a repeatable workflow. You will see the code, the evidence that could block a release, and the choices that change when the target hardware changes. Introduce yourself with the supplied bio: Muntaser Syed, Lead GenAI Engineer at Insight Global, formerly NVIDIA. Venue: Miami Dade College. Do not add employer performance claims.
 Transition: A notebook prediction is the beginning of the story.
