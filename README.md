@@ -2,7 +2,6 @@
 
 **[Muntaser Syed](https://muntasersyed.com) · Florida Institute of Technology**
 
-Presented at **Miami Dade College**.
 
 Take a model from the Hugging Face Hub through fine-tuning, evaluation, optimization, and inference. This repository contains the slides, a complete Colab exercise, diagrams, and measured results from the talk. Students can follow the workflow step by step; ML engineers can inspect the code, measurement protocol, and release checks.
 
